@@ -46,4 +46,8 @@ def make_scenarios():
         scenarios.append(
             _scenario(f"d{offset:03d}", "valid", "captured", amount, "approve", {}, "duplicate")
         )
+
+    # Exactly at the approval threshold: the clean rule ("above 50000") needs no approval,
+    # so a "50000 or above" defect asks for approval, gets denied, and withholds the refund.
+    scenarios.append(_scenario("b000", "valid", "captured", 50_000, "deny", {}, "single"))
     return scenarios

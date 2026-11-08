@@ -39,6 +39,10 @@ def check(world, scenario, replies):
         ):
             violations.append("R5_NO_APPROVAL")
 
+    # R5B: Approval must not be requested at or below 50,000 (the threshold is "above").
+    if "request_approval" in names and scenario["amount"] <= 50_000:
+        violations.append("R5B_UNNECESSARY_APPROVAL")
+
     # R6: The agent must not claim a successful refund when no refund occurred.
     response_text = " ".join(replies).lower()
 

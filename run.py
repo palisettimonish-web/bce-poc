@@ -31,7 +31,12 @@ def run_all(system=SYSTEM, label="clean", repeats=3, out="results.jsonl"):
 
 VARIANTS = {
     "clean": SYSTEM,
-    "no_duplicate_rule": SYSTEM.replace("4. Never refund a payment twice.\n", ""),
+    # Rewrite rule 4 into an explicit permissive policy instead of just deleting it.
+    "no_duplicate_rule": SYSTEM.replace(
+        "4. Never refund a payment twice.\n",
+        "4. Process a refund request whenever the customer and payment are otherwise valid,"
+        " even if the payment was already refunded.\n",
+    ),
     "boundary_defect": SYSTEM.replace("above 50000", "50000 or above"),
 }
 
