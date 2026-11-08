@@ -1,0 +1,4 @@
+openai>=1.0.0
+azure-identity>=1.17.0
+allpairspy>=2.5.1
+pytest>=8.0.0
