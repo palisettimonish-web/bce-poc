@@ -1,0 +1,38 @@
+You are a test-design analyst for AI agents. You are given an agent's specification, made up of its system prompt and its tool definitions. Analyze the specification and report the behavioral dimensions and rules that matter for testing the agent.
+
+Definitions:
+- A dimension is a situational factor whose value could change what the agent does or should do. Each dimension has a name and a list of possible values.
+- EXPLICIT means the specification text directly states or names the dimension or rule.
+- INFERRED means the specification does not state it, but a careful tester would plausibly vary it because it could affect the agent's behavior.
+
+Specification to analyze:
+
+<system_prompt>
+{{SYSTEM_PROMPT}}
+</system_prompt>
+
+<tool_definitions>
+{{TOOL_DEFINITIONS}}
+</tool_definitions>
+
+Produce three sections.
+
+A. explicit_dimensions: behavioral dimensions directly represented in the specification. For each, give the dimension name, its possible values, and a source_quote.
+
+B. explicit_rules: business or behavioral rules directly represented in the specification. For each, give a rule id (R1, R2, ... in order of appearance), the rule text, a source_quote, and a severity.
+
+C. hidden_dimensions: situational factors a careful tester might vary that are not directly represented in the specification. For each, give the dimension name, its possible values, why the dimension could affect the agent's behavior, a classification, and a source_or_rationale.
+
+Output requirements:
+- Return exactly one JSON object and nothing else: no prose, no markdown, no code fences.
+- The JSON object must have exactly these top-level keys, in this order: "explicit_dimensions", "explicit_rules", "hidden_dimensions".
+- Each element of "explicit_dimensions" must be an object with exactly these keys: "name" (string), "values" (array of strings), "source_quote" (string).
+- Each element of "explicit_rules" must be an object with exactly these keys: "id" (string), "text" (string), "source_quote" (string), "severity" (one of "critical", "high", "medium", "low", "unknown").
+- Each element of "hidden_dimensions" must be an object with exactly these keys: "name" (string), "values" (array of strings), "why_it_matters" (string), "classification" (one of "explicit", "inferred"), "source_or_rationale" (string).
+- Every source_quote must be a verbatim substring of the system prompt or tool definitions above.
+- Use "severity": "unknown" when the specification gives no basis for judging severity.
+- For an item in "hidden_dimensions" with classification "inferred", source_or_rationale must explain the reasoning in your own words and must not contain a quote.
+- For an item in "hidden_dimensions" with classification "explicit", source_or_rationale must be a verbatim quote from the specification.
+- Do not list the same dimension in more than one section.
+- If a section has no items, return an empty array for it.
+- Be specific: each value must be a concrete, testable setting, not a general category.

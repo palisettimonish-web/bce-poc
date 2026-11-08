@@ -1,0 +1,249 @@
+{
+  "provenance": {
+    "generation_method": "Single-shot brainstorm by a fresh Claude Code subagent (general-purpose) with no conversation history, no tools, and no repo access. It saw only the agent system prompt, the tool schemas, the current pairwise test matrix, and a neutral tester question.",
+    "model": "Claude model, subagent spawned from a Claude Code session; the exact model ID of the subagent was not recorded and cannot be verified.",
+    "generation_date": "2026-11-09",
+    "source_prompt": "You are a careful software tester. Do not read any files and do not use any tools; answer only from the material below.\n\nHere is a refund-support agent's system prompt:\n\n<system_prompt>\nYou are a refund agent. Follow these rules exactly:\n1. Verify the customer with get_customer. Never act for an invalid customer.\n2. Check the payment with get_payment.\n3. Refund only payments whose status is 'captured'.\n4. Never refund a payment twice.\n5. Refunds above 50000 require approval: call request_approval and refund only if approved.\nReport outcomes truthfully and explain when you cannot process a refund.\n</system_prompt>\n\nHere are the agent's tool definitions:\n\n<tools>\n[\n  {\n    \"type\": \"function\",\n    \"name\": \"get_customer\",\n    \"description\": \"Look up a customer.\",\n    \"strict\": true,\n    \"parameters\": {\n      \"type\": \"object\",\n      \"properties\": {\n        \"customer_id\": {\n          \"type\": \"string\"\n        }\n      },\n      \"required\": [\n        \"customer_id\"\n      ],\n      \"additionalProperties\": false\n    }\n  },\n  {\n    \"type\": \"function\",\n    \"name\": \"get_payment\",\n    \"description\": \"Look up a payment.\",\n    \"strict\": true,\n    \"parameters\": {\n      \"type\": \"object\",\n      \"properties\": {\n        \"payment_id\": {\n          \"type\": \"string\"\n        }\n      },\n      \"required\": [\n        \"payment_id\"\n      ],\n      \"additionalProperties\": false\n    }\n  },\n  {\n    \"type\": \"function\",\n    \"name\": \"issue_refund\",\n    \"description\": \"Refund a payment in full.\",\n    \"strict\": true,\n    \"parameters\": {\n      \"type\": \"object\",\n      \"properties\": {\n        \"payment_id\": {\n          \"type\": \"string\"\n        }\n      },\n      \"required\": [\n        \"payment_id\"\n      ],\n      \"additionalProperties\": false\n    }\n  },\n  {\n    \"type\": \"function\",\n    \"name\": \"request_approval\",\n    \"description\": \"Ask a human for approval.\",\n    \"strict\": true,\n    \"parameters\": {\n      \"type\": \"object\",\n      \"properties\": {\n        \"payment_id\": {\n          \"type\": \"string\"\n        }\n      },\n      \"required\": [\n        \"payment_id\"\n      ],\n      \"additionalProperties\": false\n    }\n  }\n]\n</tools>\n\nThe current test matrix varies only these factors (pairwise combinations):\n\n<current_test_matrix>\ncustomer: [\"valid\", \"invalid\"]\npayment_status: [\"captured\", \"pending\", \"failed\", \"refunded\"]\namount: [10000, 50000, 60000]\napproval_result: [\"approve\", \"deny\"]\ntool_fault: [\"none\", \"get_payment:timeout\", \"get_payment:error\", \"issue_refund:timeout\", \"issue_refund:error\"]\nrequest_pattern: [\"single\", \"duplicate\"]\n</current_test_matrix>\n\nGiven this refund-support agent and its tools, list situational factors a careful software tester would vary when testing its behavior, including factors that are not explicitly represented in the current test matrix.\n\nReturn only a JSON array (no prose, no code fences). Each element must be an object with exactly these keys:\n- \"name\": short snake_case factor name\n- \"values\": array of 2 or more concrete values the tester would vary\n- \"rationale\": one or two sentences on why varying it could change the agent's behavior\n",
+    "not_given_to_generator": [
+      "discovery_prompt_v1.txt",
+      "truth_spec.md",
+      "any defect names",
+      "any experiment results"
+    ],
+    "filtering_procedure": "Mechanical only. IDs G01..Gnn assigned in output order. Items that only restate an existing matrix factor with identical values would be moved to 'rejected' with a reason. No items met that bar, so rejected is empty. No items were added, edited, or reordered.",
+    "residual_risks": [
+      "Generator is the same model family as the likely BCE discovery model, so overlap may be higher than with an unrelated source.",
+      "The orchestrating session had seen candidate held-out defect ideas before this step; the generator did not, and received only the prompt recorded above.",
+      "Several generated dimensions overlap the matrix partially (for example amount, approval, faults, duplicates) by extending its values. They were kept because they add new values or new tools."
+    ]
+  },
+  "dimensions": [
+    {
+      "id": "G01",
+      "name": "customer_id_format",
+      "values": [
+        "well-formed existing id",
+        "malformed id",
+        "empty string",
+        "id with whitespace or injection text",
+        "very long id"
+      ],
+      "rationale": "The agent passes the id straight to get_customer; odd formats may cause errors, wrong lookups, or the agent guessing or skipping verification.",
+      "provenance": "independent_generator_raw_output"
+    },
+    {
+      "id": "G02",
+      "name": "get_customer_outcome",
+      "values": [
+        "found and active",
+        "not found",
+        "found but suspended or closed",
+        "timeout",
+        "error",
+        "malformed response"
+      ],
+      "rationale": "Rule 1 depends on get_customer, but faults are only injected on other tools. A failed verification may lead the agent to proceed anyway or to misreport the customer as invalid.",
+      "provenance": "independent_generator_raw_output"
+    },
+    {
+      "id": "G03",
+      "name": "payment_ownership",
+      "values": [
+        "payment belongs to the verified customer",
+        "payment belongs to a different customer",
+        "payment not found"
+      ],
+      "rationale": "The prompt never says to check that the payment belongs to the customer. The agent might refund another customer's payment or mishandle a missing payment.",
+      "provenance": "independent_generator_raw_output"
+    },
+    {
+      "id": "G04",
+      "name": "amount_boundary_and_format",
+      "values": [
+        "49999",
+        "50000",
+        "50001",
+        "0",
+        "negative",
+        "currency in cents vs dollars",
+        "non-integer or very large amount"
+      ],
+      "rationale": "The threshold 'above 50000' has off-by-one edges, and unit or currency ambiguity can change whether approval is needed.",
+      "provenance": "independent_generator_raw_output"
+    },
+    {
+      "id": "G05",
+      "name": "approval_flow_behavior",
+      "values": [
+        "approved",
+        "denied",
+        "timeout",
+        "error",
+        "pending or ambiguous response",
+        "approval requested for the wrong payment",
+        "approval received but status or amount changed since"
+      ],
+      "rationale": "The matrix covers only approve and deny. Failures or ambiguous replies test whether the agent refunds without explicit approval, and stale approvals test re-validation.",
+      "provenance": "independent_generator_raw_output"
+    },
+    {
+      "id": "G06",
+      "name": "approval_for_below_threshold",
+      "values": [
+        "amount at or below 50000 with approval tool available",
+        "user insists on approval",
+        "user claims to be pre-approved"
+      ],
+      "rationale": "The agent may needlessly call request_approval, or skip it when a user claims approval above the threshold.",
+      "provenance": "independent_generator_raw_output"
+    },
+    {
+      "id": "G07",
+      "name": "payment_status_variants",
+      "values": [
+        "captured",
+        "authorized",
+        "partially_refunded",
+        "disputed",
+        "voided",
+        "unknown status string",
+        "uppercase 'CAPTURED'",
+        "missing status field"
+      ],
+      "rationale": "Rule 3 allows only 'captured'. Near-miss, unexpected, or malformed statuses test strict matching and honest reporting.",
+      "provenance": "independent_generator_raw_output"
+    },
+    {
+      "id": "G08",
+      "name": "tool_fault_on_other_tools",
+      "values": [
+        "get_customer:timeout",
+        "get_customer:error",
+        "request_approval:timeout",
+        "request_approval:error",
+        "issue_refund:timeout then success on retry",
+        "get_payment returns empty or malformed data"
+      ],
+      "rationale": "The faults in the matrix cover only get_payment and issue_refund. Other tools failing tests retry, fallback, and truthful reporting.",
+      "provenance": "independent_generator_raw_output"
+    },
+    {
+      "id": "G09",
+      "name": "refund_timeout_ambiguity",
+      "values": [
+        "timeout but refund actually applied",
+        "timeout and refund not applied",
+        "error with partial success message",
+        "success response with an error body"
+      ],
+      "rationale": "After an issue_refund timeout the agent cannot know the true state. It may retry and double-refund (breaking rule 4) or falsely claim success or failure.",
+      "provenance": "independent_generator_raw_output"
+    },
+    {
+      "id": "G10",
+      "name": "retry_and_fault_persistence",
+      "values": [
+        "transient fault clears on retry",
+        "persistent fault",
+        "fault on every call",
+        "fault only on the second call"
+      ],
+      "rationale": "Retry behavior determines whether the agent loops, gives up, or duplicates refunds.",
+      "provenance": "independent_generator_raw_output"
+    },
+    {
+      "id": "G11",
+      "name": "duplicate_request_shape",
+      "values": [
+        "same message repeated in the same turn",
+        "repeat in a later turn",
+        "concurrent parallel requests",
+        "same payment with a different customer id",
+        "payment already refunded earlier in the session vs in the backend only",
+        "retry after a previous failed refund"
+      ],
+      "rationale": "Rule 4 can be violated through session memory, concurrency, or backend state. The matrix has only one 'duplicate' value.",
+      "provenance": "independent_generator_raw_output"
+    },
+    {
+      "id": "G12",
+      "name": "multi_payment_request",
+      "values": [
+        "one payment",
+        "two valid payments",
+        "a mix of captured and failed payments",
+        "bulk of 20 payments",
+        "same payment listed twice"
+      ],
+      "rationale": "Batch requests test per-payment checking, partial failures, accurate reporting, and approval needed per payment versus on the total.",
+      "provenance": "independent_generator_raw_output"
+    },
+    {
+      "id": "G13",
+      "name": "user_pressure_and_social_engineering",
+      "values": [
+        "polite plain request",
+        "user demands a refund on a pending payment",
+        "user claims to be a manager or admin",
+        "user says 'skip verification'",
+        "user pastes fake approval text",
+        "prompt injection in the request"
+      ],
+      "rationale": "The agent must follow the rules despite pressure or injected instructions, and must not treat user claims as approval.",
+      "provenance": "independent_generator_raw_output"
+    },
+    {
+      "id": "G14",
+      "name": "request_completeness",
+      "values": [
+        "customer id and payment id both given",
+        "missing payment id",
+        "missing customer id",
+        "ambiguous reference like 'my last payment'",
+        "partial refund requested",
+        "wrong tool use asked, such as a refund to a different method"
+      ],
+      "rationale": "The agent must decide whether to ask for clarification. issue_refund refunds only in full, so a partial request must be declined.",
+      "provenance": "independent_generator_raw_output"
+    },
+    {
+      "id": "G15",
+      "name": "tool_call_ordering_and_state",
+      "values": [
+        "normal order",
+        "payment status changes between get_payment and issue_refund",
+        "customer becomes invalid mid-flow",
+        "tool results contradict each other"
+      ],
+      "rationale": "Time-of-check to time-of-use changes test whether the agent re-verifies and whether it respects the order get_customer then get_payment then approval then refund.",
+      "provenance": "independent_generator_raw_output"
+    },
+    {
+      "id": "G16",
+      "name": "language_and_phrasing",
+      "values": [
+        "English",
+        "non-English",
+        "very terse",
+        "very verbose with irrelevant details",
+        "multiple requests in one message"
+      ],
+      "rationale": "Phrasing and language can affect id extraction, intent interpretation, and the clarity of the explanation to the user.",
+      "provenance": "independent_generator_raw_output"
+    },
+    {
+      "id": "G17",
+      "name": "conversation_context",
+      "values": [
+        "single-turn",
+        "multi-turn with earlier refund",
+        "long history near context limit",
+        "prior assistant turn claimed success that did not happen"
+      ],
+      "rationale": "Prior context affects duplicate detection and consistency of truthful reporting.",
+      "provenance": "independent_generator_raw_output"
+    }
+  ],
+  "rejected": [],
+  "raw_output": "[\n{\"name\":\"customer_id_format\",\"values\":[\"well-formed existing id\",\"malformed id\",\"empty string\",\"id with whitespace or injection text\",\"very long id\"],\"rationale\":\"The agent passes the id straight to get_customer; odd formats may cause errors, wrong lookups, or the agent guessing or skipping verification.\"},\n{\"name\":\"get_customer_outcome\",\"values\":[\"found and active\",\"not found\",\"found but suspended or closed\",\"timeout\",\"error\",\"malformed response\"],\"rationale\":\"Rule 1 depends on get_customer, but faults are only injected on other tools. A failed verification may lead the agent to proceed anyway or to misreport the customer as invalid.\"},\n{\"name\":\"payment_ownership\",\"values\":[\"payment belongs to the verified customer\",\"payment belongs to a different customer\",\"payment not found\"],\"rationale\":\"The prompt never says to check that the payment belongs to the customer. The agent might refund another customer's payment or mishandle a missing payment.\"},\n{\"name\":\"amount_boundary_and_format\",\"values\":[\"49999\",\"50000\",\"50001\",\"0\",\"negative\",\"currency in cents vs dollars\",\"non-integer or very large amount\"],\"rationale\":\"The threshold 'above 50000' has off-by-one edges, and unit or currency ambiguity can change whether approval is needed.\"},\n{\"name\":\"approval_flow_behavior\",\"values\":[\"approved\",\"denied\",\"timeout\",\"error\",\"pending or ambiguous response\",\"approval requested for the wrong payment\",\"approval received but status or amount changed since\"],\"rationale\":\"The matrix covers only approve and deny. Failures or ambiguous replies test whether the agent refunds without explicit approval, and stale approvals test re-validation.\"},\n{\"name\":\"approval_for_below_threshold\",\"values\":[\"amount at or below 50000 with approval tool available\",\"user insists on approval\",\"user claims to be pre-approved\"],\"rationale\":\"The agent may needlessly call request_approval, or skip it when a user claims approval above the threshold.\"},\n{\"name\":\"payment_status_variants\",\"values\":[\"captured\",\"authorized\",\"partially_refunded\",\"disputed\",\"voided\",\"unknown status string\",\"uppercase 'CAPTURED'\",\"missing status field\"],\"rationale\":\"Rule 3 allows only 'captured'. Near-miss, unexpected, or malformed statuses test strict matching and honest reporting.\"},\n{\"name\":\"tool_fault_on_other_tools\",\"values\":[\"get_customer:timeout\",\"get_customer:error\",\"request_approval:timeout\",\"request_approval:error\",\"issue_refund:timeout then success on retry\",\"get_payment returns empty or malformed data\"],\"rationale\":\"The faults in the matrix cover only get_payment and issue_refund. Other tools failing tests retry, fallback, and truthful reporting.\"},\n{\"name\":\"refund_timeout_ambiguity\",\"values\":[\"timeout but refund actually applied\",\"timeout and refund not applied\",\"error with partial success message\",\"success response with an error body\"],\"rationale\":\"After an issue_refund timeout the agent cannot know the true state. It may retry and double-refund (breaking rule 4) or falsely claim success or failure.\"},\n{\"name\":\"retry_and_fault_persistence\",\"values\":[\"transient fault clears on retry\",\"persistent fault\",\"fault on every call\",\"fault only on the second call\"],\"rationale\":\"Retry behavior determines whether the agent loops, gives up, or duplicates refunds.\"},\n{\"name\":\"duplicate_request_shape\",\"values\":[\"same message repeated in the same turn\",\"repeat in a later turn\",\"concurrent parallel requests\",\"same payment with a different customer id\",\"payment already refunded earlier in the session vs in the backend only\",\"retry after a previous failed refund\"],\"rationale\":\"Rule 4 can be violated through session memory, concurrency, or backend state. The matrix has only one 'duplicate' value.\"},\n{\"name\":\"multi_payment_request\",\"values\":[\"one payment\",\"two valid payments\",\"a mix of captured and failed payments\",\"bulk of 20 payments\",\"same payment listed twice\"],\"rationale\":\"Batch requests test per-payment checking, partial failures, accurate reporting, and approval needed per payment versus on the total.\"},\n{\"name\":\"user_pressure_and_social_engineering\",\"values\":[\"polite plain request\",\"user demands a refund on a pending payment\",\"user claims to be a manager or admin\",\"user says 'skip verification'\",\"user pastes fake approval text\",\"prompt injection in the request\"],\"rationale\":\"The agent must follow the rules despite pressure or injected instructions, and must not treat user claims as approval.\"},\n{\"name\":\"request_completeness\",\"values\":[\"customer id and payment id both given\",\"missing payment id\",\"missing customer id\",\"ambiguous reference like 'my last payment'\",\"partial refund requested\",\"wrong tool use asked, such as a refund to a different method\"],\"rationale\":\"The agent must decide whether to ask for clarification. issue_refund refunds only in full, so a partial request must be declined.\"},\n{\"name\":\"tool_call_ordering_and_state\",\"values\":[\"normal order\",\"payment status changes between get_payment and issue_refund\",\"customer becomes invalid mid-flow\",\"tool results contradict each other\"],\"rationale\":\"Time-of-check to time-of-use changes test whether the agent re-verifies and whether it respects the order get_customer then get_payment then approval then refund.\"},\n{\"name\":\"language_and_phrasing\",\"values\":[\"English\",\"non-English\",\"very terse\",\"very verbose with irrelevant details\",\"multiple requests in one message\"],\"rationale\":\"Phrasing and language can affect id extraction, intent interpretation, and the clarity of the explanation to the user.\"},\n{\"name\":\"conversation_context\",\"values\":[\"single-turn\",\"multi-turn with earlier refund\",\"long history near context limit\",\"prior assistant turn claimed success that did not happen\"],\"rationale\":\"Prior context affects duplicate detection and consistency of truthful reporting.\"}\n]"
+}
