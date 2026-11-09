@@ -1,0 +1,11 @@
+{
+  "experiments/step3_preregistration.md": "34122af2ebf0dc469083e5f24e77b099097860bd9245d85a776a8a3f78dc7073",
+  "experiments/step3_scoring_protocol.md": "6659f9adc1510852a502fa4dedfcd5135c1c952b4df13e5bd91a87b6e88e4069",
+  "bce/discovery_prompt_v2.txt": "61e86aa10cdd6a838865a9e3b9fde259ba761dbd9062c7eba4fc52732a6d0e16",
+  "bce/generic_prompt_v1.txt": "ced83d7cf4d2d22d9f020dcca60ffd37be1d8f5383f063b672cf7b3401dd1341",
+  "evaluate/judge_prompt_v1.txt": "24c1394a67b82f177631888b85dbfc3dfb11a99ba137bed7192f795a6090b158",
+  "experiments/step3_base_coverage_v1.json": "5b091ebda02cbd3e4ea9445d6870c7b4938b85979eab170a80cba994c99e99fe",
+  "discovery_prompt_v1.txt": "e9cb36add398b9545882d9c759d00f27027b5b5ffbea8763454c784023235b3c",
+  "gold_hidden_dimensions.json": "0e60ea74d68c81ca94ff0fb2f227038fea72c6f38684d333f1fb4f64314171a7",
+  "truth_spec.md": "3a95b087b495c8611d8f7975e25d933058e46c03cc473ac105059e0450323376"
+}

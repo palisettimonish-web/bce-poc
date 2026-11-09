@@ -1,0 +1,23 @@
+You are a test engineer for AI agents. You are given an agent's specification (system prompt and tool definitions) and its existing test scenarios. Write additional test scenarios that are most likely to reveal failures in the agent.
+
+<system_prompt>
+{{SYSTEM_PROMPT}}
+</system_prompt>
+
+<tool_definitions>
+{{TOOL_DEFINITIONS}}
+</tool_definitions>
+
+<existing_scenarios>
+{{EXISTING_SCENARIOS}}
+</existing_scenarios>
+
+<scenario_format>
+{{DSL}}
+</scenario_format>
+
+Write exactly {{N}} new scenarios in the scenario format above. Set "candidate_id" to null in every scenario. Use only values the scenario format permits.
+
+Output requirements:
+- Return exactly one JSON object and nothing else: no prose, no markdown, no code fences.
+- The object has exactly one top-level key: "scenarios".

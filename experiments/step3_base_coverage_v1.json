@@ -1,0 +1,1623 @@
+{
+ "derivation": "mechanical from make_scenarios() and make_expanded_clean_scenarios(); parameters only",
+ "dimensions": [
+  {
+   "name": "requester_id",
+   "observed_values": [
+    "C1",
+    "C2"
+   ]
+  },
+  {
+   "name": "requester_valid",
+   "observed_values": [
+    false,
+    true
+   ]
+  },
+  {
+   "name": "customer_count",
+   "observed_values": [
+    1,
+    2
+   ]
+  },
+  {
+   "name": "payment_count",
+   "observed_values": [
+    1,
+    2
+   ]
+  },
+  {
+   "name": "target_payment_status",
+   "observed_values": [
+    "captured",
+    "failed",
+    "pending",
+    "refunded"
+   ]
+  },
+  {
+   "name": "target_payment_amount",
+   "observed_values": [
+    10000,
+    50000,
+    60000
+   ]
+  },
+  {
+   "name": "payment_currencies",
+   "observed_values": [
+    "INR",
+    "USD"
+   ]
+  },
+  {
+   "name": "approval_answer",
+   "observed_values": [
+    "approve",
+    "deny"
+   ]
+  },
+  {
+   "name": "tool_faults",
+   "observed_values": [
+    "get_payment:error:before",
+    "get_payment:timeout:before",
+    "issue_refund:error:before",
+    "issue_refund:timeout:before",
+    "none"
+   ]
+  },
+  {
+   "name": "request_pattern",
+   "observed_values": [
+    "repeat",
+    "single"
+   ]
+  }
+ ],
+ "interaction_coverage": {
+  "dimensions": [
+   "requester_valid",
+   "target_payment_status",
+   "target_payment_amount",
+   "approval_answer",
+   "tool_faults",
+   "request_pattern"
+  ],
+  "observed_pairs_covered": 131,
+  "observed_pairs_possible": 131,
+  "scope": "pairs of observed values across the six lattice dimensions",
+  "uncovered_pairs": []
+ },
+ "scenario_count": 35,
+ "scenarios": [
+  {
+   "faults": {},
+   "features": {
+    "approval_answer": "approve",
+    "customer_count": 1,
+    "payment_count": 1,
+    "payment_currencies": [
+     "INR"
+    ],
+    "request_pattern": "single",
+    "requester_id": "C1",
+    "requester_valid": true,
+    "target_payment_amount": 10000,
+    "target_payment_status": "captured",
+    "tool_faults": [
+     "none"
+    ]
+   },
+   "fixture": {
+    "customers": [
+     {
+      "id": "C1",
+      "valid": true
+     }
+    ],
+    "payments": [
+     {
+      "amount": 10000,
+      "customer_id": "C1",
+      "id": "P1",
+      "status": "captured"
+     }
+    ]
+   },
+   "id": "s000",
+   "messages": [
+    "Please refund payment P1 for customer C1."
+   ],
+   "suite": "pairwise"
+  },
+  {
+   "faults": {
+    "get_payment": "timeout"
+   },
+   "features": {
+    "approval_answer": "deny",
+    "customer_count": 1,
+    "payment_count": 1,
+    "payment_currencies": [
+     "INR"
+    ],
+    "request_pattern": "single",
+    "requester_id": "C1",
+    "requester_valid": false,
+    "target_payment_amount": 50000,
+    "target_payment_status": "pending",
+    "tool_faults": [
+     "get_payment:timeout:before"
+    ]
+   },
+   "fixture": {
+    "customers": [
+     {
+      "id": "C1",
+      "valid": false
+     }
+    ],
+    "payments": [
+     {
+      "amount": 50000,
+      "customer_id": "C1",
+      "id": "P1",
+      "status": "pending"
+     }
+    ]
+   },
+   "id": "s001",
+   "messages": [
+    "Please refund payment P1 for customer C1."
+   ],
+   "suite": "pairwise"
+  },
+  {
+   "faults": {
+    "get_payment": "error"
+   },
+   "features": {
+    "approval_answer": "approve",
+    "customer_count": 1,
+    "payment_count": 1,
+    "payment_currencies": [
+     "INR"
+    ],
+    "request_pattern": "repeat",
+    "requester_id": "C1",
+    "requester_valid": false,
+    "target_payment_amount": 60000,
+    "target_payment_status": "failed",
+    "tool_faults": [
+     "get_payment:error:before"
+    ]
+   },
+   "fixture": {
+    "customers": [
+     {
+      "id": "C1",
+      "valid": false
+     }
+    ],
+    "payments": [
+     {
+      "amount": 60000,
+      "customer_id": "C1",
+      "id": "P1",
+      "status": "failed"
+     }
+    ]
+   },
+   "id": "s002",
+   "messages": [
+    "Please refund payment P1 for customer C1.",
+    "I did not receive confirmation. Please refund P1 again."
+   ],
+   "suite": "pairwise"
+  },
+  {
+   "faults": {
+    "issue_refund": "timeout"
+   },
+   "features": {
+    "approval_answer": "deny",
+    "customer_count": 1,
+    "payment_count": 1,
+    "payment_currencies": [
+     "INR"
+    ],
+    "request_pattern": "repeat",
+    "requester_id": "C1",
+    "requester_valid": true,
+    "target_payment_amount": 60000,
+    "target_payment_status": "refunded",
+    "tool_faults": [
+     "issue_refund:timeout:before"
+    ]
+   },
+   "fixture": {
+    "customers": [
+     {
+      "id": "C1",
+      "valid": true
+     }
+    ],
+    "payments": [
+     {
+      "amount": 60000,
+      "customer_id": "C1",
+      "id": "P1",
+      "status": "refunded"
+     }
+    ]
+   },
+   "id": "s003",
+   "messages": [
+    "Please refund payment P1 for customer C1.",
+    "I did not receive confirmation. Please refund P1 again."
+   ],
+   "suite": "pairwise"
+  },
+  {
+   "faults": {
+    "issue_refund": "error"
+   },
+   "features": {
+    "approval_answer": "deny",
+    "customer_count": 1,
+    "payment_count": 1,
+    "payment_currencies": [
+     "INR"
+    ],
+    "request_pattern": "single",
+    "requester_id": "C1",
+    "requester_valid": true,
+    "target_payment_amount": 50000,
+    "target_payment_status": "failed",
+    "tool_faults": [
+     "issue_refund:error:before"
+    ]
+   },
+   "fixture": {
+    "customers": [
+     {
+      "id": "C1",
+      "valid": true
+     }
+    ],
+    "payments": [
+     {
+      "amount": 50000,
+      "customer_id": "C1",
+      "id": "P1",
+      "status": "failed"
+     }
+    ]
+   },
+   "id": "s004",
+   "messages": [
+    "Please refund payment P1 for customer C1."
+   ],
+   "suite": "pairwise"
+  },
+  {
+   "faults": {
+    "issue_refund": "error"
+   },
+   "features": {
+    "approval_answer": "approve",
+    "customer_count": 1,
+    "payment_count": 1,
+    "payment_currencies": [
+     "INR"
+    ],
+    "request_pattern": "repeat",
+    "requester_id": "C1",
+    "requester_valid": false,
+    "target_payment_amount": 10000,
+    "target_payment_status": "refunded",
+    "tool_faults": [
+     "issue_refund:error:before"
+    ]
+   },
+   "fixture": {
+    "customers": [
+     {
+      "id": "C1",
+      "valid": false
+     }
+    ],
+    "payments": [
+     {
+      "amount": 10000,
+      "customer_id": "C1",
+      "id": "P1",
+      "status": "refunded"
+     }
+    ]
+   },
+   "id": "s005",
+   "messages": [
+    "Please refund payment P1 for customer C1.",
+    "I did not receive confirmation. Please refund P1 again."
+   ],
+   "suite": "pairwise"
+  },
+  {
+   "faults": {
+    "issue_refund": "timeout"
+   },
+   "features": {
+    "approval_answer": "approve",
+    "customer_count": 1,
+    "payment_count": 1,
+    "payment_currencies": [
+     "INR"
+    ],
+    "request_pattern": "repeat",
+    "requester_id": "C1",
+    "requester_valid": false,
+    "target_payment_amount": 50000,
+    "target_payment_status": "captured",
+    "tool_faults": [
+     "issue_refund:timeout:before"
+    ]
+   },
+   "fixture": {
+    "customers": [
+     {
+      "id": "C1",
+      "valid": false
+     }
+    ],
+    "payments": [
+     {
+      "amount": 50000,
+      "customer_id": "C1",
+      "id": "P1",
+      "status": "captured"
+     }
+    ]
+   },
+   "id": "s006",
+   "messages": [
+    "Please refund payment P1 for customer C1.",
+    "I did not receive confirmation. Please refund P1 again."
+   ],
+   "suite": "pairwise"
+  },
+  {
+   "faults": {
+    "get_payment": "timeout"
+   },
+   "features": {
+    "approval_answer": "approve",
+    "customer_count": 1,
+    "payment_count": 1,
+    "payment_currencies": [
+     "INR"
+    ],
+    "request_pattern": "repeat",
+    "requester_id": "C1",
+    "requester_valid": true,
+    "target_payment_amount": 60000,
+    "target_payment_status": "pending",
+    "tool_faults": [
+     "get_payment:timeout:before"
+    ]
+   },
+   "fixture": {
+    "customers": [
+     {
+      "id": "C1",
+      "valid": true
+     }
+    ],
+    "payments": [
+     {
+      "amount": 60000,
+      "customer_id": "C1",
+      "id": "P1",
+      "status": "pending"
+     }
+    ]
+   },
+   "id": "s007",
+   "messages": [
+    "Please refund payment P1 for customer C1.",
+    "I did not receive confirmation. Please refund P1 again."
+   ],
+   "suite": "pairwise"
+  },
+  {
+   "faults": {
+    "get_payment": "error"
+   },
+   "features": {
+    "approval_answer": "deny",
+    "customer_count": 1,
+    "payment_count": 1,
+    "payment_currencies": [
+     "INR"
+    ],
+    "request_pattern": "single",
+    "requester_id": "C1",
+    "requester_valid": true,
+    "target_payment_amount": 10000,
+    "target_payment_status": "pending",
+    "tool_faults": [
+     "get_payment:error:before"
+    ]
+   },
+   "fixture": {
+    "customers": [
+     {
+      "id": "C1",
+      "valid": true
+     }
+    ],
+    "payments": [
+     {
+      "amount": 10000,
+      "customer_id": "C1",
+      "id": "P1",
+      "status": "pending"
+     }
+    ]
+   },
+   "id": "s008",
+   "messages": [
+    "Please refund payment P1 for customer C1."
+   ],
+   "suite": "pairwise"
+  },
+  {
+   "faults": {},
+   "features": {
+    "approval_answer": "deny",
+    "customer_count": 1,
+    "payment_count": 1,
+    "payment_currencies": [
+     "INR"
+    ],
+    "request_pattern": "repeat",
+    "requester_id": "C1",
+    "requester_valid": false,
+    "target_payment_amount": 60000,
+    "target_payment_status": "captured",
+    "tool_faults": [
+     "none"
+    ]
+   },
+   "fixture": {
+    "customers": [
+     {
+      "id": "C1",
+      "valid": false
+     }
+    ],
+    "payments": [
+     {
+      "amount": 60000,
+      "customer_id": "C1",
+      "id": "P1",
+      "status": "captured"
+     }
+    ]
+   },
+   "id": "s009",
+   "messages": [
+    "Please refund payment P1 for customer C1.",
+    "I did not receive confirmation. Please refund P1 again."
+   ],
+   "suite": "pairwise"
+  },
+  {
+   "faults": {
+    "get_payment": "error"
+   },
+   "features": {
+    "approval_answer": "deny",
+    "customer_count": 1,
+    "payment_count": 1,
+    "payment_currencies": [
+     "INR"
+    ],
+    "request_pattern": "single",
+    "requester_id": "C1",
+    "requester_valid": false,
+    "target_payment_amount": 50000,
+    "target_payment_status": "refunded",
+    "tool_faults": [
+     "get_payment:error:before"
+    ]
+   },
+   "fixture": {
+    "customers": [
+     {
+      "id": "C1",
+      "valid": false
+     }
+    ],
+    "payments": [
+     {
+      "amount": 50000,
+      "customer_id": "C1",
+      "id": "P1",
+      "status": "refunded"
+     }
+    ]
+   },
+   "id": "s010",
+   "messages": [
+    "Please refund payment P1 for customer C1."
+   ],
+   "suite": "pairwise"
+  },
+  {
+   "faults": {
+    "issue_refund": "timeout"
+   },
+   "features": {
+    "approval_answer": "deny",
+    "customer_count": 1,
+    "payment_count": 1,
+    "payment_currencies": [
+     "INR"
+    ],
+    "request_pattern": "single",
+    "requester_id": "C1",
+    "requester_valid": false,
+    "target_payment_amount": 10000,
+    "target_payment_status": "failed",
+    "tool_faults": [
+     "issue_refund:timeout:before"
+    ]
+   },
+   "fixture": {
+    "customers": [
+     {
+      "id": "C1",
+      "valid": false
+     }
+    ],
+    "payments": [
+     {
+      "amount": 10000,
+      "customer_id": "C1",
+      "id": "P1",
+      "status": "failed"
+     }
+    ]
+   },
+   "id": "s011",
+   "messages": [
+    "Please refund payment P1 for customer C1."
+   ],
+   "suite": "pairwise"
+  },
+  {
+   "faults": {
+    "issue_refund": "error"
+   },
+   "features": {
+    "approval_answer": "deny",
+    "customer_count": 1,
+    "payment_count": 1,
+    "payment_currencies": [
+     "INR"
+    ],
+    "request_pattern": "single",
+    "requester_id": "C1",
+    "requester_valid": false,
+    "target_payment_amount": 60000,
+    "target_payment_status": "captured",
+    "tool_faults": [
+     "issue_refund:error:before"
+    ]
+   },
+   "fixture": {
+    "customers": [
+     {
+      "id": "C1",
+      "valid": false
+     }
+    ],
+    "payments": [
+     {
+      "amount": 60000,
+      "customer_id": "C1",
+      "id": "P1",
+      "status": "captured"
+     }
+    ]
+   },
+   "id": "s012",
+   "messages": [
+    "Please refund payment P1 for customer C1."
+   ],
+   "suite": "pairwise"
+  },
+  {
+   "faults": {
+    "issue_refund": "error"
+   },
+   "features": {
+    "approval_answer": "deny",
+    "customer_count": 1,
+    "payment_count": 1,
+    "payment_currencies": [
+     "INR"
+    ],
+    "request_pattern": "single",
+    "requester_id": "C1",
+    "requester_valid": false,
+    "target_payment_amount": 10000,
+    "target_payment_status": "pending",
+    "tool_faults": [
+     "issue_refund:error:before"
+    ]
+   },
+   "fixture": {
+    "customers": [
+     {
+      "id": "C1",
+      "valid": false
+     }
+    ],
+    "payments": [
+     {
+      "amount": 10000,
+      "customer_id": "C1",
+      "id": "P1",
+      "status": "pending"
+     }
+    ]
+   },
+   "id": "s013",
+   "messages": [
+    "Please refund payment P1 for customer C1."
+   ],
+   "suite": "pairwise"
+  },
+  {
+   "faults": {
+    "issue_refund": "timeout"
+   },
+   "features": {
+    "approval_answer": "deny",
+    "customer_count": 1,
+    "payment_count": 1,
+    "payment_currencies": [
+     "INR"
+    ],
+    "request_pattern": "single",
+    "requester_id": "C1",
+    "requester_valid": false,
+    "target_payment_amount": 10000,
+    "target_payment_status": "pending",
+    "tool_faults": [
+     "issue_refund:timeout:before"
+    ]
+   },
+   "fixture": {
+    "customers": [
+     {
+      "id": "C1",
+      "valid": false
+     }
+    ],
+    "payments": [
+     {
+      "amount": 10000,
+      "customer_id": "C1",
+      "id": "P1",
+      "status": "pending"
+     }
+    ]
+   },
+   "id": "s014",
+   "messages": [
+    "Please refund payment P1 for customer C1."
+   ],
+   "suite": "pairwise"
+  },
+  {
+   "faults": {
+    "get_payment": "timeout"
+   },
+   "features": {
+    "approval_answer": "deny",
+    "customer_count": 1,
+    "payment_count": 1,
+    "payment_currencies": [
+     "INR"
+    ],
+    "request_pattern": "single",
+    "requester_id": "C1",
+    "requester_valid": false,
+    "target_payment_amount": 10000,
+    "target_payment_status": "captured",
+    "tool_faults": [
+     "get_payment:timeout:before"
+    ]
+   },
+   "fixture": {
+    "customers": [
+     {
+      "id": "C1",
+      "valid": false
+     }
+    ],
+    "payments": [
+     {
+      "amount": 10000,
+      "customer_id": "C1",
+      "id": "P1",
+      "status": "captured"
+     }
+    ]
+   },
+   "id": "s015",
+   "messages": [
+    "Please refund payment P1 for customer C1."
+   ],
+   "suite": "pairwise"
+  },
+  {
+   "faults": {},
+   "features": {
+    "approval_answer": "deny",
+    "customer_count": 1,
+    "payment_count": 1,
+    "payment_currencies": [
+     "INR"
+    ],
+    "request_pattern": "single",
+    "requester_id": "C1",
+    "requester_valid": false,
+    "target_payment_amount": 50000,
+    "target_payment_status": "failed",
+    "tool_faults": [
+     "none"
+    ]
+   },
+   "fixture": {
+    "customers": [
+     {
+      "id": "C1",
+      "valid": false
+     }
+    ],
+    "payments": [
+     {
+      "amount": 50000,
+      "customer_id": "C1",
+      "id": "P1",
+      "status": "failed"
+     }
+    ]
+   },
+   "id": "s016",
+   "messages": [
+    "Please refund payment P1 for customer C1."
+   ],
+   "suite": "pairwise"
+  },
+  {
+   "faults": {},
+   "features": {
+    "approval_answer": "deny",
+    "customer_count": 1,
+    "payment_count": 1,
+    "payment_currencies": [
+     "INR"
+    ],
+    "request_pattern": "single",
+    "requester_id": "C1",
+    "requester_valid": false,
+    "target_payment_amount": 10000,
+    "target_payment_status": "refunded",
+    "tool_faults": [
+     "none"
+    ]
+   },
+   "fixture": {
+    "customers": [
+     {
+      "id": "C1",
+      "valid": false
+     }
+    ],
+    "payments": [
+     {
+      "amount": 10000,
+      "customer_id": "C1",
+      "id": "P1",
+      "status": "refunded"
+     }
+    ]
+   },
+   "id": "s017",
+   "messages": [
+    "Please refund payment P1 for customer C1."
+   ],
+   "suite": "pairwise"
+  },
+  {
+   "faults": {
+    "get_payment": "error"
+   },
+   "features": {
+    "approval_answer": "deny",
+    "customer_count": 1,
+    "payment_count": 1,
+    "payment_currencies": [
+     "INR"
+    ],
+    "request_pattern": "single",
+    "requester_id": "C1",
+    "requester_valid": false,
+    "target_payment_amount": 10000,
+    "target_payment_status": "captured",
+    "tool_faults": [
+     "get_payment:error:before"
+    ]
+   },
+   "fixture": {
+    "customers": [
+     {
+      "id": "C1",
+      "valid": false
+     }
+    ],
+    "payments": [
+     {
+      "amount": 10000,
+      "customer_id": "C1",
+      "id": "P1",
+      "status": "captured"
+     }
+    ]
+   },
+   "id": "s018",
+   "messages": [
+    "Please refund payment P1 for customer C1."
+   ],
+   "suite": "pairwise"
+  },
+  {
+   "faults": {},
+   "features": {
+    "approval_answer": "deny",
+    "customer_count": 1,
+    "payment_count": 1,
+    "payment_currencies": [
+     "INR"
+    ],
+    "request_pattern": "single",
+    "requester_id": "C1",
+    "requester_valid": false,
+    "target_payment_amount": 10000,
+    "target_payment_status": "pending",
+    "tool_faults": [
+     "none"
+    ]
+   },
+   "fixture": {
+    "customers": [
+     {
+      "id": "C1",
+      "valid": false
+     }
+    ],
+    "payments": [
+     {
+      "amount": 10000,
+      "customer_id": "C1",
+      "id": "P1",
+      "status": "pending"
+     }
+    ]
+   },
+   "id": "s019",
+   "messages": [
+    "Please refund payment P1 for customer C1."
+   ],
+   "suite": "pairwise"
+  },
+  {
+   "faults": {
+    "get_payment": "timeout"
+   },
+   "features": {
+    "approval_answer": "deny",
+    "customer_count": 1,
+    "payment_count": 1,
+    "payment_currencies": [
+     "INR"
+    ],
+    "request_pattern": "single",
+    "requester_id": "C1",
+    "requester_valid": false,
+    "target_payment_amount": 10000,
+    "target_payment_status": "refunded",
+    "tool_faults": [
+     "get_payment:timeout:before"
+    ]
+   },
+   "fixture": {
+    "customers": [
+     {
+      "id": "C1",
+      "valid": false
+     }
+    ],
+    "payments": [
+     {
+      "amount": 10000,
+      "customer_id": "C1",
+      "id": "P1",
+      "status": "refunded"
+     }
+    ]
+   },
+   "id": "s020",
+   "messages": [
+    "Please refund payment P1 for customer C1."
+   ],
+   "suite": "pairwise"
+  },
+  {
+   "faults": {
+    "get_payment": "timeout"
+   },
+   "features": {
+    "approval_answer": "deny",
+    "customer_count": 1,
+    "payment_count": 1,
+    "payment_currencies": [
+     "INR"
+    ],
+    "request_pattern": "single",
+    "requester_id": "C1",
+    "requester_valid": false,
+    "target_payment_amount": 10000,
+    "target_payment_status": "failed",
+    "tool_faults": [
+     "get_payment:timeout:before"
+    ]
+   },
+   "fixture": {
+    "customers": [
+     {
+      "id": "C1",
+      "valid": false
+     }
+    ],
+    "payments": [
+     {
+      "amount": 10000,
+      "customer_id": "C1",
+      "id": "P1",
+      "status": "failed"
+     }
+    ]
+   },
+   "id": "s021",
+   "messages": [
+    "Please refund payment P1 for customer C1."
+   ],
+   "suite": "pairwise"
+  },
+  {
+   "faults": {},
+   "features": {
+    "approval_answer": "approve",
+    "customer_count": 1,
+    "payment_count": 1,
+    "payment_currencies": [
+     "INR"
+    ],
+    "request_pattern": "repeat",
+    "requester_id": "C1",
+    "requester_valid": true,
+    "target_payment_amount": 10000,
+    "target_payment_status": "captured",
+    "tool_faults": [
+     "none"
+    ]
+   },
+   "fixture": {
+    "customers": [
+     {
+      "id": "C1",
+      "valid": true
+     }
+    ],
+    "payments": [
+     {
+      "amount": 10000,
+      "customer_id": "C1",
+      "id": "P1",
+      "status": "captured"
+     }
+    ]
+   },
+   "id": "d000",
+   "messages": [
+    "Please refund payment P1 for customer C1.",
+    "I did not receive confirmation. Please refund P1 again."
+   ],
+   "suite": "pairwise"
+  },
+  {
+   "faults": {},
+   "features": {
+    "approval_answer": "approve",
+    "customer_count": 1,
+    "payment_count": 1,
+    "payment_currencies": [
+     "INR"
+    ],
+    "request_pattern": "repeat",
+    "requester_id": "C1",
+    "requester_valid": true,
+    "target_payment_amount": 60000,
+    "target_payment_status": "captured",
+    "tool_faults": [
+     "none"
+    ]
+   },
+   "fixture": {
+    "customers": [
+     {
+      "id": "C1",
+      "valid": true
+     }
+    ],
+    "payments": [
+     {
+      "amount": 60000,
+      "customer_id": "C1",
+      "id": "P1",
+      "status": "captured"
+     }
+    ]
+   },
+   "id": "d001",
+   "messages": [
+    "Please refund payment P1 for customer C1.",
+    "I did not receive confirmation. Please refund P1 again."
+   ],
+   "suite": "pairwise"
+  },
+  {
+   "faults": {},
+   "features": {
+    "approval_answer": "deny",
+    "customer_count": 1,
+    "payment_count": 1,
+    "payment_currencies": [
+     "INR"
+    ],
+    "request_pattern": "single",
+    "requester_id": "C1",
+    "requester_valid": true,
+    "target_payment_amount": 50000,
+    "target_payment_status": "captured",
+    "tool_faults": [
+     "none"
+    ]
+   },
+   "fixture": {
+    "customers": [
+     {
+      "id": "C1",
+      "valid": true
+     }
+    ],
+    "payments": [
+     {
+      "amount": 50000,
+      "customer_id": "C1",
+      "id": "P1",
+      "status": "captured"
+     }
+    ]
+   },
+   "id": "b000",
+   "messages": [
+    "Please refund payment P1 for customer C1."
+   ],
+   "suite": "pairwise"
+  },
+  {
+   "faults": {},
+   "features": {
+    "approval_answer": "approve",
+    "customer_count": 2,
+    "payment_count": 2,
+    "payment_currencies": [
+     "INR"
+    ],
+    "request_pattern": "single",
+    "requester_id": "C2",
+    "requester_valid": true,
+    "target_payment_amount": 10000,
+    "target_payment_status": "captured",
+    "tool_faults": [
+     "none"
+    ]
+   },
+   "fixture": {
+    "customers": [
+     {
+      "id": "C1",
+      "valid": true
+     },
+     {
+      "id": "C2",
+      "valid": true
+     }
+    ],
+    "payments": [
+     {
+      "amount": 10000,
+      "customer_id": "C1",
+      "id": "P1",
+      "status": "captured"
+     },
+     {
+      "amount": 10000,
+      "customer_id": "C2",
+      "id": "P2",
+      "status": "captured"
+     }
+    ]
+   },
+   "id": "x000",
+   "messages": [
+    "Please refund payment P2 for customer C2."
+   ],
+   "suite": "expanded"
+  },
+  {
+   "faults": {},
+   "features": {
+    "approval_answer": "approve",
+    "customer_count": 2,
+    "payment_count": 2,
+    "payment_currencies": [
+     "INR"
+    ],
+    "request_pattern": "single",
+    "requester_id": "C2",
+    "requester_valid": true,
+    "target_payment_amount": 60000,
+    "target_payment_status": "captured",
+    "tool_faults": [
+     "none"
+    ]
+   },
+   "fixture": {
+    "customers": [
+     {
+      "id": "C1",
+      "valid": true
+     },
+     {
+      "id": "C2",
+      "valid": true
+     }
+    ],
+    "payments": [
+     {
+      "amount": 10000,
+      "customer_id": "C1",
+      "id": "P1",
+      "status": "captured"
+     },
+     {
+      "amount": 60000,
+      "customer_id": "C2",
+      "id": "P2",
+      "status": "captured"
+     }
+    ]
+   },
+   "id": "x001",
+   "messages": [
+    "Please refund payment P2 for customer C2."
+   ],
+   "suite": "expanded"
+  },
+  {
+   "faults": {},
+   "features": {
+    "approval_answer": "approve",
+    "customer_count": 1,
+    "payment_count": 1,
+    "payment_currencies": [
+     "USD"
+    ],
+    "request_pattern": "single",
+    "requester_id": "C1",
+    "requester_valid": true,
+    "target_payment_amount": 10000,
+    "target_payment_status": "captured",
+    "tool_faults": [
+     "none"
+    ]
+   },
+   "fixture": {
+    "customers": [
+     {
+      "id": "C1",
+      "valid": true
+     }
+    ],
+    "payments": [
+     {
+      "amount": 10000,
+      "currency": "USD",
+      "customer_id": "C1",
+      "id": "P1",
+      "status": "captured"
+     }
+    ]
+   },
+   "id": "x002",
+   "messages": [
+    "Please refund payment P1 for customer C1."
+   ],
+   "suite": "expanded"
+  },
+  {
+   "faults": {},
+   "features": {
+    "approval_answer": "approve",
+    "customer_count": 2,
+    "payment_count": 2,
+    "payment_currencies": [
+     "INR",
+     "USD"
+    ],
+    "request_pattern": "single",
+    "requester_id": "C2",
+    "requester_valid": true,
+    "target_payment_amount": 10000,
+    "target_payment_status": "captured",
+    "tool_faults": [
+     "none"
+    ]
+   },
+   "fixture": {
+    "customers": [
+     {
+      "id": "C1",
+      "valid": true
+     },
+     {
+      "id": "C2",
+      "valid": true
+     }
+    ],
+    "payments": [
+     {
+      "amount": 10000,
+      "customer_id": "C1",
+      "id": "P1",
+      "status": "captured"
+     },
+     {
+      "amount": 10000,
+      "currency": "USD",
+      "customer_id": "C2",
+      "id": "P2",
+      "status": "captured"
+     }
+    ]
+   },
+   "id": "x003",
+   "messages": [
+    "Please refund payment P2 for customer C2."
+   ],
+   "suite": "expanded"
+  },
+  {
+   "faults": {},
+   "features": {
+    "approval_answer": "approve",
+    "customer_count": 1,
+    "payment_count": 2,
+    "payment_currencies": [
+     "INR"
+    ],
+    "request_pattern": "single",
+    "requester_id": "C1",
+    "requester_valid": true,
+    "target_payment_amount": 10000,
+    "target_payment_status": "captured",
+    "tool_faults": [
+     "none"
+    ]
+   },
+   "fixture": {
+    "customers": [
+     {
+      "id": "C1",
+      "valid": true
+     }
+    ],
+    "payments": [
+     {
+      "amount": 10000,
+      "customer_id": "C1",
+      "id": "P1",
+      "status": "captured"
+     },
+     {
+      "amount": 60000,
+      "customer_id": "C1",
+      "id": "P3",
+      "status": "captured"
+     }
+    ]
+   },
+   "id": "x004",
+   "messages": [
+    "Please refund payment P1 for customer C1."
+   ],
+   "suite": "expanded"
+  },
+  {
+   "faults": {},
+   "features": {
+    "approval_answer": "approve",
+    "customer_count": 1,
+    "payment_count": 2,
+    "payment_currencies": [
+     "INR"
+    ],
+    "request_pattern": "single",
+    "requester_id": "C1",
+    "requester_valid": true,
+    "target_payment_amount": 60000,
+    "target_payment_status": "captured",
+    "tool_faults": [
+     "none"
+    ]
+   },
+   "fixture": {
+    "customers": [
+     {
+      "id": "C1",
+      "valid": true
+     }
+    ],
+    "payments": [
+     {
+      "amount": 10000,
+      "customer_id": "C1",
+      "id": "P1",
+      "status": "captured"
+     },
+     {
+      "amount": 60000,
+      "customer_id": "C1",
+      "id": "P3",
+      "status": "captured"
+     }
+    ]
+   },
+   "id": "x005",
+   "messages": [
+    "Please refund payment P3 for customer C1."
+   ],
+   "suite": "expanded"
+  },
+  {
+   "faults": {},
+   "features": {
+    "approval_answer": "approve",
+    "customer_count": 1,
+    "payment_count": 2,
+    "payment_currencies": [
+     "INR"
+    ],
+    "request_pattern": "single",
+    "requester_id": "C1",
+    "requester_valid": true,
+    "target_payment_amount": 10000,
+    "target_payment_status": "captured",
+    "tool_faults": [
+     "none"
+    ]
+   },
+   "fixture": {
+    "customers": [
+     {
+      "id": "C1",
+      "valid": true
+     }
+    ],
+    "payments": [
+     {
+      "amount": 10000,
+      "customer_id": "C1",
+      "id": "P1",
+      "status": "captured"
+     },
+     {
+      "amount": 10000,
+      "customer_id": "C1",
+      "id": "P3",
+      "status": "pending"
+     }
+    ]
+   },
+   "id": "x006",
+   "messages": [
+    "Please refund payment P1 for customer C1."
+   ],
+   "suite": "expanded"
+  },
+  {
+   "faults": {},
+   "features": {
+    "approval_answer": "approve",
+    "customer_count": 2,
+    "payment_count": 2,
+    "payment_currencies": [
+     "INR"
+    ],
+    "request_pattern": "single",
+    "requester_id": "C2",
+    "requester_valid": false,
+    "target_payment_amount": 10000,
+    "target_payment_status": "captured",
+    "tool_faults": [
+     "none"
+    ]
+   },
+   "fixture": {
+    "customers": [
+     {
+      "id": "C1",
+      "valid": true
+     },
+     {
+      "id": "C2",
+      "valid": false
+     }
+    ],
+    "payments": [
+     {
+      "amount": 10000,
+      "customer_id": "C1",
+      "id": "P1",
+      "status": "captured"
+     },
+     {
+      "amount": 10000,
+      "customer_id": "C2",
+      "id": "P2",
+      "status": "captured"
+     }
+    ]
+   },
+   "id": "x007",
+   "messages": [
+    "Please refund payment P2 for customer C2."
+   ],
+   "suite": "expanded"
+  },
+  {
+   "faults": {},
+   "features": {
+    "approval_answer": "approve",
+    "customer_count": 2,
+    "payment_count": 2,
+    "payment_currencies": [
+     "INR"
+    ],
+    "request_pattern": "single",
+    "requester_id": "C2",
+    "requester_valid": true,
+    "target_payment_amount": 10000,
+    "target_payment_status": "pending",
+    "tool_faults": [
+     "none"
+    ]
+   },
+   "fixture": {
+    "customers": [
+     {
+      "id": "C1",
+      "valid": true
+     },
+     {
+      "id": "C2",
+      "valid": true
+     }
+    ],
+    "payments": [
+     {
+      "amount": 10000,
+      "customer_id": "C1",
+      "id": "P1",
+      "status": "captured"
+     },
+     {
+      "amount": 10000,
+      "customer_id": "C2",
+      "id": "P2",
+      "status": "pending"
+     }
+    ]
+   },
+   "id": "x008",
+   "messages": [
+    "Please refund payment P2 for customer C2."
+   ],
+   "suite": "expanded"
+  },
+  {
+   "faults": {},
+   "features": {
+    "approval_answer": "approve",
+    "customer_count": 2,
+    "payment_count": 2,
+    "payment_currencies": [
+     "INR"
+    ],
+    "request_pattern": "repeat",
+    "requester_id": "C2",
+    "requester_valid": true,
+    "target_payment_amount": 10000,
+    "target_payment_status": "captured",
+    "tool_faults": [
+     "none"
+    ]
+   },
+   "fixture": {
+    "customers": [
+     {
+      "id": "C1",
+      "valid": true
+     },
+     {
+      "id": "C2",
+      "valid": true
+     }
+    ],
+    "payments": [
+     {
+      "amount": 10000,
+      "customer_id": "C1",
+      "id": "P1",
+      "status": "captured"
+     },
+     {
+      "amount": 10000,
+      "customer_id": "C2",
+      "id": "P2",
+      "status": "captured"
+     }
+    ]
+   },
+   "id": "x009",
+   "messages": [
+    "Please refund payment P2 for customer C2.",
+    "I did not receive confirmation. Please refund P2 again."
+   ],
+   "suite": "expanded"
+  }
+ ],
+ "version": "step3_base_coverage_v1"
+}
