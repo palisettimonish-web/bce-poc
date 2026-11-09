@@ -19,6 +19,7 @@ def _scenario(sid, customer, status, amount, approval, faults, pattern):
         messages.append("I did not receive confirmation. Please refund P1 again.")
     return {
         "id": sid,
+        "requester_id": "C1",
         "customer_valid": customer == "valid",
         "status": status,
         "amount": amount,

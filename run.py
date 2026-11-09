@@ -10,16 +10,18 @@ from scenarios import make_scenarios
 from world import World
 
 
-def run_all(system=SYSTEM, label="clean", repeats=3, out="results.jsonl"):
+def run_all(system=SYSTEM, label="clean", repeats=3, out="results.jsonl", scenarios=None, suite="pairwise"):
     output = Path(out)
+    output.parent.mkdir(parents=True, exist_ok=True)
     with output.open("a", encoding="utf-8") as handle:
-        for scenario in make_scenarios():
+        for scenario in scenarios or make_scenarios():
             for repetition in range(repeats):
                 world = World(scenario["fixture"], scenario["faults"], scenario["approval_granted"])
                 replies = run_agent(world, scenario["messages"], system=system)
                 record = {
                     "variant": label,
                     "scenario": scenario["id"],
+                    "suite": suite,
                     "repetition": repetition,
                     "violations": check(world, scenario, replies),
                     "calls": world.calls,
@@ -41,10 +43,21 @@ VARIANTS = {
 }
 
 
+SUITES = {"pairwise": make_scenarios}
+
+
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
     parser.add_argument("--repeats", type=int, default=3)
     parser.add_argument("--out", default="results.jsonl")
     parser.add_argument("--variant", choices=VARIANTS, default="clean")
+    parser.add_argument("--suite", choices=SUITES, default="pairwise")
     args = parser.parse_args()
-    run_all(system=VARIANTS[args.variant], label=args.variant, repeats=args.repeats, out=args.out)
+    run_all(
+        system=VARIANTS[args.variant],
+        label=args.variant,
+        repeats=args.repeats,
+        out=args.out,
+        scenarios=SUITES[args.suite](),
+        suite=args.suite,
+    )
