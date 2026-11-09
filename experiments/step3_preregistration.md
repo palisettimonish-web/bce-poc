@@ -1,6 +1,6 @@
 # Step 3 preregistration: BCE gap discovery
 
-Frozen in commit 3a, before any discovery run, mutant, or detection run exists. Changes after this commit are dated amendments at the end of this file. Results are always reported under the original definitions as well.
+Frozen in commit 3a, before any discovery run, mutant, or detection run exists. **See Amendment 1 at the end of this file (2026-11-10), made before any experiment run.** Changes after this commit are dated amendments at the end of this file. Results are always reported under the original definitions as well.
 
 ## Question
 Purpose: decide whether BCE is differentiated and technically valuable, not to make it look good.
@@ -86,3 +86,66 @@ The experimenter saw the gold list before writing the v2 prompt, classification 
 
 ## Artifact hashes at freeze
 Recorded in the 3a commit message and in `experiments/step3/manifests/prereg_freeze.json`.
+
+---
+
+# Amendment 1 (2026-11-10): protocol clarification before any experiment run
+
+This amendment is made after commits 3a (`27b9ac7`) and 3b (`3551421`) and **before** any Step 3 discovery call, mutant, trigger scenario, or detection run. At the time of writing no file exists under `experiments/step3/` other than the manifest, and no `holdout/` directory exists. Everything above this line is the original 3a freeze and is unchanged. Where Amendment 1 and the text above differ in wording, Amendment 1 governs the interpretation; where it is silent, the original text stands. Results are also reported under the original definitions where they can be computed.
+
+Not changed: H5/H3, the arms, open-loop discovery, gold classification and set E, the oracle, the 35 baseline scenarios, 5 runs x 20 scenarios, budgets 25/50/100, the 3-clean + 3-mutant repetition and 2/3 mutant, 0/3 clean kill rule, the 20% human audit, the kappa threshold (0.6), and all numeric gate thresholds.
+
+## A1. Generation configuration is frozen before the first discovery call
+Before the first Step 3 discovery call, the exact generation configuration is written to `experiments/step3/manifests/generation_config.json`, hashed, and committed. It records every applicable field, and for each field either its value or an explicit status:
+- provider; model/deployment; API version, if applicable
+- temperature; top_p; max output tokens; seed, if supported
+- reasoning configuration, if applicable; response-format configuration, if applicable
+
+A parameter the provider or model does not support, or that the provider controls, is recorded as `"unsupported"` or `"provider-controlled"`. No value is invented to fill a field. Arms B and C use the identical configuration. No parameter is changed after any discovery output is observed. The configuration file's hash is added to every run record.
+
+## A2. Four separate budgets (never conflated)
+| Budget | Quantity | Used for |
+|---|---|---|
+| Discovery budget | Number of generated scenario outputs (invalid ones occupy their slot) | The 25/50/100 curves, unchanged |
+| Agent execution budget | Actual agent executions in detection: scenarios x (clean + each evaluated mutant variant) x repeats, counted explicitly | Failures per execution |
+| Evaluation budget | Judge calls, judge items, and human-reviewed items for discovery adjudication | Reported separately |
+| Financial/token cost | Actual generation, agent and evaluation tokens and/or API cost, when the provider reports them | Cost per true failure |
+
+Metric 10 ("failures per execution") uses the agent execution budget. "Cost per true failure" uses the financial/token cost. "Budget" in the metric definitions and gates above means the discovery budget unless stated otherwise.
+
+## A3. Arm A
+Arm A is the fixed 35-scenario baseline, in the stated order, unchanged. It is not a generative arm and consumes no generation budget. A@25 is the first 25 scenarios of that fixed suite. B@25 and C@25 are the first 25 generated scenarios under the preregistered round-robin ordering. Repeating an Arm A scenario creates no new coverage. Arm A is a fixed baseline comparison, not an equivalent generative process.
+
+## A4. Detection metrics: dimension-level is primary
+The primary detection unit is the eligible gold dimension (set E, |E| = 8), not the mutant variant, because variants of one dimension are not independent behavioral dimensions.
+
+- **Primary: dimension-level detection rate** at discovery budget b = (number of dimensions in E for which at least one validated mutant variant is killed, by the kill rule, by a scenario within the first b of the arm) / |E|. The denominator is always 8. The report also states how many dimensions have no validated variant, and the rate over only dimensions that have at least one.
+- **Secondary: variant-level kill rate** = (validated variants killed by the arm within b) / (validated variants evaluated by the arm).
+- A per-dimension detection table (dimension, class, validated variants, variants killed, detected yes/no, per arm and per budget) is always reported.
+- Existing metrics 8 and 9 (mutants killed, distinct true failures) are retained and reclassified as secondary. Raw counts and rates are always reported with any ratio.
+
+## A5. Reporting by gold class
+Discovery results (precision, recall, matched sets) and detection results are broken out separately for `U_NEW_DIMENSION` (G01, G12, G13, G16) and `U_NEW_VALUE` (G02, G04, G05, G07). `H_HIGHER_ORDER_INTERACTION` is reported only if any item becomes eligible (none is eligible now). `DEV_ONLY` and `EXCLUDE` stay out of headline scoring. The classification is unchanged from the table above.
+
+## A6. Mutant design preferred for 3c (not implemented now)
+- Keep the 8 eligible dimensions. Attempt up to 3 mechanically distinct mutant variants per dimension, targeting up to 24 validated variants.
+- The variants are not 24 independent dimensions. The primary analysis is at the 8-dimension level; variants are secondary replication/robustness checks within a dimension.
+- If a dimension cannot support 3 distinct, non-equivalent, oracle-detectable variants, no artificial variant is invented. The actual validated number is recorded. The gold set is not changed to raise the sample size.
+- Variant ids are opaque (`M01`...); the mapping variant -> gold id lives only in `holdout/eligibility.json`.
+
+## A7. Mutant validation requirements for 3c
+A variant enters the main experiment only if all of the following hold:
+1. The clean agent passes the corresponding trigger scenario.
+2. The mutant actually changes the intended behavior.
+3. The existing deterministic oracle detects the intended violation.
+4. The mutant is non-equivalent to the clean agent for the intended trigger.
+5. The mutant is specific enough to represent the intended gold dimension.
+6. No new oracle rule is added for the mutant.
+
+Invalid, equivalent or undetectable variants are excluded from the detection set and reported with the reason. They are not replaced with hand-picked variants after any BCE/B/C result is seen.
+
+## A8. Interpretation of the success gates
+The numeric thresholds are unchanged. They are preregistered practical POC gates, not claims of statistical significance, and no statistical test or confidence threshold is added. Raw dimension counts and rates are always reported beside them. Wherever a gate above says "mutants killed", it is evaluated at the dimension level first (A4); variant-level counts cannot substitute for dimension-level detection. The invalid-experiment gate "fewer than 4 validated mutants" is read as: fewer than 4 dimensions in E with at least one validated variant. The "200 budget" plateau rule is read the same way (dimension-level detection at 100 versus 50).
+
+## A9. Files changed by this amendment
+`experiments/step3_preregistration.md` (this section appended; one pointer line at the top), `experiments/step3_scoring_protocol.md` (Amendment 1 section appended), and the new manifest `experiments/step3/manifests/prereg_amendment1_freeze.json`. The 3a manifest `prereg_freeze.json` is kept unchanged as the historical record.

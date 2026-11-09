@@ -23,3 +23,13 @@ Kills are computed mechanically from oracle codes by `evaluate/`: the oracle is 
 
 ## Reproducibility metadata
 Every run record carries git SHA, provider, model/deployment, configuration, prompt hash, input artifact hashes, timestamp, run id, seed and counts. Output files are never overwritten; a re-run gets a new run id.
+
+---
+
+## Amendment 1 (2026-11-10), made before any discovery, mutant or detection run
+Kept consistent with Amendment 1 of `step3_preregistration.md`, which governs. Nothing above is changed.
+- **Detection scoring:** the primary unit is the eligible gold dimension. Dimension-level detection rate = dimensions in E with at least one validated variant killed within the budget / 8. Variant-level kill rate is secondary. A per-dimension table is always reported. A variant counts as killed only under the existing 2-of-3 mutant, 0-of-3 clean rule.
+- **Class breakdown:** discovery and detection are reported separately for `U_NEW_DIMENSION` and `U_NEW_VALUE` (and `H_HIGHER_ORDER_INTERACTION` if any item ever becomes eligible). The judge is not told the class of any gold item.
+- **Evaluation budget:** judge calls, judge items and human-reviewed items are counted separately from the discovery budget, the agent execution budget and token/API cost.
+- **Reproducibility metadata:** every run record also carries the hash of the frozen `generation_config.json`.
+- **Mutant variants:** only variants validated under the preregistration (A7) are scored. Excluded variants are reported with reasons, and none is replaced after results are seen.
