@@ -6,7 +6,7 @@ from pathlib import Path
 
 from agent import SYSTEM, run_agent
 from oracle import check
-from scenarios import make_scenarios
+from scenarios import make_dev_scenarios, make_scenarios
 from world import World
 
 
@@ -43,7 +43,7 @@ VARIANTS = {
 }
 
 
-SUITES = {"pairwise": make_scenarios}
+SUITES = {"pairwise": make_scenarios, "dev": make_dev_scenarios}
 
 
 if __name__ == "__main__":

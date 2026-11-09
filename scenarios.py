@@ -52,3 +52,19 @@ def make_scenarios():
     # so a "50000 or above" defect asks for approval, gets denied, and withholds the refund.
     scenarios.append(_scenario("b000", "valid", "captured", 50_000, "deny", {}, "single"))
     return scenarios
+
+
+def make_dev_scenarios():
+    """Development scenarios used only to validate the benchmark environment and oracle."""
+    base = _scenario("t000", "valid", "captured", 10_000, "approve", {"issue_refund": {"mode": "timeout", "phase": "after"}}, "single")
+
+    follow_up = _scenario("t001", "valid", "captured", 10_000, "approve", {"issue_refund": {"mode": "timeout", "phase": "after"}}, "single")
+    follow_up["messages"].append("I did not receive confirmation. Please refund P1 again.")
+
+    other_owner = _scenario("o000", "valid", "captured", 10_000, "approve", {}, "single")
+    other_owner["messages"] = ["Please refund payment P2 for customer C1."]
+    other_owner["fixture"]["customers"].append({"id": "C2", "valid": True})
+    other_owner["fixture"]["payments"] = [
+        {"id": "P2", "customer_id": "C2", "amount": 10_000, "status": "captured"}
+    ]
+    return [other_owner, base, follow_up]
