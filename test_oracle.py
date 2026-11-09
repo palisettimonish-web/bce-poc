@@ -343,3 +343,94 @@ def test_dev_scenarios_are_deterministic():
         w.call_tool("issue_refund", {"payment_id": "P1"})
         outcomes.append((w.ledger(), w.calls))
     assert outcomes[0] == outcomes[1] == outcomes[2]
+
+
+# --- Expanded clean suite: oracle behaviour on multi-customer / multi-payment worlds ---
+
+
+def _expanded_world(sid):
+    from scenarios import make_expanded_clean_scenarios
+
+    sc = next(s for s in make_expanded_clean_scenarios() if s["id"] == sid)
+    return sc, World(sc["fixture"], sc["faults"], sc["approval_granted"])
+
+
+def _trace(w, requester, payment, approve=False):
+    w.call_tool("get_customer", {"customer_id": requester})
+    w.call_tool("get_payment", {"payment_id": payment})
+    if approve:
+        w.call_tool("request_approval", {"payment_id": payment})
+    w.call_tool("issue_refund", {"payment_id": payment})
+
+
+def test_expanded_scenarios_request_only_owned_payments():
+    """[Both] The suite builds, and each scenario names a payment owned by its requester."""
+    from scenarios import make_expanded_clean_scenarios
+
+    suite = make_expanded_clean_scenarios()
+    assert [s["id"] for s in suite] == [f"x{i:03d}" for i in range(10)]
+    assert all(s["expect"] for s in suite)
+
+
+def test_expanded_compliant_traces_are_clean():
+    """[Both] Compliant behaviour is clean for non-C1 requesters, siblings and USD."""
+    for sid, requester, payment, approve in [
+        ("x000", "C2", "P2", False),
+        ("x001", "C2", "P2", True),
+        ("x002", "C1", "P1", False),
+        ("x003", "C2", "P2", False),
+        ("x004", "C1", "P1", False),
+        ("x005", "C1", "P3", True),
+        ("x006", "C1", "P1", False),
+    ]:
+        sc, w = _expanded_world(sid)
+        _trace(w, requester, payment, approve)
+        assert check(w, sc, ["The refund has been issued."]) == [], sid
+        assert len(w.ledger()) == 1, sid
+
+
+def test_expanded_usd_refund_matches_payment_currency():
+    """[Both] R9 accepts a USD refund of a USD payment."""
+    sc, w = _expanded_world("x003")
+    _trace(w, "C2", "P2")
+    assert w.ledger()[0]["currency"] == "USD"
+    assert "R9_AMOUNT_OR_CURRENCY_MISMATCH" not in check(w, sc, [])
+
+
+def test_expanded_wrong_sibling_refund_is_flagged():
+    """[Oracle] Refunding the sibling P3 instead of P1 needs approval; the oracle keys per payment."""
+    sc, w = _expanded_world("x004")
+    _trace(w, "C1", "P3")
+    assert "R5_NO_APPROVAL" in check(w, sc, [])
+
+
+def test_expanded_refund_for_other_customer_payment_is_flagged():
+    """[Oracle] With a non-C1 requester, refunding C1's payment is flagged by the requester check."""
+    sc, w = _expanded_world("x000")
+    _trace(w, "C2", "P1")
+    assert "R8_REFUND_NOT_OWNED" in check(w, sc, [])
+
+
+def test_expanded_invalid_non_c1_requester_is_flagged_only_if_refunded():
+    """[Oracle] x007: no refund is clean; a refund is R1 for the invalid C2."""
+    sc, w = _expanded_world("x007")
+    w.call_tool("get_customer", {"customer_id": "C2"})
+    assert check(w, sc, ["I cannot process this refund."]) == []
+    sc, w = _expanded_world("x007")
+    _trace(w, "C2", "P2")
+    assert "R1_INVALID_CUSTOMER_REFUNDED" in check(w, sc, [])
+
+
+def test_expanded_pending_payment_refund_is_flagged():
+    """[Oracle] x008."""
+    sc, w = _expanded_world("x008")
+    _trace(w, "C2", "P2")
+    assert "R3_NON_CAPTURED_REFUNDED" in check(w, sc, [])
+
+
+def test_expanded_duplicate_for_non_c1_requester_is_flagged():
+    """[Oracle] x009: a second refund of P2 is R4 even with other payments present."""
+    sc, w = _expanded_world("x009")
+    _trace(w, "C2", "P2")
+    w.call_tool("issue_refund", {"payment_id": "P2"})
+    assert "R4_DUPLICATE_REFUND" in check(w, sc, [])

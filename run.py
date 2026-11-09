@@ -6,7 +6,7 @@ from pathlib import Path
 
 from agent import SYSTEM, run_agent
 from oracle import check
-from scenarios import make_dev_scenarios, make_scenarios
+from scenarios import make_dev_scenarios, make_expanded_clean_scenarios, make_scenarios
 from world import World
 
 
@@ -22,6 +22,7 @@ def run_all(system=SYSTEM, label="clean", repeats=3, out="results.jsonl", scenar
                     "variant": label,
                     "scenario": scenario["id"],
                     "suite": suite,
+                    "scenario_params": {k: scenario[k] for k in ("requester_id", "status", "amount", "fixture", "faults", "messages", "expect") if k in scenario},
                     "repetition": repetition,
                     "violations": check(world, scenario, replies),
                     "calls": world.calls,
@@ -43,7 +44,7 @@ VARIANTS = {
 }
 
 
-SUITES = {"pairwise": make_scenarios, "dev": make_dev_scenarios}
+SUITES = {"pairwise": make_scenarios, "dev": make_dev_scenarios, "expanded": make_expanded_clean_scenarios}
 
 
 if __name__ == "__main__":

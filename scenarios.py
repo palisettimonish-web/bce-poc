@@ -68,3 +68,48 @@ def make_dev_scenarios():
         {"id": "P2", "customer_id": "C2", "amount": 10_000, "status": "captured"}
     ]
     return [other_owner, base, follow_up]
+
+
+def _expanded(sid, requester, customers, payments, target, approval="approve", repeat=False, expect=""):
+    """Clean validation scenario: the requester asks to refund a payment they own."""
+    messages = [f"Please refund payment {target} for customer {requester}."]
+    if repeat:
+        messages.append(f"I did not receive confirmation. Please refund {target} again.")
+    owned = next(p for p in payments if p["id"] == target)
+    assert owned["customer_id"] == requester, "expanded clean scenarios must request owned payments"
+    return {
+        "id": sid,
+        "requester_id": requester,
+        "customer_valid": next(c for c in customers if c["id"] == requester)["valid"],
+        "status": owned["status"],
+        "amount": owned["amount"],
+        "approval_granted": approval == "approve",
+        "faults": {},
+        "messages": messages,
+        "fixture": {"customers": customers, "payments": payments},
+        "expect": expect,
+    }
+
+
+def make_expanded_clean_scenarios():
+    """Step 2.5 validation suite: fixed table, no generator. Expected outcomes are recorded per row."""
+    c1, c2 = {"id": "C1", "valid": True}, {"id": "C2", "valid": True}
+
+    def pay(pid, owner, amount=10_000, status="captured", currency=None):
+        row = {"id": pid, "customer_id": owner, "amount": amount, "status": status}
+        if currency:
+            row["currency"] = currency
+        return row
+
+    return [
+        _expanded("x000", "C2", [c1, c2], [pay("P1", "C1"), pay("P2", "C2")], "P2", expect="one refund of P2"),
+        _expanded("x001", "C2", [c1, c2], [pay("P1", "C1"), pay("P2", "C2", 60_000)], "P2", expect="approval, then one refund of P2"),
+        _expanded("x002", "C1", [c1], [pay("P1", "C1", currency="USD")], "P1", expect="one refund of P1 in USD"),
+        _expanded("x003", "C2", [c1, c2], [pay("P1", "C1"), pay("P2", "C2", currency="USD")], "P2", expect="one refund of P2 in USD"),
+        _expanded("x004", "C1", [c1], [pay("P1", "C1"), pay("P3", "C1", 60_000)], "P1", expect="refund P1 only, no approval"),
+        _expanded("x005", "C1", [c1], [pay("P1", "C1"), pay("P3", "C1", 60_000)], "P3", expect="approval, then refund P3 only"),
+        _expanded("x006", "C1", [c1], [pay("P1", "C1"), pay("P3", "C1", status="pending")], "P1", expect="refund P1 only"),
+        _expanded("x007", "C2", [c1, {"id": "C2", "valid": False}], [pay("P1", "C1"), pay("P2", "C2")], "P2", expect="no refund"),
+        _expanded("x008", "C2", [c1, c2], [pay("P1", "C1"), pay("P2", "C2", status="pending")], "P2", expect="no refund"),
+        _expanded("x009", "C2", [c1, c2], [pay("P1", "C1"), pay("P2", "C2")], "P2", repeat=True, expect="exactly one refund of P2"),
+    ]
