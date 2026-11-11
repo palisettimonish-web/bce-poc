@@ -1,0 +1,27 @@
+{
+  "config_id": "step3_generation_config_v1",
+  "frozen_on": "2026-11-10",
+  "frozen_before": "first Step 3 discovery call",
+  "applies_to": ["arm B", "arm C"],
+  "identical_for_arms": true,
+  "provider": "microsoft-foundry-responses",
+  "endpoint": "https://bce-poc-1-resource.services.ai.azure.com/api/projects/bce-poc-1",
+  "base_url": "https://bce-poc-1-resource.services.ai.azure.com/api/projects/bce-poc-1/openai/v1",
+  "model_deployment": "gpt-4.1-mini",
+  "model_deployment_source": "agent.MODEL default; FOUNDRY_MODEL env var was not set when frozen",
+  "api_version": "not applicable: the v1 route is used and no api-version parameter is sent",
+  "client_library": "openai-python 2.48.0",
+  "request_parameters_sent": ["model", "input"],
+  "temperature": "provider-controlled",
+  "top_p": "provider-controlled",
+  "max_output_tokens": "provider-controlled",
+  "seed": "provider-controlled",
+  "reasoning": "not applicable: gpt-4.1-mini is not a reasoning model and no reasoning parameter is sent",
+  "response_format": "none sent; JSON output is requested by the prompt text only and parsed strictly",
+  "tools": "none",
+  "notes": [
+    "Parameters marked provider-controlled are not sent by the client, so the service default applies; their values are not known to this experiment and are not invented here.",
+    "The agent under test uses the same model and deployment but a different request (instructions + tools); this file governs discovery calls only.",
+    "No parameter may be changed after any discovery output is observed. A change requires a dated amendment before further runs."
+  ]
+}

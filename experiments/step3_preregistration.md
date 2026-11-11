@@ -47,7 +47,7 @@ Classes: `U_NEW_DIMENSION`, `U_NEW_VALUE`, `H_HIGHER_ORDER_INTERACTION`, `DEV_ON
 
 Eligible set **E** = {G01, G02, G04, G05, G07, G12, G13, G16}, so |E| = 8. No gold item is classed `H_HIGHER_ORDER_INTERACTION`; that class is unused in this experiment. Classification was done by the experimenter (an LLM assistant that has seen the gold list). This is a disclosed contamination risk. The gold file is not edited. G03 and G09 matches are reported separately and excluded from primary scoring.
 
-Mutants are named `M01`..`M08` in code and mapped to gold ids only in `holdout/eligibility.json`.
+Mutants are named `M01`..`M24` in code (up to 24; see Amendment 1, A6) and mapped to gold ids only in `holdout/eligibility.json`.
 
 ## Metrics (fixed; not changed after results)
 Let a *budget* b in {25, 50, 100} be the first b scenarios of an arm in its fixed order. For B and C the order is round-robin over the 5 runs (run 1 scenario 1, run 2 scenario 1, ..., run 1 scenario 2, ...), each run in its own order. A's order is file order and A is capped at 35 (the 25-budget is the primary A comparison).

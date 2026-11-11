@@ -7,7 +7,7 @@
     "3b": "3551421"
   },
   "files": {
-    "experiments/step3_preregistration.md": "388d50b7b60008a312ac330e937c6d87573d21d7071c7a995827b78e6005747b",
+    "experiments/step3_preregistration.md": "d0d746757b51beee410e5585b391aa288e1a2df286883436ff91244e37b96e1e",
     "experiments/step3_scoring_protocol.md": "fa790e62372ed3f712e681e28ce71746b96de5e47ab5d320af08698534efbb96",
     "bce/discovery_prompt_v2.txt": "61e86aa10cdd6a838865a9e3b9fde259ba761dbd9062c7eba4fc52732a6d0e16",
     "bce/generic_prompt_v1.txt": "ced83d7cf4d2d22d9f020dcca60ffd37be1d8f5383f063b672cf7b3401dd1341",
@@ -15,6 +15,7 @@
     "experiments/step3_base_coverage_v1.json": "5b091ebda02cbd3e4ea9445d6870c7b4938b85979eab170a80cba994c99e99fe",
     "discovery_prompt_v1.txt": "e9cb36add398b9545882d9c759d00f27027b5b5ffbea8763454c784023235b3c",
     "gold_hidden_dimensions.json": "0e60ea74d68c81ca94ff0fb2f227038fea72c6f38684d333f1fb4f64314171a7",
-    "truth_spec.md": "3a95b087b495c8611d8f7975e25d933058e46c03cc473ac105059e0450323376"
+    "truth_spec.md": "3a95b087b495c8611d8f7975e25d933058e46c03cc473ac105059e0450323376",
+    "experiments/step3/manifests/generation_config.json": "c6adad350660f37acb5f0406c2c4a8a830064bf99498e7523187985c7c257808"
   }
 }
