@@ -64,3 +64,33 @@ def test_eligibility_commitment_recomputes_when_present():
 
 def test_holdout_package_has_no_candidate_material_in_infra_commit():
     assert not (rules.HOLDOUT_DIR / "candidates.json").exists() or True  # candidate commit is separate
+
+
+def test_candidate_tokens_absent_from_everything_bce_reads():
+    """Edit sentences, trigger/neutral messages and non-base trigger values must not appear in BCE's inputs."""
+    path = rules.HOLDOUT_DIR / "candidates.json"
+    if not path.exists():
+        return
+    from holdout import schema
+
+    records = schema.load_candidates(path)
+    tokens = set()
+    for c in records:
+        if c.get("no_candidate"):
+            continue
+        tokens.add(c["id"])
+        for step in c["edit"]:
+            tokens |= {s.strip() for s in schema.added_sentences(schema.build_mutant_system(c))}
+        for inst in c["trigger_instances"] + c["neutral_instances"]:
+            tokens |= set(inst["scenario"]["messages"])
+        tokens |= {v["value"] for v in c["trigger_class"]["trigger_values"] if len(v["value"]) > 4}
+    corpus = ""
+    for p in sorted((ROOT / "bce").glob("*.py")):
+        corpus += p.read_text(encoding="utf-8")
+    for p in list(inputs.PROMPTS.values()) + [inputs.COVERAGE_PATH, run_discovery.CONFIG_PATH]:
+        p = Path(p) if Path(p).is_absolute() else ROOT / p
+        corpus += p.read_text(encoding="utf-8")
+    base = (ROOT / inputs.COVERAGE_PATH).read_text(encoding="utf-8") if not Path(inputs.COVERAGE_PATH).is_absolute() else Path(inputs.COVERAGE_PATH).read_text(encoding="utf-8")
+    base_messages = {m for sc in json.loads(base)["scenarios"] for m in sc.get("messages", [])}
+    leaked = sorted(t for t in tokens if t and t in corpus and t not in base_messages)
+    assert leaked == [], leaked
