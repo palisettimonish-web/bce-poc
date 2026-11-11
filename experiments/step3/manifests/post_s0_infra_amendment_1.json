@@ -1,0 +1,64 @@
+{
+  "record_id": "step3c_post_s0_infra_amendment_1",
+  "type": "post_s0_infrastructure_amendment",
+  "date": "2026-11-11",
+  "append_only": "New file. No existing file, manifest, preregistration text or log line was edited to make this record.",
+  "s0_sealed_at": {
+    "commit": "fe3b363",
+    "full_sha": "fe3b363bc016b1159f5774fb4693b8d59efc04c6",
+    "status_jsonl_sha256": "69820e04b240673cbfd0e2b191af70499c3c1f0d99207563fa209e8284de6010",
+    "note": "S0 was already sealed before this change; the S0 record is unchanged."
+  },
+  "instrumentation_commit": {
+    "commit": "8a40b81",
+    "full_sha": "8a40b81823176acc12b43317de2c545c5db30951",
+    "message": "step3c-infra: complete 2.14 run-record fields before S1",
+    "classification": "instrumentation-only",
+    "files_changed": [
+      "holdout/runtime.py",
+      "test_holdout.py"
+    ],
+    "file_sha256_at_commit": {
+      "holdout/runtime.py": "e2f15d13a3b7260f7f30eeaf62db0deae41130f5ca2ad9039b26ef1032216d0c",
+      "test_holdout.py": "de4b0739d155b9ef8575f76359b2b781130f3fc7a611f575d5428310d596f2de"
+    },
+    "changes": [
+      "successful run records gain ledger (world.ledger())",
+      "scenario_params gains approval_granted",
+      "successful run records gain served_models_per_response (one entry per response, in response order); models is unchanged",
+      "transport-failure records gain ledger: [] and served_models_per_response: []",
+      "tests added for these fields and for the 3-attempt transport-failure record"
+    ]
+  },
+  "purpose": "Complete the run-record observability required by Amendment 2 section 2.14 before the first agent stage (S1). Run records cannot be regenerated once S1 starts.",
+  "not_changed": [
+    "candidates.json and all candidate content",
+    "methodology and preregistration semantics",
+    "thresholds and S1-S6 stage logic",
+    "scoring protocol",
+    "oracle",
+    "agent SYSTEM and tools",
+    "agent_config.json",
+    "generation_config.json",
+    "engine.py, rules.py, validate.py, review.py, seal.py"
+  ],
+  "not_fixed": "Audit finding A (served-model check is skipped when a stage is resumed with no new jobs) is deliberately not changed; mitigation is operational: do not rerun a stage after an InfrastructureFailure.",
+  "verification": {
+    "full_test_suite": "passed (92 tests) at 8a40b81",
+    "frozen_hashes_unchanged_since_before_the_change": {
+      "holdout/candidates.json": "9939331636e56014a329d86e2955f50d9c685fdbab3804b0fc6dc2e9779e32e2",
+      "experiments/step3/manifests/agent_config.json": "df15b3f00b7732fdd1819348f6f0fc9c4e6a982334efeeaa7ba67a55e845f92f",
+      "experiments/step3/manifests/generation_config.json": "c6adad350660f37acb5f0406c2c4a8a830064bf99498e7523187985c7c257808",
+      "experiments/step3/manifests/prereg_amendment1_freeze.json": "dd9a076f3c7cf7782e001f71f23763197a08a3507b965f4c9caf1e3aac1d5f7d",
+      "experiments/step3/manifests/prereg_amendment2_freeze.json": "f3330996e05f8c9ab8491459c04a664728475449c08633442411a0237052689d",
+      "experiments/step3/manifests/prereg_freeze.json": "56afb534682e478865f76e1281fe3a2520bf37991e971558261161821c2d64f3",
+      "experiments/step3_preregistration.md": "d66db73d6d4630dce4a83514ebc8a09b0109e2d671b84dcc0beb63d5250ef038",
+      "experiments/step3_scoring_protocol.md": "4ec1dded4798d3fa796ad9d0603c2188a13f980c5b53b023e80c7a9b2139988b"
+    }
+  },
+  "state_at_record": {
+    "agent_llm_api_calls_made": false,
+    "s1_started": false,
+    "runs_jsonl_exists": false
+  }
+}
