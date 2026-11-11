@@ -73,3 +73,70 @@ def test_parse_output_rejects_non_json_and_fenced_json():
     assert parse_output("not json")[0] is None
     assert parse_output("```json\n{}\n```")[0] is None
     assert parse_output('{"scenarios": []}')[0] == {"scenarios": []}
+
+
+# --- Frozen generation configuration is enforced -----------------------------
+
+import json
+import types
+
+import pytest
+
+from agent import MODEL, PROJECT_ENDPOINT
+from bce import run_discovery as rd
+
+
+class FakeClient:
+    def __init__(self):
+        self.requests = []
+        self.responses = self
+
+    def create(self, **request):
+        self.requests.append(request)
+        return types.SimpleNamespace(output_text=json.dumps({"scenarios": [good()]}), usage=None)
+
+
+def test_run_records_verified_config_hash_and_sends_only_frozen_parameters(tmp_path):
+    client = FakeClient()
+    meta = rd.run("B", 1, 1, tmp_path, client=client)
+    assert meta["generation_config_hash"] == rd.sha256_file(rd.CONFIG_PATH)
+    assert meta["generation_config_id"] == "step3_generation_config_v1"
+    assert meta["seed"] == "provider-controlled"
+    assert set(client.requests[0]) == {"model", "input"}
+    raw = json.loads(next((tmp_path / "discovery" / "B").glob("*_raw.json")).read_text())
+    assert raw["meta"]["generation_config_hash"] == meta["generation_config_hash"]
+
+
+def test_run_refuses_a_different_model_and_writes_nothing(tmp_path):
+    client = FakeClient()
+    with pytest.raises(rd.ConfigError, match="model"):
+        rd.run("B", 1, 1, tmp_path, client=client, model="some-other-model")
+    assert client.requests == [] and list(tmp_path.iterdir()) == []
+
+
+def test_run_refuses_a_different_endpoint(tmp_path):
+    with pytest.raises(rd.ConfigError, match="endpoint"):
+        rd.run("C", 1, 1, tmp_path, client=FakeClient(), endpoint="https://example.invalid")
+
+
+def test_run_refuses_a_config_file_that_differs_from_the_manifest(tmp_path):
+    altered = tmp_path / "generation_config.json"
+    config = json.loads(rd.CONFIG_PATH.read_text())
+    config["temperature"] = 0.2
+    altered.write_text(json.dumps(config))
+    client = FakeClient()
+    with pytest.raises(rd.ConfigError, match="hash"):
+        rd.run("B", 1, 1, tmp_path / "out", client=client, config_path=altered)
+    assert client.requests == []
+
+
+def test_run_refuses_when_manifest_has_no_config_entry(tmp_path):
+    manifest = tmp_path / "manifest.json"
+    manifest.write_text(json.dumps({"files": {}}))
+    with pytest.raises(rd.ConfigError, match="not listed"):
+        rd.run("B", 1, 1, tmp_path / "out", client=FakeClient(), manifest_path=manifest)
+
+
+def test_default_model_and_endpoint_match_the_frozen_config():
+    config, digest = rd.load_frozen_config(MODEL, PROJECT_ENDPOINT)
+    assert digest == rd.sha256_file(rd.CONFIG_PATH) and config["model_deployment"] == MODEL

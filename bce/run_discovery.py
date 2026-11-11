@@ -13,7 +13,35 @@ from pathlib import Path
 
 from agent import MODEL, PROJECT_ENDPOINT, _foundry_client
 from bce import dsl
-from bce.inputs import build_prompt, sha256_text
+from bce.inputs import ROOT, build_prompt, sha256_file, sha256_text
+
+CONFIG_PATH = ROOT / "experiments" / "step3" / "manifests" / "generation_config.json"
+AMENDMENT_MANIFEST = ROOT / "experiments" / "step3" / "manifests" / "prereg_amendment1_freeze.json"
+CONFIG_KEY = "experiments/step3/manifests/generation_config.json"
+
+
+class ConfigError(RuntimeError):
+    """The frozen generation configuration is missing, altered, or does not match the run."""
+
+
+def load_frozen_config(model, endpoint, config_path=CONFIG_PATH, manifest_path=AMENDMENT_MANIFEST):
+    """Return (config, sha256) after checking the file against the frozen manifest and the live run.
+
+    Raises ConfigError if the file hash differs from the manifest, or if the model or endpoint in use
+    differs from the frozen config. Nothing is invented or defaulted.
+    """
+    digest = sha256_file(config_path)
+    frozen = json.loads(Path(manifest_path).read_text(encoding="utf-8"))["files"].get(CONFIG_KEY)
+    if frozen is None:
+        raise ConfigError("generation_config.json is not listed in the amendment manifest")
+    if digest != frozen:
+        raise ConfigError(f"generation_config.json hash {digest} != frozen {frozen}")
+    config = json.loads(Path(config_path).read_text(encoding="utf-8"))
+    if model != config["model_deployment"]:
+        raise ConfigError(f"model {model!r} != frozen {config['model_deployment']!r}")
+    if endpoint != config["endpoint"]:
+        raise ConfigError(f"endpoint {endpoint!r} != frozen {config['endpoint']!r}")
+    return config, digest
 
 
 def _git_sha():
@@ -45,13 +73,14 @@ def normalize(arm, obj, run_id):
     return candidates, scenarios
 
 
-def run(arm, run_number, n, out, client=None):
+def run(arm, run_number, n, out, client=None, model=MODEL, endpoint=PROJECT_ENDPOINT, config_path=CONFIG_PATH, manifest_path=AMENDMENT_MANIFEST):
     out = Path(out)
+    config, config_hash = load_frozen_config(model, endpoint, config_path, manifest_path)
     prompt, input_hashes = build_prompt(arm, n)
     client = client or _foundry_client()
     run_id = f"{arm}-{run_number:03d}-{uuid.uuid4().hex[:8]}"
     started = datetime.datetime.now(datetime.timezone.utc).isoformat()
-    response = client.responses.create(model=MODEL, input=prompt)
+    response = client.responses.create(model=model, input=prompt)
     text = response.output_text or ""
     usage = getattr(response, "usage", None)
     obj, error = parse_output(text)
@@ -62,10 +91,12 @@ def run(arm, run_number, n, out, client=None):
         "run_number": run_number,
         "git_sha": _git_sha(),
         "provider": "microsoft-foundry-responses",
-        "endpoint": PROJECT_ENDPOINT,
-        "model": MODEL,
-        "configuration": {"requested_scenarios": n, "sampling": "service defaults", "tools": None},
-        "seed": None,
+        "endpoint": endpoint,
+        "model": model,
+        "generation_config_hash": config_hash,
+        "generation_config_id": config["config_id"],
+        "configuration": {"requested_scenarios": n, "request_parameters_sent": config["request_parameters_sent"]},
+        "seed": config["seed"],
         "timestamp": started,
         "prompt_hash": input_hashes["assembled_prompt"],
         "input_hashes": input_hashes,
