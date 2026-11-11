@@ -138,7 +138,7 @@ def run_job(job, client, config_hash, candidates_sha, attempts=rules.TRANSPORT_A
         "instance": job["instance"],
         "rep": job["rep"],
         "scenario": scenario["id"],
-        "scenario_params": {k: scenario[k] for k in ("requester_id", "fixture", "faults", "messages") if k in scenario},
+        "scenario_params": {k: scenario[k] for k in ("requester_id", "fixture", "faults", "messages", "approval_granted") if k in scenario},
         "agent_config_hash": config_hash,
         "candidates_sha": candidates_sha,
         "git_sha": git_sha(),
@@ -146,14 +146,17 @@ def run_job(job, client, config_hash, candidates_sha, attempts=rules.TRANSPORT_A
         "attempt_errors": attempt_log,
     }
     if replies is None:
-        record.update({"transport_failure": True, "replies": [], "calls": [], "violations": [], "models": [], "tokens": None})
+        record.update({"transport_failure": True, "replies": [], "calls": [], "ledger": [], "violations": [], "models": [],
+                       "served_models_per_response": [], "tokens": None})
     else:
         record.update({
             "transport_failure": False,
             "replies": replies,
             "calls": world.calls,
+            "ledger": world.ledger(),
             "violations": check(world, scenario, replies),
             "models": sorted(set(recorder.models)),
+            "served_models_per_response": list(recorder.models),
             "tokens": {"input": recorder.input_tokens, "output": recorder.output_tokens},
         })
     return record

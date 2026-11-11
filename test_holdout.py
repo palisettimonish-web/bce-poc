@@ -328,3 +328,50 @@ def test_s0_structure_and_catalogue_reject_bad_candidates():
     malformed = candidate("M01", "G01")
     del malformed["neutral_instances"]
     assert schema.run_s0([malformed])["M01"][0] != rules.PASS
+
+
+class _FakeResponse:
+    def __init__(self, model="gpt-4.1-mini-x"):
+        self.id, self.model, self.output, self.output_text = "r1", model, [], "Done."
+        self.usage = type("U", (), {"input_tokens": 7, "output_tokens": 3})()
+
+
+class _FakeResponses:
+    def __init__(self, fail=False):
+        self.fail, self.calls = fail, 0
+
+    def create(self, **kwargs):
+        self.calls += 1
+        if self.fail:
+            raise RuntimeError("transport down")
+        return _FakeResponse()
+
+
+class _FakeClient:
+    def __init__(self, fail=False):
+        self.responses = _FakeResponses(fail)
+
+
+def _job():
+    sc = engine.world_scenario(scenario("meta"), "M01-T1")
+    return {"stage": "S1", "variant": "clean", "subject": "M01", "instance": "T1", "rep": 0, "scenario": sc, "system": SYSTEM}
+
+
+def test_run_job_records_required_metadata():
+    rec = runtime.run_job(_job(), _FakeClient(), "cfg-hash", "cand-sha")
+    assert rec["transport_failure"] is False
+    assert "approval_granted" in rec["scenario_params"]
+    assert rec["ledger"] == []
+    assert rec["served_models_per_response"] == ["gpt-4.1-mini-x"]
+    assert rec["models"] == ["gpt-4.1-mini-x"]
+    assert rec["tokens"] == {"input": 7, "output": 3}
+    assert rec["agent_config_hash"] == "cfg-hash" and rec["candidates_sha"] == "cand-sha"
+    assert rec["git_sha"] and rec["timestamp"]
+
+
+def test_run_job_transport_failure_record():
+    client = _FakeClient(fail=True)
+    rec = runtime.run_job(_job(), client, "cfg-hash", "cand-sha")
+    assert rec["transport_failure"] is True
+    assert len(rec["attempt_errors"]) == rules.TRANSPORT_ATTEMPTS == client.responses.calls == 3
+    assert rec["ledger"] == [] and rec["served_models_per_response"] == [] and rec["models"] == []
