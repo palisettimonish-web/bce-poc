@@ -1,0 +1,26 @@
+{
+  "config_id": "step3_agent_config_v1",
+  "frozen_on": "2026-11-11",
+  "frozen_before": "first Step 3c candidate, holdout run or discovery call",
+  "defined_by": "Amendment 2, section 2.14",
+  "applies_to": "agent under test (clean agent and prompt-only mutants) in 3c and 3e",
+  "provider": "microsoft-foundry-responses",
+  "endpoint": "https://bce-poc-1-resource.services.ai.azure.com/api/projects/bce-poc-1",
+  "model_deployment": "gpt-4.1-mini",
+  "model_deployment_source": "agent.MODEL default; FOUNDRY_MODEL env var was not set when frozen",
+  "client_library": "openai-python 2.48.0",
+  "request_parameters_sent": ["model", "instructions", "input", "tools", "previous_response_id"],
+  "max_turns": 8,
+  "system_sha256": "98d3c700d2c9f66f55b13c2920cb5e775d0304f17e14768fae17cc9888fbd314",
+  "system_sha256_method": "SHA-256 of the UTF-8 bytes of agent.SYSTEM",
+  "tools_sha256": "615a75c9ef22f2840e529a83610369415b2f39aa53951fc1782549db877b356c",
+  "tools_sha256_method": "SHA-256 of the UTF-8 bytes of json.dumps(agent.TOOLS, sort_keys=True, separators=(',', ':'))",
+  "temperature": "provider-controlled",
+  "top_p": "provider-controlled",
+  "max_output_tokens": "provider-controlled",
+  "seed": "provider-controlled",
+  "notes": [
+    "Parameters marked provider-controlled are not sent by the client, so the service default applies; their values are not known to this experiment and are not invented here.",
+    "The served model string of each response is recorded per run, because the deployment name does not identify the served version."
+  ]
+}

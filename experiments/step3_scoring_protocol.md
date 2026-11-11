@@ -33,3 +33,14 @@ Kept consistent with Amendment 1 of `step3_preregistration.md`, which governs. N
 - **Evaluation budget:** judge calls, judge items and human-reviewed items are counted separately from the discovery budget, the agent execution budget and token/API cost.
 - **Reproducibility metadata:** every run record also carries the hash of the frozen `generation_config.json`.
 - **Mutant variants:** only variants validated under the preregistration (A7) are scored. Excluded variants are reported with reasons, and none is replaced after results are seen.
+
+## Amendment 2 (2026-11-11), made before any mutant candidate, holdout run or discovery call
+Kept consistent with Amendment 2 of `step3_preregistration.md`, which governs. Nothing above is changed.
+- **Kill rule:** primary kill is attributable. Some code in the mutant's frozen intended code set appears in at least 2 of 3 mutant runs and 0 of 3 clean runs. The original any-code kill is reported alongside. Kills count only for admitted mutants. The S4 baseline escape test uses the same attributable rule.
+- **Comparison:** C vs B is the only formal detection comparison. Arm A is descriptive and enters no gate, because admitted mutants escape the 35 baseline scenarios by construction.
+- **Scripted oracle traces (S0):** they establish oracle detectability only. They are not behavioral evidence and enter no metric.
+- **Curtailment:** the third mutant repetition may be skipped only when the kill outcome cannot change. Executions are reported both nominal and actual.
+- **Uncertainty:** paired cluster bootstrap over the 8 dimensions, with variants resampled within dimensions. 10,000 resamples, seed 20260311, percentile 95%. Descriptive only; never a gate.
+- **Budget slots:** each discovery run occupies exactly 20 slots (positions 0-19). Missing positions are invalid; positions 20 and above are excluded. Slot k = run (k mod 5) + 1, position floor(k / 5).
+- **Labels:** the holdout-coverage tier (invalid / exploratory / normal) and the flags `POTENTIALLY_INVALID`, `OVERLAP` and `DRIFT_SUSPECT` are reported wherever they apply.
+- **Run records:** they also carry the agent config hash and the served model string.

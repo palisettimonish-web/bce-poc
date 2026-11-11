@@ -1,0 +1,17 @@
+{
+  "amendment": "Amendment 2",
+  "date": "2026-11-11",
+  "supersedes_hashes_in": "experiments/step3/manifests/prereg_amendment1_freeze.json",
+  "base_commits": {
+    "3a": "27b9ac7",
+    "3b": "3551421",
+    "amendment1": "cede8a3",
+    "config_freeze": "780b56d",
+    "runner_enforcement": "056a648"
+  },
+  "files": {
+    "experiments/step3_preregistration.md": "d66db73d6d4630dce4a83514ebc8a09b0109e2d671b84dcc0beb63d5250ef038",
+    "experiments/step3_scoring_protocol.md": "4ec1dded4798d3fa796ad9d0603c2188a13f980c5b53b023e80c7a9b2139988b",
+    "experiments/step3/manifests/agent_config.json": "df15b3f00b7732fdd1819348f6f0fc9c4e6a982334efeeaa7ba67a55e845f92f"
+  }
+}

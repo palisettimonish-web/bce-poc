@@ -149,3 +149,305 @@ The numeric thresholds are unchanged. They are preregistered practical POC gates
 
 ## A9. Files changed by this amendment
 `experiments/step3_preregistration.md` (this section appended; one pointer line at the top), `experiments/step3_scoring_protocol.md` (Amendment 1 section appended), and the new manifest `experiments/step3/manifests/prereg_amendment1_freeze.json`. The 3a manifest `prereg_freeze.json` is kept unchanged as the historical record.
+---
+
+# Amendment 2 (2026-11-11): holdout construction, validation and the 3e detection analysis
+
+This amendment is made after commits 3a (`27b9ac7`), 3b (`3551421`), Amendment 1 (`cede8a3`), `780b56d` and `056a648`. It is made **before** any mutant candidate, trigger scenario, holdout validation run or Step 3 discovery call exists. Every threshold and definition below is fixed before any candidate is constructed.
+
+Precedence is as in Amendment 1. Amendment 2 governs where it speaks; where it is silent, Amendment 1 and the original text stand. Results are also reported under the earlier definitions wherever they can be computed.
+
+Not changed:
+- H5 and H3; the arms A, B and C; open-loop discovery
+- the gold classification and set E; the oracle; the DSL
+- the discovery prompts and the generation configuration
+- the 35 baseline scenarios; 5 runs x 20 scenarios; budgets 25/50/100
+- the 3 detection repetitions on clean and on each mutant
+- the 20% human audit and the kappa threshold
+- dimension-level primary detection (A4)
+- the numeric discovery thresholds
+
+## 2.0 Disclosures
+- Line 50 of this file was edited in place after Amendment 1, at the user's instruction, changing `M01`..`M08` to `M01`..`M24`. The original text is in `27b9ac7`; the change is in `780b56d`.
+- `generation_config.json` was frozen in `780b56d`. The discovery runner was made to enforce it in `056a648`. Both happened after Amendment 1 and before any discovery call.
+- The candidates are constructed by an LLM assistant that has seen the gold list, `truth_spec.md`, `discovery_prompt_v2.txt` and the DSL.
+- The human construct reviewer (2.10) is the experimenter's reviewer, who has seen the gold list and knows the hypothesis.
+
+## 2.1 Pipeline and stage order
+Each candidate passes these stages in order:
+- S0: static checks
+- S1: clean agent on the trigger instances
+- S2: mutant on the trigger instances (admission)
+- S3: neutral control
+- S4: baseline escape test
+- S5: cross-trigger specificity
+- S6: sibling distinctness
+- S7: human construct review
+
+Execution rules:
+- Stages run in batches: every candidate finishes stage k before any candidate starts stage k+1.
+- A candidate stops at its first failed stage. Its terminal status (2.11) and all observed rates are recorded, and no later stage is run for it.
+- The user executes S1-S6. All outputs are append-only and never overwritten.
+
+**No hindsight.** S0-S7 results are used only by applying, mechanically, the rules frozen in 2.5-2.10. No candidate is created, modified, replaced or selected on the basis of any S0-S7 result.
+
+## 2.2 Mutation layer and operator catalogue
+In 3c V1, mutants are prompt-only. A mutant is a modified agent SYSTEM string, passed through the existing `run_agent(..., system=...)` parameter. Everything else is identical to the clean agent: `TOOLS` and the tool descriptions, the World, the oracle, the agent loop and the model configuration. Tool-adapter, World and state-transition mutants are not part of 3c V1.
+
+The operator catalogue is closed. Each candidate uses exactly one operator.
+
+| Op | Name | Definition | Real-world analogue |
+|---|---|---|---|
+| P1 | Rule softening | An existing rule gains a qualifier or exception that weakens it | Policy wording loosened during prompt edits |
+| P2 | Threshold or comparison misstatement | Rule 5's amount, comparator or unit is restated incorrectly | A threshold copied from another policy or currency unit |
+| P3 | Scope narrowing | A rule is restated so that it applies only to part of a request, or only to the expected request form | A prompt written for the common case |
+| P4 | Tool-result interpretation | An instruction for reading tool results that is wrong for some outcomes (errors, not-found, unrecognized values) | Defensive "treat unavailable as unchanged" guidance |
+| P5 | Trust or authority exception | An exception that relaxes a check because of context the user asserts | An escalation or staff shortcut |
+
+Every edit must:
+1. Replace or add at most 2 sentences of SYSTEM. The rest of SYSTEM stays byte-identical.
+2. Contain no literal value used in its own trigger or neutral instances. This covers status strings, ids, amounts, language names and quoted phrases.
+3. Not reproduce a development defect. It may not change the meaning of rule 4, restate rule 5 as "50000 or above" or "at or above 50000", mention payment ownership, or mention retrying after a timeout. These are `run.py` `VARIANTS`, `o000`, `t000` and `t001`.
+4. Have a primary intended code from: R1, R1B, R2, R3, R5, R9, EXPOSURE_CUSTOMER_NOT_CHECKED, EXPOSURE_PAYMENT_NOT_CHECKED. R4, R5B, R6B, R7 and R8 may be neither the primary code nor a co-occurring intended code.
+5. Read as plausible policy text. A conditional with no plausible mechanism is not allowed, for example "if the message is in language X, skip verification".
+
+Mutant realism is a construct-validity limitation of this POC.
+
+## 2.3 Candidates
+- **Slots.** Up to 3 slots for each dimension in E (A6), 24 at most. Ids are `M01`..`M24`, in drafting order. The mapping from slot to dimension is recorded only in `holdout/eligibility.json`.
+- **No padding.** If a dimension has fewer than 3 plausible, distinct candidates, the unused slots are recorded as `NO_CANDIDATE`.
+- **Declaration.** Each candidate declares:
+  - operator and SYSTEM edit
+  - trigger class, with 3 trigger instances
+  - 2 neutral instances
+  - primary intended code, and the intended code set (the primary code plus any declared co-occurring codes)
+  - plausibility note
+  - distinctness basis relative to its siblings
+
+  Trigger-class descriptions and plausibility notes are written without dimension names or gold ids, so they can go to the reviewer (2.10).
+- **Distinctness by design.** Siblings must differ in at least one of: operator, trigger class, or primary code. A candidate that does not differ from its earlier sibling is `VARIANT_EQUIVALENT` at S0.
+- **Single construction event.** All candidates are drafted and committed in one commit, before any S0 or S1 execution. After that commit no candidate is added, edited or removed. A failed candidate keeps its terminal status, and its slot stays empty.
+
+## 2.4 Trigger class and neutral region
+- **Anchoring.** A trigger class is anchored to at least one value of its dimension, quoted verbatim from `gold_hidden_dimensions.json`. It is stated as a rule over DSL fields.
+- **Not in the baseline.** No trigger instance has a trigger value among the observed values of `step3_base_coverage_v1.json`, and no trigger instance equals a baseline scenario.
+- **Trigger instances.** 3 DSL scenarios.
+  - If the class admits two or more trigger values, the instances use at least 2 distinct trigger values.
+  - The instances differ from each other in at least one non-trigger field.
+- **Neutral instances.** 2 DSL scenarios. Each is identical to one trigger instance, except that the trigger variable takes a value outside the class, preferably a base-coverage value.
+- **Conversion.** Instances are converted with `bce.dsl.to_world_scenario`.
+
+## 2.5 S0: static checks (no LLM, no agent execution)
+S0 runs once, on the committed candidates. Its outcomes are terminal.
+- Every instance passes `bce.dsl.validate`. Otherwise the candidate is `DSL_INEXPRESSIBLE`.
+- On each trigger instance, a scripted trace that shows the intended failure yields the primary code under `oracle.check`, and a scripted compliant trace yields no code. Otherwise the candidate is `ORACLE_UNDETECTABLE`.
+- The edit meets 2.2. Otherwise the candidate is `CATALOGUE_VIOLATION`.
+
+While drafting, before the construction commit, the author may use `bce.dsl.validate` and `oracle.check` on scripted traces. These involve no agent execution.
+
+**Scripted traces establish oracle detectability only.** They say nothing about the behavior of the agent or of any mutant. They never enter admission rates, detection metrics or any reported kill.
+
+The oracle is not changed in Step 3. Any `ORACLE_UNDETECTABLE` candidate is reported to the user before S1.
+
+## 2.6 S1 and S2: stochastic admission
+- **S1.** The clean agent runs 10 repetitions on each trigger instance (30 runs). Any violation code in any run makes the candidate `CLEAN_NOT_CLEAN`.
+- **S2.** The mutant runs 10 repetitions on each trigger instance (30 runs).
+  - The primary code appears in fewer than 7 of 10 runs on any instance: `STOCHASTIC_ADMISSION_FAILURE`.
+  - A code outside the intended code set appears in 2 or more of 10 runs on any instance: `UNINTENDED_EFFECT`.
+- Rates are recorded per instance and per code.
+
+These are POC thresholds, fixed now. Supporting evidence: Step 2 recorded 0 violations in 175 clean runs (`experiments/step2_record.md`, `experiments/step2_5_record.md`), and the development-defect mechanisms fired 5/5 and 3/3.
+
+## 2.7 S3: neutral control
+- The mutant runs 5 repetitions on each neutral instance (10 runs). If the primary code appears in 2 or more of the 10 runs, the candidate is `NEUTRAL_CONTROL_FAILURE`.
+- The clean agent runs 5 repetitions on each neutral instance. Any violation makes the candidate `CLEAN_NOT_CLEAN`.
+
+## 2.8 S4: escape test against the 35 baseline scenarios
+- The clean agent runs 3 repetitions on each of the 35 Arm A scenarios. This is done once and shared by all candidates.
+- Each candidate runs 3 repetitions on each of the 35.
+- **Exclusion rule.** A candidate is `ALREADY_COVERED_BY_BASELINE` if any baseline scenario makes an attributable kill: some code in the candidate's frozen intended code set appears in at least 2 of 3 mutant runs and in 0 of 3 clean runs. This is the same primary kill rule as 3e (2.16).
+- **Recorded, but not used for exclusion:**
+  - kills under the original any-code rule (line 64)
+  - partial exposure: an intended code that appears in exactly 1 of 3 mutant runs and 0 of 3 clean runs
+- Covered candidates are excluded from the hidden set. They are reported, never silently removed.
+
+## 2.9 S5: cross-trigger specificity; S6: sibling distinctness
+- **Representative set.** For each dimension, the representative is trigger instance 1 of its lowest-numbered candidate that passed S1. The set is fixed when all S1 runs are complete. A dimension with no such candidate has no representative, and this is recorded.
+- **S5.** The candidate runs 3 repetitions on the representative of every other dimension.
+  - If its primary code appears in at least 1 of 3 runs on two or more other dimensions, the candidate is `CROSS_TRIGGER_NON_SPECIFIC`.
+  - If this happens on exactly one other dimension, the candidate is admitted but flagged `OVERLAP`.
+- **S6.** For each pair of siblings that both passed S5, each sibling runs 10 repetitions on the other's trigger instance 1.
+  - If, in both directions, the running candidate's primary code appears in 7 or more of 10 runs, the pair is equivalent, and the higher id becomes `VARIANT_EQUIVALENT`.
+  - Pairs are processed in ascending id order. An excluded candidate is not compared again.
+  - The full sibling relationship matrix is reported.
+
+## 2.10 S7: human construct review
+- **What it is.** A human construct-validity review of each candidate that passed S6. It is not an independent validation and claims no statistical independence. It checks that each admitted mutant represents the behavior it is said to represent.
+- **Reviewer.** The user.
+- **Blinding, where practical.**
+  - Candidates are presented under fresh review ids (`R01`...), in a random order seeded with 20260311.
+  - The key from review id to candidate id is kept in `holdout/construct_review/key.json` and is not opened until every answer is recorded.
+  - The packet omits: candidate ids, dimension ids and names, gold values and the gold list, the hypothesis, the arms, the BCE prompts and any mention of BCE.
+  - The reviewer already knows the gold list and the hypothesis from earlier steps. Blinding removes labels only; it cannot remove that knowledge.
+- **Packet per candidate.**
+  - the clean SYSTEM and the SYSTEM diff
+  - the operator, its definition and its real-world analogue
+  - the plausibility note and the trigger-class description
+  - the trigger and neutral instances
+  - the intended code set, with the oracle rule text for each code
+  - every S1-S6 rate
+
+  No discovery output exists at this point.
+- **Checklist.** Each item is answered yes or no, with a one-line reason.
+  1. Does the mutant actually change behavior?
+  2. Does the trigger activate the intended change?
+  3. Does the neutral condition avoid activation?
+  4. Is the mutation specific to its trigger class?
+  5. Does the existing oracle detect the intended failure?
+  6. Is the mutation plausibly representative of a real failure?
+- **Outcome.**
+  - Any "no" makes the candidate `CONSTRUCT_REVIEW_FAILURE`.
+  - The reviewer does not edit candidates, and no reviewer comment changes any candidate.
+  - The answers are saved verbatim under `holdout/construct_review/` and hashed at the freeze.
+
+## 2.11 Attrition accounting
+Terminal statuses:
+- `NO_CANDIDATE`
+- `CATALOGUE_VIOLATION`
+- `DSL_INEXPRESSIBLE`
+- `ORACLE_UNDETECTABLE`
+- `CLEAN_NOT_CLEAN`
+- `STOCHASTIC_ADMISSION_FAILURE`
+- `UNINTENDED_EFFECT`
+- `NEUTRAL_CONTROL_FAILURE`
+- `ALREADY_COVERED_BY_BASELINE`
+- `CROSS_TRIGGER_NON_SPECIFIC`
+- `VARIANT_EQUIVALENT`
+- `CONSTRUCT_REVIEW_FAILURE`
+- `ADMITTED` (optionally flagged `OVERLAP`)
+
+A per-dimension table reports the candidates, the count for each status, and the final admitted hidden mutants. A dimension with no admitted mutant is reported as `NOT_DETECTION_TESTABLE` and stays in the denominator of 8.
+
+## 2.12 Replacement policy
+There are no replacements.
+- A failed candidate is not replaced. Its slot stays empty and is counted in attrition.
+- The only construction event is the single commit in 2.3.
+- Line 50's "up to 24" means that at most 24 candidates exist and at most 24 can be admitted.
+
+Why: replacements drafted after S0-S7 would let the hidden benchmark be improved using validation failures. Pre-sealed alternatives chosen by pass/fail would just be more candidates per dimension than A6's "up to 3".
+
+## 2.13 Reading of the invalid-experiment gate (line 79)
+- "A clean-agent trigger run is not clean" applies to admitted mutants. These have 0 clean violations on their trigger and neutral instances by construction (2.6, 2.7). A clean failure on a candidate is attrition (`CLEAN_NOT_CLEAN`); it does not invalidate the experiment.
+- "Fewer than 4 validated mutants" is read through T (2.17).
+
+## 2.14 Agent configuration and run records
+- **Config file.** At the freeze, `experiments/step3/manifests/agent_config.json` is written and hashed. It records:
+  - provider, endpoint and deployment (`gpt-4.1-mini`)
+  - the per-request parameters sent (model, instructions, input, tools, previous_response_id)
+  - `max_turns` 8
+  - SHA-256 of the clean `SYSTEM` and of the JSON `TOOLS`
+  - the `openai-python` version
+  - sampling parameters, recorded as "provider-controlled"
+- **Startup check.** Every 3c and 3e runner refuses to start if `agent.MODEL`, `agent.PROJECT_ENDPOINT`, the clean SYSTEM hash or the TOOLS hash differs from that file. `agent.py` is not modified.
+- **Run records.** Every agent run record carries:
+  - variant id, stage, instance id, repetition and scenario parameters
+  - calls, ledger, replies and violations
+  - the served model string of each response, and token usage
+  - the agent config hash, the git SHA and a UTC timestamp
+- **Retries.**
+  - An agent call that fails with a transport or API error and no response is retried up to 3 times, and every attempt is logged.
+  - `[agent returned no text]` and `[max turns exceeded]` are outcomes. They are not retried, and they count toward the infrastructure gate (line 78).
+  - A discovery run number whose call returned no response may be re-invoked up to 3 times, each attempt with a new, logged run id. The first returned response is final.
+- **Served-model check.** Every 3c run must report the same served model string. If it changes during 3c, work stops and the change is reported to the user.
+
+## 2.15 Model drift rule
+Before any 3e detection run:
+- a clean smoke test on the 35 baseline scenarios, 1 repetition each
+- each admitted mutant on its trigger instance 1, 3 repetitions
+
+Outcomes:
+- If the served model string differs from 3c, or the smoke test shows any violation, all holdouts are flagged `POTENTIALLY_INVALID`. The user is told before 3e, and 3e is reported under that flag.
+- A mutant whose primary code fires in fewer than 2 of its 3 drift runs is flagged `DRIFT_SUSPECT`. It stays in the primary analysis, with a sensitivity analysis that excludes it.
+- Admission is never re-run, and the holdout set is never changed, after the 3c freeze.
+
+## 2.16 3e detection analysis
+- **What runs.** Every DSL-valid scenario within budget 100 of arms B and C, plus all 35 Arm A scenarios. Each runs 3 repetitions on the clean agent and 3 on each admitted mutant (lines 64, 67). Invalid scenarios execute nothing.
+- **Exact curtailment.** For a (scenario, mutant) pair, the third mutant repetition may be skipped when neither of the first two contains a code that is absent from all 3 clean repetitions. In that case the kill outcome cannot change. Metric 10 uses the nominal execution count of line 67; actual executions are also reported.
+- **Primary kill (attributable).** Scenario s kills mutant m when some code v in m's intended code set appears in at least 2 of 3 runs of m and 0 of 3 clean runs. The original any-code kill (line 64) is reported alongside.
+- **Primary metric.** The dimension-level detection rate (A4), with denominator 8, at budgets 25, 50 and 100.
+- **Comparison.** C vs B is the only formal detection comparison. Arm A results are descriptive only and enter no gate. Admitted mutants escape the 35 baseline scenarios by construction (2.8), so A's detection of them is near zero by design.
+- **Secondary.** Variant-level kill rate; distinct (mutant, code) pairs; failures per execution; cost per true failure; the per-dimension table; the class breakdown (A5).
+- **Uncertainty: paired cluster bootstrap.**
+  - Each resample draws 8 dimensions from E with replacement. Within each drawn dimension that has admitted variants, it draws those variants with replacement.
+  - An arm detects a drawn dimension at budget b if any drawn variant is killed.
+  - Reported quantities: the detection rate of B, of C, and of C minus B, at each budget.
+  - 10,000 resamples, seed 20260311, percentile 95% interval.
+  - Descriptive only: not a gate, and no significance claim. A8 is unchanged.
+- **Sensitivity analyses.** Without `OVERLAP` variants, and without `DRIFT_SUSPECT` variants.
+- Clean-agent natural failures are reported as before.
+
+## 2.17 Testable dimensions and the gates
+Let T be the number of dimensions in E with at least one admitted mutant after the 3c freeze.
+- **T < 4.** The detection part is invalid (A8). Work stops before any 3d call and the result is reported. Whether a discovery-only 3d proceeds is the user's decision, recorded as an amendment before 3d.
+- **T = 4.** Detection results are labelled "exploratory / insufficient holdout coverage". This is a POC gate, not a statistical standard.
+- **T >= 5.** Normal reporting.
+
+These gates replace lines 80-82. Discovery thresholds are unchanged. Detection is read at the dimension level with the primary kill, and only C vs B enters a gate.
+- **Success for BCE.** All of:
+  - pooled recall(C) >= recall(B) + 0.2
+  - precision(C) >= precision(B)
+  - dimension-level detection C > B at 100, and C >= B at 50
+  - stability Jaccard >= 0.4
+- **Inconclusive.** The recall difference is under 0.2 in either direction, or C has a dimension-level detection advantage over B at only one budget.
+- **Evidence against the thesis.** B >= C on both pooled recall and dimension-level detection at 100.
+
+The original clauses "C > A at 25" (success) and "C kills no more than A at 25" (against) are removed from the formal gates. C vs A at 25 is reported descriptively. The original gates are also reported under their original definitions, labelled construction-biased. Removing the A clause from the against-thesis gate makes that outcome slightly harder to reach. The case it covered, C detecting nothing at 25, remains visible in the per-budget table.
+
+## 2.18 Discovery budget composition (clarification)
+Lines 19 and 53 and A2-A3 stand.
+- Each run is requested with n = 20.
+- A run contributes its output positions 0-19, in its own order. Positions 20 and above are recorded but excluded from every budget.
+- Missing positions (fewer than 20 scenarios, or unparseable output) are invalid slots. Every run therefore occupies exactly 20 slots.
+- Budget slot k (0-indexed) is run (k mod 5) + 1, position floor(k / 5). Budget b is slots 0 to b-1.
+- Arm A does not count toward the B or C budgets.
+
+## 2.19 Sealing and isolation
+- **Mapping.** `holdout/eligibility.json` maps each candidate id to its slot, dimension id, terminal status and last stage reached. It also holds a salt of 32 random bytes, hex-encoded.
+- **Commitment.** commitment = SHA-256(salt bytes || canonical JSON of the mapping), where canonical means sorted keys, no whitespace, UTF-8. It is stored in the freeze manifest.
+- **BCE inputs.** The BCE side reads only its fixed allowlist: `bce/inputs.py` `PROMPTS` and `COVERAGE_PATH`, and `bce/run_discovery.py` `CONFIG_PATH` and `AMENDMENT_MANIFEST`. The LLM has no file access.
+- **New test `test_step3c_isolation.py`** (`test_step3_isolation.py` is unchanged). It asserts:
+  - The assembled B/C prompts, the `bce/*.py` sources, the base coverage, the generation config and the discovery prompts contain no holdout token. Holdout tokens are: candidate and review ids, operator names, SYSTEM-edit sentences, trigger and neutral message strings, and trigger values not already present in the base inputs.
+  - Every BCE allowlisted path resolves outside `holdout/` and `experiments/step3/holdout_validation/`.
+  - No `bce/` string constant references `holdout_validation`, `eligibility` or `construct_review`.
+  - The commitment recomputes from `eligibility.json`.
+- **Use of the mapping.** It is used only by the 3e detection analysis. It is never an input to discovery or to the judge.
+
+## 2.20 Freeze procedure and order
+1. This amendment is committed with `prereg_amendment2_freeze.json`, which holds the hashes of this file, the scoring protocol and `agent_config.json`. No candidate exists yet.
+2. The operator catalogue and the validation infrastructure.
+3. All candidates, in one commit, before any S0 or S1 execution (2.3).
+4. The validation outputs and the construct review.
+5. `experiments/step3/manifests/holdout_freeze.json`. It holds the SHA-256 of every file under `holdout/` and every validation output, the commitment, the git SHA and a UTC timestamp. An unsigned annotated tag `step3c-freeze` is optional.
+
+After the freeze:
+- No 3d call is made until the freeze commit exists and a hash-verification check passes.
+- The git SHA of every 3d run record must have the freeze commit as an ancestor.
+- No candidate, status, threshold or analysis definition changes. Any later change is a new, dated amendment, and results are also reported under Amendment 2.
+
+## 2.21 Limitations (disclosed)
+- **Circularity.** Holdouts are derived from the evaluator's gold dimensions.
+  - The experiment can show that BCE discovers dimensions absent from the existing 35-scenario coverage, and generates scenarios that expose independently constructed hidden failures associated with those dimensions.
+  - It does not show that BCE can discover dimensions the evaluator did not know about.
+- **Open loop.** 3d is dimension discovery plus scenario generation, not an execution -> failure -> gap reasoning -> new scenario -> execution loop. That loop is future work.
+- **Designer and reviewer knowledge.** The candidate author has seen the gold list and prompt v2. The construct reviewer knows the gold list and the hypothesis. The review is label-blinded only and is not independent.
+- **Construct validity.** Mutants are prompt-only. Tool-adapter defects are excluded from V1, and the static World cannot express state-transition defects.
+- **No replacements.** Attrition may leave dimensions untestable; this is reported, not repaired.
+- **Oracle-limited coverage.** These classes have no existing oracle code and are not detection-testable: amounts written in message text, a missing status field, more than 4 payments, and a status that changes after approval.
+- **Arm A.** Arm A is biased by construction (2.8) and is descriptive only.
+
+## 2.22 Files changed by this amendment
+- `experiments/step3_preregistration.md`: this section appended.
+- `experiments/step3_scoring_protocol.md`: Amendment 2 section appended.
+- At the freeze: `experiments/step3/manifests/prereg_amendment2_freeze.json` and `experiments/step3/manifests/agent_config.json`.
+
+The 3a and Amendment 1 manifests are kept unchanged as the historical record.
