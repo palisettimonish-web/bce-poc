@@ -1,0 +1,32 @@
+{
+  "commitment": "8b2ba4a23263f1cd15e846f7e23cfc9c50fe501f11a03b3a64dc169a1899b0d0",
+  "defined_by": "Amendment 2, section 2.20",
+  "files": {
+    "experiments/step3/holdout_validation/console_S1.log": "906b3502c2844aaa90039a43e076776406d90f72cac7b4600455f037d09662f5",
+    "experiments/step3/holdout_validation/console_S2.log": "12a32f60637a6795cd654e7c2c0dffb16724a1b637cf96a51faa6fa367b0b0ef",
+    "experiments/step3/holdout_validation/console_S3.log": "ec68fdec7a1e6d73994989b328d138af525f56055c1e14e8996c6c31652695dc",
+    "experiments/step3/holdout_validation/console_S4.log": "c8f18ba166b201f45252a4bcd415e40ae12b2e2c004333c28cd035946728a0e9",
+    "experiments/step3/holdout_validation/console_S5.log": "f7925bbcc045e70960c104665291f2555441a2a52960425dc9ceede4466e9a67",
+    "experiments/step3/holdout_validation/console_S6.log": "cda36429cc5e7ab3852985a12c3f780ad11dd8fbe301d8b463c61d87e116939c",
+    "experiments/step3/holdout_validation/console_S7.log": "0b33373f277dc3791c458cb1828bd9293b1482491a0524cb48d261826232acf5",
+    "experiments/step3/holdout_validation/runs.jsonl": "b533330abe8063841a213818d7622a6d72cc0d4eb51daaf7c8d21f42c5e66cc5",
+    "experiments/step3/holdout_validation/status.jsonl": "0e7bf4b8f6c93ed7622cfe32070e9b64b6e31b44e15cb708a29a69de49ce6cba",
+    "holdout/__init__.py": "8fe6e5bfd32230114847488d74166bfdf67e7d286666d68ca9ba56eb3f55d653",
+    "holdout/candidates.json": "9939331636e56014a329d86e2955f50d9c685fdbab3804b0fc6dc2e9779e32e2",
+    "holdout/catalogue.json": "765d4497913759e4a1f8ed6b21bc0073c33e30668e2d9c679cb808e6963d2235",
+    "holdout/construct_review/answers.json": "2288602ef04980b054fb34a637d5b226ba8ffd667fc310978556e21b06ca671d",
+    "holdout/construct_review/key.json": "1e3067a82404de1fa059ca598620ae04248c2401126f606dfc970e848bbc40cd",
+    "holdout/construct_review/packet.json": "d3aa25e98376cf0856bfb4068d8bd960e09f9f569a1c180b57c350823e41e529",
+    "holdout/eligibility.json": "ad82c1d627a08762715bb885eebebb84c0879b1ffb8bd381ec8715124bf410c0",
+    "holdout/engine.py": "f61135dde6df82edccbee277c720cf3219d7dd86274119c1aa57cfe9097d3be1",
+    "holdout/review.py": "d9c3b5073e3295fd0ed8e0982e3c808277a68d8884fc37c8b35eca499198f027",
+    "holdout/rules.py": "05741790bdd720876a81310e5f61e054defb937faf7a63d80b12a2e204378a24",
+    "holdout/runtime.py": "e2f15d13a3b7260f7f30eeaf62db0deae41130f5ca2ad9039b26ef1032216d0c",
+    "holdout/schema.py": "402a257417880c756b05fca7290cf46fa23e576b31b28783bbbba289bb492b48",
+    "holdout/seal.py": "574c943a0cc6a8bc0c99faf4afce24e86737a9e3661d0e711418ded90fd76cf3",
+    "holdout/validate.py": "87e8f2b21b1f4abcbc7ee5ca72d15d54b74fa33fbd6fbab9e9b4b3e8b67a4e98"
+  },
+  "freeze": "step3c holdout freeze",
+  "git_sha": "91380d77aaf26aa1ba2397414210bacef63fe22b",
+  "timestamp": "2026-11-15T06:44:39+00:00"
+}
