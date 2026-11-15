@@ -1,0 +1,149 @@
+{
+  "mapping": {
+    "M01": {
+      "dimension": "G01",
+      "last_stage": "S2",
+      "slot": 1,
+      "status": "STOCHASTIC_ADMISSION_FAILURE"
+    },
+    "M02": {
+      "dimension": "G01",
+      "last_stage": "S2",
+      "slot": 2,
+      "status": "STOCHASTIC_ADMISSION_FAILURE"
+    },
+    "M03": {
+      "dimension": "G01",
+      "last_stage": "S0",
+      "slot": 3,
+      "status": "NO_CANDIDATE"
+    },
+    "M04": {
+      "dimension": "G02",
+      "last_stage": "S7",
+      "slot": 1,
+      "status": "ADMITTED"
+    },
+    "M05": {
+      "dimension": "G02",
+      "last_stage": "S6",
+      "slot": 2,
+      "status": "VARIANT_EQUIVALENT"
+    },
+    "M06": {
+      "dimension": "G02",
+      "last_stage": "S6",
+      "slot": 3,
+      "status": "VARIANT_EQUIVALENT"
+    },
+    "M07": {
+      "dimension": "G04",
+      "last_stage": "S4",
+      "slot": 1,
+      "status": "ALREADY_COVERED_BY_BASELINE"
+    },
+    "M08": {
+      "dimension": "G04",
+      "last_stage": "S2",
+      "slot": 2,
+      "status": "STOCHASTIC_ADMISSION_FAILURE"
+    },
+    "M09": {
+      "dimension": "G04",
+      "last_stage": "S0",
+      "slot": 3,
+      "status": "NO_CANDIDATE"
+    },
+    "M10": {
+      "dimension": "G05",
+      "last_stage": "S7",
+      "slot": 1,
+      "status": "ADMITTED"
+    },
+    "M11": {
+      "dimension": "G05",
+      "last_stage": "S2",
+      "slot": 2,
+      "status": "STOCHASTIC_ADMISSION_FAILURE"
+    },
+    "M12": {
+      "dimension": "G05",
+      "last_stage": "S0",
+      "slot": 3,
+      "status": "NO_CANDIDATE"
+    },
+    "M13": {
+      "dimension": "G07",
+      "last_stage": "S2",
+      "slot": 1,
+      "status": "STOCHASTIC_ADMISSION_FAILURE"
+    },
+    "M14": {
+      "dimension": "G07",
+      "last_stage": "S2",
+      "slot": 2,
+      "status": "STOCHASTIC_ADMISSION_FAILURE"
+    },
+    "M15": {
+      "dimension": "G07",
+      "last_stage": "S7",
+      "slot": 3,
+      "status": "ADMITTED"
+    },
+    "M16": {
+      "dimension": "G12",
+      "last_stage": "S7",
+      "slot": 1,
+      "status": "ADMITTED"
+    },
+    "M17": {
+      "dimension": "G12",
+      "last_stage": "S2",
+      "slot": 2,
+      "status": "STOCHASTIC_ADMISSION_FAILURE"
+    },
+    "M18": {
+      "dimension": "G12",
+      "last_stage": "S0",
+      "slot": 3,
+      "status": "NO_CANDIDATE"
+    },
+    "M19": {
+      "dimension": "G13",
+      "last_stage": "S2",
+      "slot": 1,
+      "status": "STOCHASTIC_ADMISSION_FAILURE"
+    },
+    "M20": {
+      "dimension": "G13",
+      "last_stage": "S7",
+      "slot": 2,
+      "status": "ADMITTED"
+    },
+    "M21": {
+      "dimension": "G13",
+      "last_stage": "S2",
+      "slot": 3,
+      "status": "STOCHASTIC_ADMISSION_FAILURE"
+    },
+    "M22": {
+      "dimension": "G16",
+      "last_stage": "S7",
+      "slot": 1,
+      "status": "ADMITTED"
+    },
+    "M23": {
+      "dimension": "G16",
+      "last_stage": "S2",
+      "slot": 2,
+      "status": "STOCHASTIC_ADMISSION_FAILURE"
+    },
+    "M24": {
+      "dimension": "G16",
+      "last_stage": "S0",
+      "slot": 3,
+      "status": "NO_CANDIDATE"
+    }
+  },
+  "salt": "80bd1713e60ed08d7bcf4a8f5db75172b84920214bb718982bdb2bd282f17430"
+}

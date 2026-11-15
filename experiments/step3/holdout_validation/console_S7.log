@@ -1,0 +1,98 @@
+{
+  "M01": [
+    "STOCHASTIC_ADMISSION_FAILURE",
+    "S2"
+  ],
+  "M02": [
+    "STOCHASTIC_ADMISSION_FAILURE",
+    "S2"
+  ],
+  "M03": [
+    "NO_CANDIDATE",
+    "S0"
+  ],
+  "M04": [
+    "ADMITTED",
+    "S7"
+  ],
+  "M05": [
+    "VARIANT_EQUIVALENT",
+    "S6"
+  ],
+  "M06": [
+    "VARIANT_EQUIVALENT",
+    "S6"
+  ],
+  "M07": [
+    "ALREADY_COVERED_BY_BASELINE",
+    "S4"
+  ],
+  "M08": [
+    "STOCHASTIC_ADMISSION_FAILURE",
+    "S2"
+  ],
+  "M09": [
+    "NO_CANDIDATE",
+    "S0"
+  ],
+  "M10": [
+    "ADMITTED",
+    "S7"
+  ],
+  "M11": [
+    "STOCHASTIC_ADMISSION_FAILURE",
+    "S2"
+  ],
+  "M12": [
+    "NO_CANDIDATE",
+    "S0"
+  ],
+  "M13": [
+    "STOCHASTIC_ADMISSION_FAILURE",
+    "S2"
+  ],
+  "M14": [
+    "STOCHASTIC_ADMISSION_FAILURE",
+    "S2"
+  ],
+  "M15": [
+    "ADMITTED",
+    "S7"
+  ],
+  "M16": [
+    "ADMITTED",
+    "S7"
+  ],
+  "M17": [
+    "STOCHASTIC_ADMISSION_FAILURE",
+    "S2"
+  ],
+  "M18": [
+    "NO_CANDIDATE",
+    "S0"
+  ],
+  "M19": [
+    "STOCHASTIC_ADMISSION_FAILURE",
+    "S2"
+  ],
+  "M20": [
+    "ADMITTED",
+    "S7"
+  ],
+  "M21": [
+    "STOCHASTIC_ADMISSION_FAILURE",
+    "S2"
+  ],
+  "M22": [
+    "ADMITTED",
+    "S7"
+  ],
+  "M23": [
+    "STOCHASTIC_ADMISSION_FAILURE",
+    "S2"
+  ],
+  "M24": [
+    "NO_CANDIDATE",
+    "S0"
+  ]
+}

@@ -1,0 +1,74 @@
+/Users/mpalisetti/Documents/Codex/2026-11-03/branch-ai-startup-research-papers-chatgpt/outputs/bce-poc/.venv/lib/python3.9/site-packages/urllib3/__init__.py:35: NotOpenSSLWarning: urllib3 v2 only supports OpenSSL 1.1.1+, currently the 'ssl' module is compiled with 'LibreSSL 2.8.3'. See: https://github.com/urllib3/urllib3/issues/3020
+  warnings.warn(
+{
+  "M04": {
+    "details": {},
+    "rates": {
+      "sibling_primary_runs": [
+        10,
+        10
+      ]
+    },
+    "status": "PASS"
+  },
+  "M05": {
+    "details": {
+      "equivalent_to": "M04"
+    },
+    "rates": {
+      "sibling_primary_runs": [
+        10,
+        10
+      ]
+    },
+    "status": "VARIANT_EQUIVALENT"
+  },
+  "M06": {
+    "details": {
+      "equivalent_to": "M04"
+    },
+    "rates": {
+      "sibling_primary_runs": [
+        10,
+        10
+      ]
+    },
+    "status": "VARIANT_EQUIVALENT"
+  },
+  "M10": {
+    "details": {},
+    "rates": {
+      "sibling_primary_runs": []
+    },
+    "status": "PASS"
+  },
+  "M15": {
+    "details": {},
+    "rates": {
+      "sibling_primary_runs": []
+    },
+    "status": "PASS"
+  },
+  "M16": {
+    "details": {},
+    "rates": {
+      "sibling_primary_runs": []
+    },
+    "status": "PASS"
+  },
+  "M20": {
+    "details": {},
+    "rates": {
+      "sibling_primary_runs": []
+    },
+    "status": "PASS"
+  },
+  "M22": {
+    "details": {},
+    "rates": {
+      "sibling_primary_runs": []
+    },
+    "status": "PASS"
+  }
+}
+EXIT=0

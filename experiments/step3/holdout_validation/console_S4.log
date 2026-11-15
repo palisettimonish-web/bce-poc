@@ -1,0 +1,132 @@
+/Users/mpalisetti/Documents/Codex/2026-11-03/branch-ai-startup-research-papers-chatgpt/outputs/bce-poc/.venv/lib/python3.9/site-packages/urllib3/__init__.py:35: NotOpenSSLWarning: urllib3 v2 only supports OpenSSL 1.1.1+, currently the 'ssl' module is compiled with 'LibreSSL 2.8.3'. See: https://github.com/urllib3/urllib3/issues/3020
+  warnings.warn(
+{
+  "M04": {
+    "details": {
+      "any_code_kill_scenarios": [],
+      "attributable_kill_scenarios": [],
+      "partial_exposure": []
+    },
+    "rates": {
+      "baseline_any_code_kills": 0,
+      "baseline_attributable_kills": 0,
+      "baseline_partial_exposure": 0
+    },
+    "status": "PASS"
+  },
+  "M05": {
+    "details": {
+      "any_code_kill_scenarios": [],
+      "attributable_kill_scenarios": [],
+      "partial_exposure": []
+    },
+    "rates": {
+      "baseline_any_code_kills": 0,
+      "baseline_attributable_kills": 0,
+      "baseline_partial_exposure": 0
+    },
+    "status": "PASS"
+  },
+  "M06": {
+    "details": {
+      "any_code_kill_scenarios": [
+        "s006"
+      ],
+      "attributable_kill_scenarios": [],
+      "partial_exposure": []
+    },
+    "rates": {
+      "baseline_any_code_kills": 1,
+      "baseline_attributable_kills": 0,
+      "baseline_partial_exposure": 0
+    },
+    "status": "PASS"
+  },
+  "M07": {
+    "details": {
+      "any_code_kill_scenarios": [
+        "d001",
+        "x001",
+        "x005"
+      ],
+      "attributable_kill_scenarios": [
+        "d001",
+        "x001",
+        "x005"
+      ],
+      "partial_exposure": []
+    },
+    "rates": {
+      "baseline_any_code_kills": 3,
+      "baseline_attributable_kills": 3,
+      "baseline_partial_exposure": 0
+    },
+    "status": "ALREADY_COVERED_BY_BASELINE"
+  },
+  "M10": {
+    "details": {
+      "any_code_kill_scenarios": [],
+      "attributable_kill_scenarios": [],
+      "partial_exposure": []
+    },
+    "rates": {
+      "baseline_any_code_kills": 0,
+      "baseline_attributable_kills": 0,
+      "baseline_partial_exposure": 0
+    },
+    "status": "PASS"
+  },
+  "M15": {
+    "details": {
+      "any_code_kill_scenarios": [],
+      "attributable_kill_scenarios": [],
+      "partial_exposure": []
+    },
+    "rates": {
+      "baseline_any_code_kills": 0,
+      "baseline_attributable_kills": 0,
+      "baseline_partial_exposure": 0
+    },
+    "status": "PASS"
+  },
+  "M16": {
+    "details": {
+      "any_code_kill_scenarios": [],
+      "attributable_kill_scenarios": [],
+      "partial_exposure": []
+    },
+    "rates": {
+      "baseline_any_code_kills": 0,
+      "baseline_attributable_kills": 0,
+      "baseline_partial_exposure": 0
+    },
+    "status": "PASS"
+  },
+  "M20": {
+    "details": {
+      "any_code_kill_scenarios": [],
+      "attributable_kill_scenarios": [],
+      "partial_exposure": []
+    },
+    "rates": {
+      "baseline_any_code_kills": 0,
+      "baseline_attributable_kills": 0,
+      "baseline_partial_exposure": 0
+    },
+    "status": "PASS"
+  },
+  "M22": {
+    "details": {
+      "any_code_kill_scenarios": [],
+      "attributable_kill_scenarios": [],
+      "partial_exposure": []
+    },
+    "rates": {
+      "baseline_any_code_kills": 0,
+      "baseline_attributable_kills": 0,
+      "baseline_partial_exposure": 0
+    },
+    "status": "PASS"
+  }
+}
+EXIT=0

@@ -1,0 +1,788 @@
+/Users/mpalisetti/Documents/Codex/2026-11-03/branch-ai-startup-research-papers-chatgpt/outputs/bce-poc/.venv/lib/python3.9/site-packages/urllib3/__init__.py:35: NotOpenSSLWarning: urllib3 v2 only supports OpenSSL 1.1.1+, currently the 'ssl' module is compiled with 'LibreSSL 2.8.3'. See: https://github.com/urllib3/urllib3/issues/3020
+  warnings.warn(
+{
+  "M01": {
+    "details": {
+      "mutant_trigger": {
+        "T1": {
+          "non_intended_code_runs": {},
+          "primary_code_runs": 1,
+          "runs": 10
+        },
+        "T2": {
+          "non_intended_code_runs": {},
+          "primary_code_runs": 0,
+          "runs": 10
+        },
+        "T3": {
+          "non_intended_code_runs": {},
+          "primary_code_runs": 9,
+          "runs": 10
+        }
+      }
+    },
+    "rates": {
+      "mutant_trigger": {
+        "T1": {
+          "non_intended_code_runs": {},
+          "primary_code_runs": 1,
+          "runs": 10
+        },
+        "T2": {
+          "non_intended_code_runs": {},
+          "primary_code_runs": 0,
+          "runs": 10
+        },
+        "T3": {
+          "non_intended_code_runs": {},
+          "primary_code_runs": 9,
+          "runs": 10
+        }
+      }
+    },
+    "status": "STOCHASTIC_ADMISSION_FAILURE"
+  },
+  "M02": {
+    "details": {
+      "mutant_trigger": {
+        "T1": {
+          "non_intended_code_runs": {},
+          "primary_code_runs": 0,
+          "runs": 10
+        },
+        "T2": {
+          "non_intended_code_runs": {},
+          "primary_code_runs": 4,
+          "runs": 10
+        },
+        "T3": {
+          "non_intended_code_runs": {},
+          "primary_code_runs": 0,
+          "runs": 10
+        }
+      }
+    },
+    "rates": {
+      "mutant_trigger": {
+        "T1": {
+          "non_intended_code_runs": {},
+          "primary_code_runs": 0,
+          "runs": 10
+        },
+        "T2": {
+          "non_intended_code_runs": {},
+          "primary_code_runs": 4,
+          "runs": 10
+        },
+        "T3": {
+          "non_intended_code_runs": {},
+          "primary_code_runs": 0,
+          "runs": 10
+        }
+      }
+    },
+    "status": "STOCHASTIC_ADMISSION_FAILURE"
+  },
+  "M04": {
+    "details": {
+      "mutant_trigger": {
+        "T1": {
+          "non_intended_code_runs": {},
+          "primary_code_runs": 10,
+          "runs": 10
+        },
+        "T2": {
+          "non_intended_code_runs": {},
+          "primary_code_runs": 10,
+          "runs": 10
+        },
+        "T3": {
+          "non_intended_code_runs": {},
+          "primary_code_runs": 10,
+          "runs": 10
+        }
+      }
+    },
+    "rates": {
+      "mutant_trigger": {
+        "T1": {
+          "non_intended_code_runs": {},
+          "primary_code_runs": 10,
+          "runs": 10
+        },
+        "T2": {
+          "non_intended_code_runs": {},
+          "primary_code_runs": 10,
+          "runs": 10
+        },
+        "T3": {
+          "non_intended_code_runs": {},
+          "primary_code_runs": 10,
+          "runs": 10
+        }
+      }
+    },
+    "status": "PASS"
+  },
+  "M05": {
+    "details": {
+      "mutant_trigger": {
+        "T1": {
+          "non_intended_code_runs": {},
+          "primary_code_runs": 10,
+          "runs": 10
+        },
+        "T2": {
+          "non_intended_code_runs": {},
+          "primary_code_runs": 10,
+          "runs": 10
+        },
+        "T3": {
+          "non_intended_code_runs": {},
+          "primary_code_runs": 10,
+          "runs": 10
+        }
+      }
+    },
+    "rates": {
+      "mutant_trigger": {
+        "T1": {
+          "non_intended_code_runs": {},
+          "primary_code_runs": 10,
+          "runs": 10
+        },
+        "T2": {
+          "non_intended_code_runs": {},
+          "primary_code_runs": 10,
+          "runs": 10
+        },
+        "T3": {
+          "non_intended_code_runs": {},
+          "primary_code_runs": 10,
+          "runs": 10
+        }
+      }
+    },
+    "status": "PASS"
+  },
+  "M06": {
+    "details": {
+      "mutant_trigger": {
+        "T1": {
+          "non_intended_code_runs": {},
+          "primary_code_runs": 10,
+          "runs": 10
+        },
+        "T2": {
+          "non_intended_code_runs": {},
+          "primary_code_runs": 10,
+          "runs": 10
+        },
+        "T3": {
+          "non_intended_code_runs": {},
+          "primary_code_runs": 10,
+          "runs": 10
+        }
+      }
+    },
+    "rates": {
+      "mutant_trigger": {
+        "T1": {
+          "non_intended_code_runs": {},
+          "primary_code_runs": 10,
+          "runs": 10
+        },
+        "T2": {
+          "non_intended_code_runs": {},
+          "primary_code_runs": 10,
+          "runs": 10
+        },
+        "T3": {
+          "non_intended_code_runs": {},
+          "primary_code_runs": 10,
+          "runs": 10
+        }
+      }
+    },
+    "status": "PASS"
+  },
+  "M07": {
+    "details": {
+      "mutant_trigger": {
+        "T1": {
+          "non_intended_code_runs": {},
+          "primary_code_runs": 10,
+          "runs": 10
+        },
+        "T2": {
+          "non_intended_code_runs": {},
+          "primary_code_runs": 10,
+          "runs": 10
+        },
+        "T3": {
+          "non_intended_code_runs": {},
+          "primary_code_runs": 10,
+          "runs": 10
+        }
+      }
+    },
+    "rates": {
+      "mutant_trigger": {
+        "T1": {
+          "non_intended_code_runs": {},
+          "primary_code_runs": 10,
+          "runs": 10
+        },
+        "T2": {
+          "non_intended_code_runs": {},
+          "primary_code_runs": 10,
+          "runs": 10
+        },
+        "T3": {
+          "non_intended_code_runs": {},
+          "primary_code_runs": 10,
+          "runs": 10
+        }
+      }
+    },
+    "status": "PASS"
+  },
+  "M08": {
+    "details": {
+      "mutant_trigger": {
+        "T1": {
+          "non_intended_code_runs": {},
+          "primary_code_runs": 10,
+          "runs": 10
+        },
+        "T2": {
+          "non_intended_code_runs": {},
+          "primary_code_runs": 5,
+          "runs": 10
+        },
+        "T3": {
+          "non_intended_code_runs": {},
+          "primary_code_runs": 10,
+          "runs": 10
+        }
+      }
+    },
+    "rates": {
+      "mutant_trigger": {
+        "T1": {
+          "non_intended_code_runs": {},
+          "primary_code_runs": 10,
+          "runs": 10
+        },
+        "T2": {
+          "non_intended_code_runs": {},
+          "primary_code_runs": 5,
+          "runs": 10
+        },
+        "T3": {
+          "non_intended_code_runs": {},
+          "primary_code_runs": 10,
+          "runs": 10
+        }
+      }
+    },
+    "status": "STOCHASTIC_ADMISSION_FAILURE"
+  },
+  "M10": {
+    "details": {
+      "mutant_trigger": {
+        "T1": {
+          "non_intended_code_runs": {},
+          "primary_code_runs": 10,
+          "runs": 10
+        },
+        "T2": {
+          "non_intended_code_runs": {},
+          "primary_code_runs": 10,
+          "runs": 10
+        },
+        "T3": {
+          "non_intended_code_runs": {},
+          "primary_code_runs": 10,
+          "runs": 10
+        }
+      }
+    },
+    "rates": {
+      "mutant_trigger": {
+        "T1": {
+          "non_intended_code_runs": {},
+          "primary_code_runs": 10,
+          "runs": 10
+        },
+        "T2": {
+          "non_intended_code_runs": {},
+          "primary_code_runs": 10,
+          "runs": 10
+        },
+        "T3": {
+          "non_intended_code_runs": {},
+          "primary_code_runs": 10,
+          "runs": 10
+        }
+      }
+    },
+    "status": "PASS"
+  },
+  "M11": {
+    "details": {
+      "mutant_trigger": {
+        "T1": {
+          "non_intended_code_runs": {},
+          "primary_code_runs": 0,
+          "runs": 10
+        },
+        "T2": {
+          "non_intended_code_runs": {},
+          "primary_code_runs": 2,
+          "runs": 10
+        },
+        "T3": {
+          "non_intended_code_runs": {},
+          "primary_code_runs": 0,
+          "runs": 10
+        }
+      }
+    },
+    "rates": {
+      "mutant_trigger": {
+        "T1": {
+          "non_intended_code_runs": {},
+          "primary_code_runs": 0,
+          "runs": 10
+        },
+        "T2": {
+          "non_intended_code_runs": {},
+          "primary_code_runs": 2,
+          "runs": 10
+        },
+        "T3": {
+          "non_intended_code_runs": {},
+          "primary_code_runs": 0,
+          "runs": 10
+        }
+      }
+    },
+    "status": "STOCHASTIC_ADMISSION_FAILURE"
+  },
+  "M13": {
+    "details": {
+      "mutant_trigger": {
+        "T1": {
+          "non_intended_code_runs": {},
+          "primary_code_runs": 0,
+          "runs": 10
+        },
+        "T2": {
+          "non_intended_code_runs": {},
+          "primary_code_runs": 1,
+          "runs": 10
+        },
+        "T3": {
+          "non_intended_code_runs": {},
+          "primary_code_runs": 3,
+          "runs": 10
+        }
+      }
+    },
+    "rates": {
+      "mutant_trigger": {
+        "T1": {
+          "non_intended_code_runs": {},
+          "primary_code_runs": 0,
+          "runs": 10
+        },
+        "T2": {
+          "non_intended_code_runs": {},
+          "primary_code_runs": 1,
+          "runs": 10
+        },
+        "T3": {
+          "non_intended_code_runs": {},
+          "primary_code_runs": 3,
+          "runs": 10
+        }
+      }
+    },
+    "status": "STOCHASTIC_ADMISSION_FAILURE"
+  },
+  "M14": {
+    "details": {
+      "mutant_trigger": {
+        "T1": {
+          "non_intended_code_runs": {},
+          "primary_code_runs": 0,
+          "runs": 10
+        },
+        "T2": {
+          "non_intended_code_runs": {},
+          "primary_code_runs": 10,
+          "runs": 10
+        },
+        "T3": {
+          "non_intended_code_runs": {},
+          "primary_code_runs": 0,
+          "runs": 10
+        }
+      }
+    },
+    "rates": {
+      "mutant_trigger": {
+        "T1": {
+          "non_intended_code_runs": {},
+          "primary_code_runs": 0,
+          "runs": 10
+        },
+        "T2": {
+          "non_intended_code_runs": {},
+          "primary_code_runs": 10,
+          "runs": 10
+        },
+        "T3": {
+          "non_intended_code_runs": {},
+          "primary_code_runs": 0,
+          "runs": 10
+        }
+      }
+    },
+    "status": "STOCHASTIC_ADMISSION_FAILURE"
+  },
+  "M15": {
+    "details": {
+      "mutant_trigger": {
+        "T1": {
+          "non_intended_code_runs": {},
+          "primary_code_runs": 10,
+          "runs": 10
+        },
+        "T2": {
+          "non_intended_code_runs": {},
+          "primary_code_runs": 10,
+          "runs": 10
+        },
+        "T3": {
+          "non_intended_code_runs": {},
+          "primary_code_runs": 10,
+          "runs": 10
+        }
+      }
+    },
+    "rates": {
+      "mutant_trigger": {
+        "T1": {
+          "non_intended_code_runs": {},
+          "primary_code_runs": 10,
+          "runs": 10
+        },
+        "T2": {
+          "non_intended_code_runs": {},
+          "primary_code_runs": 10,
+          "runs": 10
+        },
+        "T3": {
+          "non_intended_code_runs": {},
+          "primary_code_runs": 10,
+          "runs": 10
+        }
+      }
+    },
+    "status": "PASS"
+  },
+  "M16": {
+    "details": {
+      "mutant_trigger": {
+        "T1": {
+          "non_intended_code_runs": {},
+          "primary_code_runs": 10,
+          "runs": 10
+        },
+        "T2": {
+          "non_intended_code_runs": {},
+          "primary_code_runs": 10,
+          "runs": 10
+        },
+        "T3": {
+          "non_intended_code_runs": {},
+          "primary_code_runs": 10,
+          "runs": 10
+        }
+      }
+    },
+    "rates": {
+      "mutant_trigger": {
+        "T1": {
+          "non_intended_code_runs": {},
+          "primary_code_runs": 10,
+          "runs": 10
+        },
+        "T2": {
+          "non_intended_code_runs": {},
+          "primary_code_runs": 10,
+          "runs": 10
+        },
+        "T3": {
+          "non_intended_code_runs": {},
+          "primary_code_runs": 10,
+          "runs": 10
+        }
+      }
+    },
+    "status": "PASS"
+  },
+  "M17": {
+    "details": {
+      "mutant_trigger": {
+        "T1": {
+          "non_intended_code_runs": {},
+          "primary_code_runs": 0,
+          "runs": 10
+        },
+        "T2": {
+          "non_intended_code_runs": {},
+          "primary_code_runs": 0,
+          "runs": 10
+        },
+        "T3": {
+          "non_intended_code_runs": {},
+          "primary_code_runs": 0,
+          "runs": 10
+        }
+      }
+    },
+    "rates": {
+      "mutant_trigger": {
+        "T1": {
+          "non_intended_code_runs": {},
+          "primary_code_runs": 0,
+          "runs": 10
+        },
+        "T2": {
+          "non_intended_code_runs": {},
+          "primary_code_runs": 0,
+          "runs": 10
+        },
+        "T3": {
+          "non_intended_code_runs": {},
+          "primary_code_runs": 0,
+          "runs": 10
+        }
+      }
+    },
+    "status": "STOCHASTIC_ADMISSION_FAILURE"
+  },
+  "M19": {
+    "details": {
+      "mutant_trigger": {
+        "T1": {
+          "non_intended_code_runs": {},
+          "primary_code_runs": 4,
+          "runs": 10
+        },
+        "T2": {
+          "non_intended_code_runs": {},
+          "primary_code_runs": 10,
+          "runs": 10
+        },
+        "T3": {
+          "non_intended_code_runs": {},
+          "primary_code_runs": 10,
+          "runs": 10
+        }
+      }
+    },
+    "rates": {
+      "mutant_trigger": {
+        "T1": {
+          "non_intended_code_runs": {},
+          "primary_code_runs": 4,
+          "runs": 10
+        },
+        "T2": {
+          "non_intended_code_runs": {},
+          "primary_code_runs": 10,
+          "runs": 10
+        },
+        "T3": {
+          "non_intended_code_runs": {},
+          "primary_code_runs": 10,
+          "runs": 10
+        }
+      }
+    },
+    "status": "STOCHASTIC_ADMISSION_FAILURE"
+  },
+  "M20": {
+    "details": {
+      "mutant_trigger": {
+        "T1": {
+          "non_intended_code_runs": {},
+          "primary_code_runs": 10,
+          "runs": 10
+        },
+        "T2": {
+          "non_intended_code_runs": {},
+          "primary_code_runs": 10,
+          "runs": 10
+        },
+        "T3": {
+          "non_intended_code_runs": {},
+          "primary_code_runs": 10,
+          "runs": 10
+        }
+      }
+    },
+    "rates": {
+      "mutant_trigger": {
+        "T1": {
+          "non_intended_code_runs": {},
+          "primary_code_runs": 10,
+          "runs": 10
+        },
+        "T2": {
+          "non_intended_code_runs": {},
+          "primary_code_runs": 10,
+          "runs": 10
+        },
+        "T3": {
+          "non_intended_code_runs": {},
+          "primary_code_runs": 10,
+          "runs": 10
+        }
+      }
+    },
+    "status": "PASS"
+  },
+  "M21": {
+    "details": {
+      "mutant_trigger": {
+        "T1": {
+          "non_intended_code_runs": {},
+          "primary_code_runs": 10,
+          "runs": 10
+        },
+        "T2": {
+          "non_intended_code_runs": {},
+          "primary_code_runs": 9,
+          "runs": 10
+        },
+        "T3": {
+          "non_intended_code_runs": {},
+          "primary_code_runs": 0,
+          "runs": 10
+        }
+      }
+    },
+    "rates": {
+      "mutant_trigger": {
+        "T1": {
+          "non_intended_code_runs": {},
+          "primary_code_runs": 10,
+          "runs": 10
+        },
+        "T2": {
+          "non_intended_code_runs": {},
+          "primary_code_runs": 9,
+          "runs": 10
+        },
+        "T3": {
+          "non_intended_code_runs": {},
+          "primary_code_runs": 0,
+          "runs": 10
+        }
+      }
+    },
+    "status": "STOCHASTIC_ADMISSION_FAILURE"
+  },
+  "M22": {
+    "details": {
+      "mutant_trigger": {
+        "T1": {
+          "non_intended_code_runs": {
+            "R5B_UNNECESSARY_APPROVAL": 1
+          },
+          "primary_code_runs": 8,
+          "runs": 10
+        },
+        "T2": {
+          "non_intended_code_runs": {},
+          "primary_code_runs": 10,
+          "runs": 10
+        },
+        "T3": {
+          "non_intended_code_runs": {},
+          "primary_code_runs": 10,
+          "runs": 10
+        }
+      }
+    },
+    "rates": {
+      "mutant_trigger": {
+        "T1": {
+          "non_intended_code_runs": {
+            "R5B_UNNECESSARY_APPROVAL": 1
+          },
+          "primary_code_runs": 8,
+          "runs": 10
+        },
+        "T2": {
+          "non_intended_code_runs": {},
+          "primary_code_runs": 10,
+          "runs": 10
+        },
+        "T3": {
+          "non_intended_code_runs": {},
+          "primary_code_runs": 10,
+          "runs": 10
+        }
+      }
+    },
+    "status": "PASS"
+  },
+  "M23": {
+    "details": {
+      "mutant_trigger": {
+        "T1": {
+          "non_intended_code_runs": {},
+          "primary_code_runs": 0,
+          "runs": 10
+        },
+        "T2": {
+          "non_intended_code_runs": {},
+          "primary_code_runs": 0,
+          "runs": 10
+        },
+        "T3": {
+          "non_intended_code_runs": {},
+          "primary_code_runs": 0,
+          "runs": 10
+        }
+      }
+    },
+    "rates": {
+      "mutant_trigger": {
+        "T1": {
+          "non_intended_code_runs": {},
+          "primary_code_runs": 0,
+          "runs": 10
+        },
+        "T2": {
+          "non_intended_code_runs": {},
+          "primary_code_runs": 0,
+          "runs": 10
+        },
+        "T3": {
+          "non_intended_code_runs": {},
+          "primary_code_runs": 0,
+          "runs": 10
+        }
+      }
+    },
+    "status": "STOCHASTIC_ADMISSION_FAILURE"
+  }
+}
+EXIT=0

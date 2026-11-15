@@ -1,0 +1,231 @@
+/Users/mpalisetti/Documents/Codex/2026-11-03/branch-ai-startup-research-papers-chatgpt/outputs/bce-poc/.venv/lib/python3.9/site-packages/urllib3/__init__.py:35: NotOpenSSLWarning: urllib3 v2 only supports OpenSSL 1.1.1+, currently the 'ssl' module is compiled with 'LibreSSL 2.8.3'. See: https://github.com/urllib3/urllib3/issues/3020
+  warnings.warn(
+{
+  "M04": {
+    "details": {
+      "primary_code_runs_by_other_dimension": {
+        "G01": 0,
+        "G04": 0,
+        "G05": 0,
+        "G07": 0,
+        "G12": 0,
+        "G13": 0,
+        "G16": 0
+      },
+      "runs_per_dimension": 3
+    },
+    "flags": [],
+    "rates": {
+      "other_dimension_primary_runs": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "runs_per_other_dimension": 3
+    },
+    "status": "PASS"
+  },
+  "M05": {
+    "details": {
+      "primary_code_runs_by_other_dimension": {
+        "G01": 0,
+        "G04": 0,
+        "G05": 0,
+        "G07": 0,
+        "G12": 0,
+        "G13": 0,
+        "G16": 0
+      },
+      "runs_per_dimension": 3
+    },
+    "flags": [],
+    "rates": {
+      "other_dimension_primary_runs": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "runs_per_other_dimension": 3
+    },
+    "status": "PASS"
+  },
+  "M06": {
+    "details": {
+      "primary_code_runs_by_other_dimension": {
+        "G01": 0,
+        "G04": 0,
+        "G05": 0,
+        "G07": 0,
+        "G12": 0,
+        "G13": 0,
+        "G16": 0
+      },
+      "runs_per_dimension": 3
+    },
+    "flags": [],
+    "rates": {
+      "other_dimension_primary_runs": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "runs_per_other_dimension": 3
+    },
+    "status": "PASS"
+  },
+  "M10": {
+    "details": {
+      "primary_code_runs_by_other_dimension": {
+        "G01": 0,
+        "G02": 0,
+        "G04": 0,
+        "G07": 0,
+        "G12": 0,
+        "G13": 0,
+        "G16": 0
+      },
+      "runs_per_dimension": 3
+    },
+    "flags": [],
+    "rates": {
+      "other_dimension_primary_runs": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "runs_per_other_dimension": 3
+    },
+    "status": "PASS"
+  },
+  "M15": {
+    "details": {
+      "primary_code_runs_by_other_dimension": {
+        "G01": 0,
+        "G02": 0,
+        "G04": 0,
+        "G05": 0,
+        "G12": 0,
+        "G13": 0,
+        "G16": 0
+      },
+      "runs_per_dimension": 3
+    },
+    "flags": [],
+    "rates": {
+      "other_dimension_primary_runs": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "runs_per_other_dimension": 3
+    },
+    "status": "PASS"
+  },
+  "M16": {
+    "details": {
+      "primary_code_runs_by_other_dimension": {
+        "G01": 0,
+        "G02": 0,
+        "G04": 0,
+        "G05": 0,
+        "G07": 0,
+        "G13": 2,
+        "G16": 0
+      },
+      "runs_per_dimension": 3
+    },
+    "flags": [
+      "OVERLAP"
+    ],
+    "rates": {
+      "other_dimension_primary_runs": [
+        2,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "runs_per_other_dimension": 3
+    },
+    "status": "PASS"
+  },
+  "M20": {
+    "details": {
+      "primary_code_runs_by_other_dimension": {
+        "G01": 0,
+        "G02": 0,
+        "G04": 0,
+        "G05": 0,
+        "G07": 0,
+        "G12": 0,
+        "G16": 0
+      },
+      "runs_per_dimension": 3
+    },
+    "flags": [],
+    "rates": {
+      "other_dimension_primary_runs": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "runs_per_other_dimension": 3
+    },
+    "status": "PASS"
+  },
+  "M22": {
+    "details": {
+      "primary_code_runs_by_other_dimension": {
+        "G01": 0,
+        "G02": 0,
+        "G04": 0,
+        "G05": 0,
+        "G07": 0,
+        "G12": 0,
+        "G13": 0
+      },
+      "runs_per_dimension": 3
+    },
+    "flags": [],
+    "rates": {
+      "other_dimension_primary_runs": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "runs_per_other_dimension": 3
+    },
+    "status": "PASS"
+  }
+}
+EXIT=0

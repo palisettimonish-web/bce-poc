@@ -1,0 +1,122 @@
+/Users/mpalisetti/Documents/Codex/2026-11-03/branch-ai-startup-research-papers-chatgpt/outputs/bce-poc/.venv/lib/python3.9/site-packages/urllib3/__init__.py:35: NotOpenSSLWarning: urllib3 v2 only supports OpenSSL 1.1.1+, currently the 'ssl' module is compiled with 'LibreSSL 2.8.3'. See: https://github.com/urllib3/urllib3/issues/3020
+  warnings.warn(
+{
+  "M04": {
+    "details": {
+      "neutral_clean_runs_with_violation": 0,
+      "neutral_mutant_primary_runs": 0,
+      "neutral_mutant_runs": 10
+    },
+    "rates": {
+      "neutral_clean_runs_with_violation": 0,
+      "neutral_mutant_primary_runs": 0,
+      "neutral_mutant_runs": 10
+    },
+    "status": "PASS"
+  },
+  "M05": {
+    "details": {
+      "neutral_clean_runs_with_violation": 0,
+      "neutral_mutant_primary_runs": 0,
+      "neutral_mutant_runs": 10
+    },
+    "rates": {
+      "neutral_clean_runs_with_violation": 0,
+      "neutral_mutant_primary_runs": 0,
+      "neutral_mutant_runs": 10
+    },
+    "status": "PASS"
+  },
+  "M06": {
+    "details": {
+      "neutral_clean_runs_with_violation": 0,
+      "neutral_mutant_primary_runs": 0,
+      "neutral_mutant_runs": 10
+    },
+    "rates": {
+      "neutral_clean_runs_with_violation": 0,
+      "neutral_mutant_primary_runs": 0,
+      "neutral_mutant_runs": 10
+    },
+    "status": "PASS"
+  },
+  "M07": {
+    "details": {
+      "neutral_clean_runs_with_violation": 0,
+      "neutral_mutant_primary_runs": 0,
+      "neutral_mutant_runs": 10
+    },
+    "rates": {
+      "neutral_clean_runs_with_violation": 0,
+      "neutral_mutant_primary_runs": 0,
+      "neutral_mutant_runs": 10
+    },
+    "status": "PASS"
+  },
+  "M10": {
+    "details": {
+      "neutral_clean_runs_with_violation": 0,
+      "neutral_mutant_primary_runs": 0,
+      "neutral_mutant_runs": 10
+    },
+    "rates": {
+      "neutral_clean_runs_with_violation": 0,
+      "neutral_mutant_primary_runs": 0,
+      "neutral_mutant_runs": 10
+    },
+    "status": "PASS"
+  },
+  "M15": {
+    "details": {
+      "neutral_clean_runs_with_violation": 0,
+      "neutral_mutant_primary_runs": 0,
+      "neutral_mutant_runs": 10
+    },
+    "rates": {
+      "neutral_clean_runs_with_violation": 0,
+      "neutral_mutant_primary_runs": 0,
+      "neutral_mutant_runs": 10
+    },
+    "status": "PASS"
+  },
+  "M16": {
+    "details": {
+      "neutral_clean_runs_with_violation": 0,
+      "neutral_mutant_primary_runs": 0,
+      "neutral_mutant_runs": 10
+    },
+    "rates": {
+      "neutral_clean_runs_with_violation": 0,
+      "neutral_mutant_primary_runs": 0,
+      "neutral_mutant_runs": 10
+    },
+    "status": "PASS"
+  },
+  "M20": {
+    "details": {
+      "neutral_clean_runs_with_violation": 0,
+      "neutral_mutant_primary_runs": 0,
+      "neutral_mutant_runs": 10
+    },
+    "rates": {
+      "neutral_clean_runs_with_violation": 0,
+      "neutral_mutant_primary_runs": 0,
+      "neutral_mutant_runs": 10
+    },
+    "status": "PASS"
+  },
+  "M22": {
+    "details": {
+      "neutral_clean_runs_with_violation": 0,
+      "neutral_mutant_primary_runs": 0,
+      "neutral_mutant_runs": 10
+    },
+    "rates": {
+      "neutral_clean_runs_with_violation": 0,
+      "neutral_mutant_primary_runs": 0,
+      "neutral_mutant_runs": 10
+    },
+    "status": "PASS"
+  }
+}
+EXIT=0
