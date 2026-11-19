@@ -1,0 +1,80 @@
+{
+  "agent_config_sha256": "df15b3f00b7732fdd1819348f6f0fc9c4e6a982334efeeaa7ba67a55e845f92f",
+  "amendment2_commit": "bff15ddf2591d25838376cbdaa22ded1fc191e96",
+  "amendment2_manifest_sha256": "f3330996e05f8c9ab8491459c04a664728475449c08633442411a0237052689d",
+  "amendment3_manifest": "experiments/step3/manifests/pre3d_amendment_3.json",
+  "amendment3_manifest_sha256": "33ca8f2e2f21866988b5d966e2c1df1e05e53be67a12a7ea75ebd9445a36614c",
+  "amendment3_sha256": "e9da6c3794f36728d716760202f2b78db2adf9e7d1f6bf04cf57f4a411c5842c",
+  "base_coverage_sha256": "5b091ebda02cbd3e4ea9445d6870c7b4938b85979eab170a80cba994c99e99fe",
+  "candidates_sha256": "9939331636e56014a329d86e2955f50d9c685fdbab3804b0fc6dc2e9779e32e2",
+  "defined_by": "Amendment 3 (A3.6), after Amendment 2 section 2.20",
+  "discovery_n": 20,
+  "external_anchor": "none: this record is a local git commit and local annotated tags only; no external timestamp exists",
+  "files": {
+    "agent.py": "18594f1f817df840809d4a18c5fdfdcfc15c206a63f750690a93380f9d72ffdd",
+    "bce/coverage.py": "7d5506016bb142b7cc6006338ec8a421c26444f456934b2ff7782570ebeb81be",
+    "bce/discovery_prompt_v2.txt": "61e86aa10cdd6a838865a9e3b9fde259ba761dbd9062c7eba4fc52732a6d0e16",
+    "bce/dsl.py": "89ac01e78ad86ec5a12d258d5323ba66badcaa3037a52ad97e6c9aace8811dd1",
+    "bce/generic_prompt_v1.txt": "ced83d7cf4d2d22d9f020dcca60ffd37be1d8f5383f063b672cf7b3401dd1341",
+    "bce/inputs.py": "a7a147cafaa70f4c95a6291b1a3590b056236677280ca024fcdfbaa4fe1cfd91",
+    "bce/run_discovery.py": "3f8de689180ef29bea5fa5e8a3698645bf9d8f9664d1db07f7b37f4203387dca",
+    "experiments/step3/manifests/agent_config.json": "df15b3f00b7732fdd1819348f6f0fc9c4e6a982334efeeaa7ba67a55e845f92f",
+    "experiments/step3/manifests/generation_config.json": "c6adad350660f37acb5f0406c2c4a8a830064bf99498e7523187985c7c257808",
+    "experiments/step3/manifests/holdout_freeze.json": "b8b7e12065594252c86b681cebd2c79ed295c82af262b3e530ea7dd6643224e4",
+    "experiments/step3/manifests/pre3d_amendment_3.json": "33ca8f2e2f21866988b5d966e2c1df1e05e53be67a12a7ea75ebd9445a36614c",
+    "experiments/step3/manifests/prereg_amendment1_freeze.json": "dd9a076f3c7cf7782e001f71f23763197a08a3507b965f4c9caf1e3aac1d5f7d",
+    "experiments/step3/manifests/prereg_amendment2_freeze.json": "f3330996e05f8c9ab8491459c04a664728475449c08633442411a0237052689d",
+    "experiments/step3/manifests/prereg_freeze.json": "56afb534682e478865f76e1281fe3a2520bf37991e971558261161821c2d64f3",
+    "experiments/step3/verify_pre3d_freeze.py": "ba237bce7042425d7362b2697b3661093f4d8ed2f1c43109ee262bac2f9e21de",
+    "experiments/step3_amendment3_pre3d.md": "e9da6c3794f36728d716760202f2b78db2adf9e7d1f6bf04cf57f4a411c5842c",
+    "experiments/step3_base_coverage_v1.json": "5b091ebda02cbd3e4ea9445d6870c7b4938b85979eab170a80cba994c99e99fe",
+    "experiments/step3_pre3d_audit_report.md": "131271832314223c06aa66504ee403ed3f082e126e79fe8bd9856cd3fd8eaa94",
+    "experiments/step3_preregistration.md": "d66db73d6d4630dce4a83514ebc8a09b0109e2d671b84dcc0beb63d5250ef038",
+    "experiments/step3_scoring_protocol.md": "4ec1dded4798d3fa796ad9d0603c2188a13f980c5b53b023e80c7a9b2139988b",
+    "gold_hidden_dimensions.json": "0e60ea74d68c81ca94ff0fb2f227038fea72c6f38684d333f1fb4f64314171a7",
+    "holdout/candidates.json": "9939331636e56014a329d86e2955f50d9c685fdbab3804b0fc6dc2e9779e32e2",
+    "holdout/eligibility.json": "ad82c1d627a08762715bb885eebebb84c0879b1ffb8bd381ec8715124bf410c0",
+    "oracle.py": "0f251ea4cb6ca5a3db167e65772ee85ce88fe50d1bbae1bcc6754dfc0f75d511",
+    "test_holdout.py": "de4b0739d155b9ef8575f76359b2b781130f3fc7a611f575d5428310d596f2de",
+    "test_step3_isolation.py": "b5fc3f1335dbaa6db348dc9baf46e50200447a1d51305b724087fbe0f32cac59",
+    "test_step3c_isolation.py": "bd3c79526750516e14a5e537b0ddd17019f9ae49bfe3b8e7e4b565b22a1f13d5",
+    "truth_spec.md": "3a95b087b495c8611d8f7975e25d933058e46c03cc473ac105059e0450323376",
+    "world.py": "7c09b1d56f1ed0bf1266a097d7854f3d0cac86a59c12e989cc2bbb772d894826"
+  },
+  "first_3d_commands": [
+    "python -m holdout.seal",
+    "PYTHONPATH=. python experiments/step3/verify_pre3d_freeze.py",
+    "PYTHONPATH=. python -m bce.run_discovery --arm B --run 1"
+  ],
+  "freeze": "step3 pre-3d freeze",
+  "generation_config_sha256": "c6adad350660f37acb5f0406c2c4a8a830064bf99498e7523187985c7c257808",
+  "git_sha": "d1dccd5d3c5822ecdda37ea6a79da4341cd95c6d",
+  "git_sha_meaning": "commit that contains every file listed under files, at exactly these hashes",
+  "gold_sha256": "0e60ea74d68c81ca94ff0fb2f227038fea72c6f38684d333f1fb4f64314171a7",
+  "holdout_commitment": "8b2ba4a23263f1cd15e846f7e23cfc9c50fe501f11a03b3a64dc169a1899b0d0",
+  "holdout_freeze_commit": "4b70d855ab7d32027ab7ded2bfe732f67ec36a3c",
+  "holdout_freeze_manifest_git_sha": "91380d77aaf26aa1ba2397414210bacef63fe22b",
+  "prompt_hashes": {
+    "B_generic_v1": "ced83d7cf4d2d22d9f020dcca60ffd37be1d8f5383f063b672cf7b3401dd1341",
+    "C_v2": "61e86aa10cdd6a838865a9e3b9fde259ba761dbd9062c7eba4fc52732a6d0e16"
+  },
+  "prompt_inputs": {
+    "B": {
+      "assembled_prompt": "70fcb0a41e6447324ad6569aa3112e8badcb2c8c787d3b1d70da7ebb698036c4",
+      "coverage": "5b091ebda02cbd3e4ea9445d6870c7b4938b85979eab170a80cba994c99e99fe",
+      "dsl": "13438deee6f40d0d8ad5ba5db6f13b8beece109421d7540afe2a40d12ac5a0d2",
+      "system_prompt": "98d3c700d2c9f66f55b13c2920cb5e775d0304f17e14768fae17cc9888fbd314",
+      "template": "ced83d7cf4d2d22d9f020dcca60ffd37be1d8f5383f063b672cf7b3401dd1341",
+      "tools": "a0315bddf67b7bb55f5af812a0abc441c13232aaa04654a4369f40b6c851d602"
+    },
+    "C": {
+      "assembled_prompt": "3151a83577f541f0d981da7ce63a04d53e31e6a41e9ccae22a5264dadb1f15fa",
+      "coverage": "5b091ebda02cbd3e4ea9445d6870c7b4938b85979eab170a80cba994c99e99fe",
+      "dsl": "13438deee6f40d0d8ad5ba5db6f13b8beece109421d7540afe2a40d12ac5a0d2",
+      "system_prompt": "98d3c700d2c9f66f55b13c2920cb5e775d0304f17e14768fae17cc9888fbd314",
+      "template": "61e86aa10cdd6a838865a9e3b9fde259ba761dbd9062c7eba4fc52732a6d0e16",
+      "tools": "a0315bddf67b7bb55f5af812a0abc441c13232aaa04654a4369f40b6c851d602"
+    }
+  },
+  "timestamp": "2026-11-19T04:41:11+00:00"
+}
