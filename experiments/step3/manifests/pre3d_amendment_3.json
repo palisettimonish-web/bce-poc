@@ -1,0 +1,67 @@
+{
+  "amendment_files": {
+    "experiments/step3/verify_pre3d_freeze.py": "ba237bce7042425d7362b2697b3661093f4d8ed2f1c43109ee262bac2f9e21de",
+    "experiments/step3_amendment3_pre3d.md": "e9da6c3794f36728d716760202f2b78db2adf9e7d1f6bf04cf57f4a411c5842c",
+    "experiments/step3_pre3d_audit_report.md": "131271832314223c06aa66504ee403ed3f082e126e79fe8bd9856cd3fd8eaa94"
+  },
+  "amendment_sha256": "e9da6c3794f36728d716760202f2b78db2adf9e7d1f6bf04cf57f4a411c5842c",
+  "changes": [
+    "A3.1 claim scope at T=6 (pilot wording, maximum detection 6/8, variant=dimension, class results descriptive)",
+    "A3.2 S2 stochastic-selection limitation (19 entered, 9 passed, 10 STOCHASTIC_ADMISSION_FAILURE)",
+    "A3.3 S7 is a blinded human sanity check, not validation; 36/36 yes removed nothing",
+    "A3.4 sensitivity-analysis denominators and labelling (secondary, descriptive, no gate)",
+    "A3.5 oracle-audit procedure frozen now; executed after 3e; no rescoring",
+    "A3.6 pre-flight (python -m holdout.seal + verify_pre3d_freeze.py), interleaved run order B1,C1,...,B5,C5, extra ancestry rule, served-model limitation",
+    "A3.7 disclosures (DSL/prompts written after gold seen; DSL leakage common-mode; B/C parity; 17-gold re-classification agrees with frozen E classes)"
+  ],
+  "date": "2026-11-19",
+  "git_sha": "4b70d855ab7d32027ab7ded2bfe732f67ec36a3c",
+  "git_sha_meaning": "HEAD (the 3c freeze commit) on which this amendment was authored; the commit containing the amendment files is recorded in pre3d_freeze.json",
+  "input_hashes": {
+    "agent.py": "18594f1f817df840809d4a18c5fdfdcfc15c206a63f750690a93380f9d72ffdd",
+    "bce/coverage.py": "7d5506016bb142b7cc6006338ec8a421c26444f456934b2ff7782570ebeb81be",
+    "bce/discovery_prompt_v2.txt": "61e86aa10cdd6a838865a9e3b9fde259ba761dbd9062c7eba4fc52732a6d0e16",
+    "bce/dsl.py": "89ac01e78ad86ec5a12d258d5323ba66badcaa3037a52ad97e6c9aace8811dd1",
+    "bce/generic_prompt_v1.txt": "ced83d7cf4d2d22d9f020dcca60ffd37be1d8f5383f063b672cf7b3401dd1341",
+    "bce/inputs.py": "a7a147cafaa70f4c95a6291b1a3590b056236677280ca024fcdfbaa4fe1cfd91",
+    "bce/run_discovery.py": "3f8de689180ef29bea5fa5e8a3698645bf9d8f9664d1db07f7b37f4203387dca",
+    "experiments/step3/manifests/agent_config.json": "df15b3f00b7732fdd1819348f6f0fc9c4e6a982334efeeaa7ba67a55e845f92f",
+    "experiments/step3/manifests/generation_config.json": "c6adad350660f37acb5f0406c2c4a8a830064bf99498e7523187985c7c257808",
+    "experiments/step3/manifests/holdout_freeze.json": "b8b7e12065594252c86b681cebd2c79ed295c82af262b3e530ea7dd6643224e4",
+    "experiments/step3/manifests/prereg_amendment2_freeze.json": "f3330996e05f8c9ab8491459c04a664728475449c08633442411a0237052689d",
+    "experiments/step3_base_coverage_v1.json": "5b091ebda02cbd3e4ea9445d6870c7b4938b85979eab170a80cba994c99e99fe",
+    "experiments/step3_preregistration.md": "d66db73d6d4630dce4a83514ebc8a09b0109e2d671b84dcc0beb63d5250ef038",
+    "experiments/step3_scoring_protocol.md": "4ec1dded4798d3fa796ad9d0603c2188a13f980c5b53b023e80c7a9b2139988b",
+    "gold_hidden_dimensions.json": "0e60ea74d68c81ca94ff0fb2f227038fea72c6f38684d333f1fb4f64314171a7",
+    "holdout/candidates.json": "9939331636e56014a329d86e2955f50d9c685fdbab3804b0fc6dc2e9779e32e2",
+    "oracle.py": "0f251ea4cb6ca5a3db167e65772ee85ce88fe50d1bbae1bcc6754dfc0f75d511",
+    "world.py": "7c09b1d56f1ed0bf1266a097d7854f3d0cac86a59c12e989cc2bbb772d894826"
+  },
+  "methodology_changed": false,
+  "outputs_existed": false,
+  "parent": {
+    "amendment": "Amendment 2",
+    "commit": "bff15dd",
+    "manifest": "experiments/step3/manifests/prereg_amendment2_freeze.json",
+    "manifest_sha256": "f3330996e05f8c9ab8491459c04a664728475449c08633442411a0237052689d",
+    "rule": "2.20 line 435: any later change is a new dated amendment; results are also reported under Amendment 2"
+  },
+  "reason": "Strict pre-3d audit found gaps in the frozen 3e analysis plan: no claim-scope limit at T=6, no S2 selection limitation, S7 not fully characterised, sensitivity-analysis denominators unspecified, no human audit of oracle verdicts on generated scenarios, and no operational pre-flight for 3d. Evidence: experiments/step3_pre3d_audit_report.md.",
+  "record_id": "step3-pre3d-amendment-3",
+  "timestamp": "2026-11-19T04:40:39+00:00",
+  "title": "Step 3 Amendment 3 (pre-3d): claim scope, limitations, oracle-audit procedure, pre-flight",
+  "unchanged": [
+    "gold list and K/U classes and set E",
+    "35 baseline scenarios and base coverage",
+    "discovery prompts v2 and generic",
+    "DSL",
+    "generation config",
+    "agent and agent config",
+    "oracle",
+    "world",
+    "Step 3c candidates, statuses, eligibility mapping, holdout commitment",
+    "bce/ and holdout/ code",
+    "kill rule, repetitions, budgets, gates, all numeric thresholds, bootstrap",
+    "Amendment 2 text and its manifest"
+  ]
+}
