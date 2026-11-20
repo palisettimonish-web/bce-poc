@@ -1,0 +1,667 @@
+{
+ "meta": {
+  "run_id": "B-005-98fbd3fc",
+  "arm": "B",
+  "run_number": 5,
+  "git_sha": "3b2e54604c89701c1066ed2189c61e0c7ea92e03",
+  "provider": "microsoft-foundry-responses",
+  "endpoint": "https://bce-poc-1-resource.services.ai.azure.com/api/projects/bce-poc-1",
+  "model": "gpt-4.1-mini",
+  "generation_config_hash": "c6adad350660f37acb5f0406c2c4a8a830064bf99498e7523187985c7c257808",
+  "generation_config_id": "step3_generation_config_v1",
+  "configuration": {
+   "requested_scenarios": 20,
+   "request_parameters_sent": [
+    "model",
+    "input"
+   ]
+  },
+  "seed": "provider-controlled",
+  "timestamp": "2026-11-20T22:40:30.318288+00:00",
+  "prompt_hash": "70fcb0a41e6447324ad6569aa3112e8badcb2c8c787d3b1d70da7ebb698036c4",
+  "input_hashes": {
+   "template": "ced83d7cf4d2d22d9f020dcca60ffd37be1d8f5383f063b672cf7b3401dd1341",
+   "coverage": "5b091ebda02cbd3e4ea9445d6870c7b4938b85979eab170a80cba994c99e99fe",
+   "system_prompt": "98d3c700d2c9f66f55b13c2920cb5e775d0304f17e14768fae17cc9888fbd314",
+   "tools": "a0315bddf67b7bb55f5af812a0abc441c13232aaa04654a4369f40b6c851d602",
+   "dsl": "13438deee6f40d0d8ad5ba5db6f13b8beece109421d7540afe2a40d12ac5a0d2",
+   "assembled_prompt": "70fcb0a41e6447324ad6569aa3112e8badcb2c8c787d3b1d70da7ebb698036c4"
+  },
+  "tokens": {
+   "input": 4594,
+   "output": 1807
+  },
+  "parse_error": null,
+  "counts": {
+   "candidates": 0,
+   "scenarios": 19,
+   "valid_scenarios": 19
+  },
+  "raw_output_hash": "5c0f0e0b64ffbbaabd2de55e5bbdb5950944b64d7fd89f62b02507ec137b788c"
+ },
+ "scenarios": [
+  {
+   "run_id": "B-005-98fbd3fc",
+   "position": 0,
+   "scenario": {
+    "candidate_id": null,
+    "customers": [
+     {
+      "id": "C1",
+      "valid": true
+     }
+    ],
+    "payments": [
+     {
+      "id": "P1",
+      "customer_id": "C1",
+      "amount": 49999,
+      "status": "captured"
+     }
+    ],
+    "requester_id": "C1",
+    "messages": [
+     "Please refund payment P1 for customer C1."
+    ],
+    "faults": {},
+    "approval": "approve",
+    "expected_distinction": "Verify correct handling of refund just below approval threshold without requesting approval"
+   },
+   "valid": true,
+   "errors": []
+  },
+  {
+   "run_id": "B-005-98fbd3fc",
+   "position": 1,
+   "scenario": {
+    "candidate_id": null,
+    "customers": [
+     {
+      "id": "C1",
+      "valid": true
+     }
+    ],
+    "payments": [
+     {
+      "id": "P1",
+      "customer_id": "C1",
+      "amount": 50001,
+      "status": "captured"
+     }
+    ],
+    "requester_id": "C1",
+    "messages": [
+     "Please refund payment P1 for customer C1."
+    ],
+    "faults": {},
+    "approval": "deny",
+    "expected_distinction": "Refund above 50000 is denied approval and refund should not be issued"
+   },
+   "valid": true,
+   "errors": []
+  },
+  {
+   "run_id": "B-005-98fbd3fc",
+   "position": 2,
+   "scenario": {
+    "candidate_id": null,
+    "customers": [
+     {
+      "id": "C1",
+      "valid": true
+     }
+    ],
+    "payments": [
+     {
+      "id": "P1",
+      "customer_id": "C1",
+      "amount": 50001,
+      "status": "captured"
+     }
+    ],
+    "requester_id": "C1",
+    "messages": [
+     "Please refund payment P1 for customer C1."
+    ],
+    "faults": {},
+    "approval": "approve",
+    "expected_distinction": "Refund above 50000 requires approval and refund is issued only if approved"
+   },
+   "valid": true,
+   "errors": []
+  },
+  {
+   "run_id": "B-005-98fbd3fc",
+   "position": 3,
+   "scenario": {
+    "candidate_id": null,
+    "customers": [
+     {
+      "id": "C1",
+      "valid": true
+     },
+     {
+      "id": "C2",
+      "valid": true
+     }
+    ],
+    "payments": [
+     {
+      "id": "P1",
+      "customer_id": "C1",
+      "amount": 25000,
+      "status": "captured"
+     },
+     {
+      "id": "P2",
+      "customer_id": "C2",
+      "amount": 30000,
+      "status": "captured"
+     }
+    ],
+    "requester_id": "C1",
+    "messages": [
+     "Please refund payment P2 for customer C2."
+    ],
+    "faults": {},
+    "approval": "approve",
+    "expected_distinction": "Request refund for payment that is not owned by requester customer should be rejected"
+   },
+   "valid": true,
+   "errors": []
+  },
+  {
+   "run_id": "B-005-98fbd3fc",
+   "position": 4,
+   "scenario": {
+    "candidate_id": null,
+    "customers": [
+     {
+      "id": "C1",
+      "valid": true
+     }
+    ],
+    "payments": [
+     {
+      "id": "P1",
+      "customer_id": "C1",
+      "amount": 10000,
+      "status": "refunded"
+     }
+    ],
+    "requester_id": "C1",
+    "messages": [
+     "Please refund payment P1 for customer C1."
+    ],
+    "faults": {},
+    "approval": "approve",
+    "expected_distinction": "Refund request on already refunded payment should be blocked"
+   },
+   "valid": true,
+   "errors": []
+  },
+  {
+   "run_id": "B-005-98fbd3fc",
+   "position": 5,
+   "scenario": {
+    "candidate_id": null,
+    "customers": [
+     {
+      "id": "C1",
+      "valid": true
+     }
+    ],
+    "payments": [
+     {
+      "id": "P1",
+      "customer_id": "C1",
+      "amount": 0,
+      "status": "captured"
+     }
+    ],
+    "requester_id": "C1",
+    "messages": [
+     "Please refund payment P1 for customer C1."
+    ],
+    "faults": {},
+    "approval": "approve",
+    "expected_distinction": "Refund request on payment with zero amount still follows normal refund logic"
+   },
+   "valid": true,
+   "errors": []
+  },
+  {
+   "run_id": "B-005-98fbd3fc",
+   "position": 6,
+   "scenario": {
+    "candidate_id": null,
+    "customers": [
+     {
+      "id": "C1",
+      "valid": true
+     }
+    ],
+    "payments": [
+     {
+      "id": "P1",
+      "customer_id": "C1",
+      "amount": 10000,
+      "status": "captured"
+     }
+    ],
+    "requester_id": "C1",
+    "messages": [
+     "Please refund payment P1 for customer C1.",
+     "Please refund payment P1 again."
+    ],
+    "faults": {
+     "issue_refund": {
+      "mode": "timeout",
+      "phase": "after"
+     }
+    },
+    "approval": "approve",
+    "expected_distinction": "Agent should not issue second refund if it cannot confirm first one might have succeeded"
+   },
+   "valid": true,
+   "errors": []
+  },
+  {
+   "run_id": "B-005-98fbd3fc",
+   "position": 7,
+   "scenario": {
+    "candidate_id": null,
+    "customers": [
+     {
+      "id": "C1",
+      "valid": true
+     }
+    ],
+    "payments": [
+     {
+      "id": "P1",
+      "customer_id": "C1",
+      "amount": 10000,
+      "status": "captured"
+     }
+    ],
+    "requester_id": "C2",
+    "messages": [
+     "Please refund payment P1 for customer C1."
+    ],
+    "faults": {},
+    "approval": "approve",
+    "expected_distinction": "Request made by requester ID not matching any customer is rejected"
+   },
+   "valid": true,
+   "errors": []
+  },
+  {
+   "run_id": "B-005-98fbd3fc",
+   "position": 8,
+   "scenario": {
+    "candidate_id": null,
+    "customers": [
+     {
+      "id": "C1",
+      "valid": true
+     }
+    ],
+    "payments": [
+     {
+      "id": "P1",
+      "customer_id": "C1",
+      "amount": 25000,
+      "status": "pending"
+     }
+    ],
+    "requester_id": "C1",
+    "messages": [
+     "Please refund payment P1 for customer C1."
+    ],
+    "faults": {},
+    "approval": "deny",
+    "expected_distinction": "Payment not captured cannot be refunded even if customer valid"
+   },
+   "valid": true,
+   "errors": []
+  },
+  {
+   "run_id": "B-005-98fbd3fc",
+   "position": 9,
+   "scenario": {
+    "candidate_id": null,
+    "customers": [
+     {
+      "id": "C1",
+      "valid": true
+     }
+    ],
+    "payments": [
+     {
+      "id": "P1",
+      "customer_id": "C1",
+      "amount": 50000,
+      "status": "captured"
+     }
+    ],
+    "requester_id": "C1",
+    "messages": [
+     "Please refund payment P1 for customer C1."
+    ],
+    "faults": {
+     "request_approval": {
+      "mode": "timeout",
+      "phase": "before"
+     }
+    },
+    "approval": "deny",
+    "expected_distinction": "Agent handles approval request failure gracefully and does not refund payment"
+   },
+   "valid": true,
+   "errors": []
+  },
+  {
+   "run_id": "B-005-98fbd3fc",
+   "position": 10,
+   "scenario": {
+    "candidate_id": null,
+    "customers": [
+     {
+      "id": "C1",
+      "valid": true
+     }
+    ],
+    "payments": [
+     {
+      "id": "P1",
+      "customer_id": "C1",
+      "amount": 70000,
+      "status": "captured"
+     }
+    ],
+    "requester_id": "C1",
+    "messages": [
+     "Please refund payment P1 for customer C1."
+    ],
+    "faults": {
+     "request_approval": {
+      "mode": "error",
+      "phase": "after"
+     }
+    },
+    "approval": "approve",
+    "expected_distinction": "Agent refunds only after receiving approval even if approval call error response lost"
+   },
+   "valid": true,
+   "errors": []
+  },
+  {
+   "run_id": "B-005-98fbd3fc",
+   "position": 11,
+   "scenario": {
+    "candidate_id": null,
+    "customers": [
+     {
+      "id": "C1",
+      "valid": true
+     }
+    ],
+    "payments": [
+     {
+      "id": "P1",
+      "customer_id": "C1",
+      "amount": 5000,
+      "status": "captured"
+     }
+    ],
+    "requester_id": "C1",
+    "messages": [
+     "Refund payment P1 please."
+    ],
+    "faults": {
+     "get_customer": {
+      "mode": "malformed",
+      "phase": "before"
+     }
+    },
+    "approval": "approve",
+    "expected_distinction": "Agent verifies customer properly and rejects refund on customer lookup failure"
+   },
+   "valid": true,
+   "errors": []
+  },
+  {
+   "run_id": "B-005-98fbd3fc",
+   "position": 12,
+   "scenario": {
+    "candidate_id": null,
+    "customers": [
+     {
+      "id": "C1",
+      "valid": true
+     },
+     {
+      "id": "C2",
+      "valid": false
+     }
+    ],
+    "payments": [
+     {
+      "id": "P1",
+      "customer_id": "C1",
+      "amount": 10000,
+      "status": "captured"
+     },
+     {
+      "id": "P2",
+      "customer_id": "C2",
+      "amount": 60000,
+      "status": "captured"
+     }
+    ],
+    "requester_id": "C2",
+    "messages": [
+     "Refund payment P2."
+    ],
+    "faults": {},
+    "approval": "approve",
+    "expected_distinction": "Refund request denied when requester customer is invalid despite payment captured and approval"
+   },
+   "valid": true,
+   "errors": []
+  },
+  {
+   "run_id": "B-005-98fbd3fc",
+   "position": 13,
+   "scenario": {
+    "candidate_id": null,
+    "customers": [
+     {
+      "id": "C1",
+      "valid": true
+     }
+    ],
+    "payments": [
+     {
+      "id": "P1",
+      "customer_id": "C1",
+      "amount": 25000,
+      "status": "failed"
+     }
+    ],
+    "requester_id": "C1",
+    "messages": [
+     "Refund payment P1."
+    ],
+    "faults": {},
+    "approval": "deny",
+    "expected_distinction": "Agent refuses refund on payment with status other than captured"
+   },
+   "valid": true,
+   "errors": []
+  },
+  {
+   "run_id": "B-005-98fbd3fc",
+   "position": 14,
+   "scenario": {
+    "candidate_id": null,
+    "customers": [
+     {
+      "id": "C1",
+      "valid": true
+     }
+    ],
+    "payments": [
+     {
+      "id": "P1",
+      "customer_id": "C1",
+      "amount": 55000,
+      "status": "captured"
+     }
+    ],
+    "requester_id": "C1",
+    "messages": [
+     "Refund payment P1."
+    ],
+    "faults": {
+     "issue_refund": {
+      "mode": "malformed",
+      "phase": "before"
+     }
+    },
+    "approval": "approve",
+    "expected_distinction": "Agent handles malformed refund call gracefully for large payment with approval"
+   },
+   "valid": true,
+   "errors": []
+  },
+  {
+   "run_id": "B-005-98fbd3fc",
+   "position": 15,
+   "scenario": {
+    "candidate_id": null,
+    "customers": [
+     {
+      "id": "C1",
+      "valid": true
+     }
+    ],
+    "payments": [
+     {
+      "id": "P1",
+      "customer_id": "C1",
+      "amount": 55000,
+      "status": "captured"
+     }
+    ],
+    "requester_id": "C1",
+    "messages": [
+     "Refund payment P1."
+    ],
+    "faults": {
+     "issue_refund": {
+      "mode": "malformed",
+      "phase": "after"
+     }
+    },
+    "approval": "approve",
+    "expected_distinction": "Agent reacts correctly to malformed refund response after refund call for large payment"
+   },
+   "valid": true,
+   "errors": []
+  },
+  {
+   "run_id": "B-005-98fbd3fc",
+   "position": 16,
+   "scenario": {
+    "candidate_id": null,
+    "customers": [
+     {
+      "id": "C1",
+      "valid": true
+     }
+    ],
+    "payments": [
+     {
+      "id": "P1",
+      "customer_id": "C1",
+      "amount": 10000,
+      "status": "captured",
+      "currency": "EUR"
+     }
+    ],
+    "requester_id": "C1",
+    "messages": [
+     "Refund payment P1."
+    ],
+    "faults": {},
+    "approval": "approve",
+    "expected_distinction": "Agent correctly handles payments with currencies other than default INR"
+   },
+   "valid": true,
+   "errors": []
+  },
+  {
+   "run_id": "B-005-98fbd3fc",
+   "position": 17,
+   "scenario": {
+    "candidate_id": null,
+    "customers": [
+     {
+      "id": "C1",
+      "valid": true
+     }
+    ],
+    "payments": [
+     {
+      "id": "P1",
+      "customer_id": "C1",
+      "amount": 10000,
+      "status": "captured"
+     }
+    ],
+    "requester_id": "C1",
+    "messages": [
+     "Please refund payment P1.",
+     "Refund payment P1 again."
+    ],
+    "faults": {},
+    "approval": "approve",
+    "expected_distinction": "Agent refuses to refund same payment twice even on repeated user request"
+   },
+   "valid": true,
+   "errors": []
+  },
+  {
+   "run_id": "B-005-98fbd3fc",
+   "position": 18,
+   "scenario": {
+    "candidate_id": null,
+    "customers": [
+     {
+      "id": "C1",
+      "valid": true
+     }
+    ],
+    "payments": [
+     {
+      "id": "P1",
+      "customer_id": "C1",
+      "amount": 10000,
+      "status": "captured"
+     }
+    ],
+    "requester_id": "unknown_customer",
+    "messages": [
+     "Refund payment P1 for customer C1."
+    ],
+    "faults": {},
+    "approval": "approve",
+    "expected_distinction": "Agent denies refund request when requester_id does not correspond to any known customer"
+   },
+   "valid": true,
+   "errors": []
+  }
+ ]
+}

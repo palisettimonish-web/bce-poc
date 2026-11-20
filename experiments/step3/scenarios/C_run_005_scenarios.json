@@ -1,0 +1,716 @@
+{
+ "meta": {
+  "run_id": "C-005-617b627f",
+  "arm": "C",
+  "run_number": 5,
+  "git_sha": "3b2e54604c89701c1066ed2189c61e0c7ea92e03",
+  "provider": "microsoft-foundry-responses",
+  "endpoint": "https://bce-poc-1-resource.services.ai.azure.com/api/projects/bce-poc-1",
+  "model": "gpt-4.1-mini",
+  "generation_config_hash": "c6adad350660f37acb5f0406c2c4a8a830064bf99498e7523187985c7c257808",
+  "generation_config_id": "step3_generation_config_v1",
+  "configuration": {
+   "requested_scenarios": 20,
+   "request_parameters_sent": [
+    "model",
+    "input"
+   ]
+  },
+  "seed": "provider-controlled",
+  "timestamp": "2026-11-20T22:41:55.377214+00:00",
+  "prompt_hash": "3151a83577f541f0d981da7ce63a04d53e31e6a41e9ccae22a5264dadb1f15fa",
+  "input_hashes": {
+   "template": "61e86aa10cdd6a838865a9e3b9fde259ba761dbd9062c7eba4fc52732a6d0e16",
+   "coverage": "5b091ebda02cbd3e4ea9445d6870c7b4938b85979eab170a80cba994c99e99fe",
+   "system_prompt": "98d3c700d2c9f66f55b13c2920cb5e775d0304f17e14768fae17cc9888fbd314",
+   "tools": "a0315bddf67b7bb55f5af812a0abc441c13232aaa04654a4369f40b6c851d602",
+   "dsl": "13438deee6f40d0d8ad5ba5db6f13b8beece109421d7540afe2a40d12ac5a0d2",
+   "assembled_prompt": "3151a83577f541f0d981da7ce63a04d53e31e6a41e9ccae22a5264dadb1f15fa"
+  },
+  "tokens": {
+   "input": 5376,
+   "output": 6347
+  },
+  "parse_error": null,
+  "counts": {
+   "candidates": 20,
+   "scenarios": 20,
+   "valid_scenarios": 19
+  },
+  "raw_output_hash": "17032d32848d514a6c7776b67310f280d30f9c70241628c99ea4ecb85e03edb8"
+ },
+ "scenarios": [
+  {
+   "run_id": "C-005-617b627f",
+   "position": 0,
+   "scenario": {
+    "candidate_id": "c1",
+    "customers": [
+     {
+      "id": "C1",
+      "valid": true
+     }
+    ],
+    "payments": [
+     {
+      "id": "P1",
+      "customer_id": "C1",
+      "amount": 10000,
+      "status": "captured"
+     }
+    ],
+    "requester_id": "UNKNOWN",
+    "messages": [
+     "Please refund payment P1 for customer C1."
+    ],
+    "faults": {},
+    "approval": "approve",
+    "expected_distinction": "Refund request from requester_id not in customers should be denied or rejected"
+   },
+   "valid": true,
+   "errors": []
+  },
+  {
+   "run_id": "C-005-617b627f",
+   "position": 1,
+   "scenario": {
+    "candidate_id": "c2",
+    "customers": [
+     {
+      "id": "C1",
+      "valid": true
+     },
+     {
+      "id": "C2",
+      "valid": false
+     },
+     {
+      "id": "C3",
+      "valid": true
+     }
+    ],
+    "payments": [
+     {
+      "id": "P1",
+      "customer_id": "C1",
+      "amount": 10000,
+      "status": "captured"
+     },
+     {
+      "id": "P2",
+      "customer_id": "C2",
+      "amount": 50000,
+      "status": "captured"
+     },
+     {
+      "id": "P3",
+      "customer_id": "C3",
+      "amount": 60000,
+      "status": "captured"
+     }
+    ],
+    "requester_id": "C3",
+    "messages": [
+     "Please refund payment P3 for customer C3."
+    ],
+    "faults": {},
+    "approval": "approve",
+    "expected_distinction": "Refund requested with multiple customers of mixed validity"
+   },
+   "valid": true,
+   "errors": []
+  },
+  {
+   "run_id": "C-005-617b627f",
+   "position": 2,
+   "scenario": {
+    "candidate_id": "c3",
+    "customers": [
+     {
+      "id": "C1",
+      "valid": true
+     }
+    ],
+    "payments": [
+     {
+      "id": "P2",
+      "customer_id": "C1",
+      "amount": 50000,
+      "status": "captured"
+     }
+    ],
+    "requester_id": "C1",
+    "messages": [
+     "Please refund payment P2 for customer C1."
+    ],
+    "faults": {},
+    "approval": "approve",
+    "expected_distinction": "Refund processing correctly triggers approval for payment exactly at 50000 threshold"
+   },
+   "valid": true,
+   "errors": []
+  },
+  {
+   "run_id": "C-005-617b627f",
+   "position": 3,
+   "scenario": {
+    "candidate_id": "c4",
+    "customers": [
+     {
+      "id": "C1",
+      "valid": true
+     }
+    ],
+    "payments": [
+     {
+      "id": "P10",
+      "customer_id": "C1",
+      "amount": 10000,
+      "status": "unknown_status"
+     }
+    ],
+    "requester_id": "C1",
+    "messages": [
+     "Please refund payment P10 for customer C1."
+    ],
+    "faults": {},
+    "approval": "deny",
+    "expected_distinction": "Refund request for unknown payment status should be declined with appropriate explanation"
+   },
+   "valid": true,
+   "errors": []
+  },
+  {
+   "run_id": "C-005-617b627f",
+   "position": 4,
+   "scenario": {
+    "candidate_id": "c5",
+    "customers": [
+     {
+      "id": "C1",
+      "valid": true
+     }
+    ],
+    "payments": [
+     {
+      "id": "P5",
+      "customer_id": "C1",
+      "amount": 60000,
+      "status": "captured"
+     }
+    ],
+    "requester_id": "C1",
+    "messages": [
+     "Please refund payment P5 for customer C1."
+    ],
+    "faults": {
+     "get_payment": {
+      "mode": "malformed",
+      "phase": "before"
+     }
+    },
+    "approval": "approve",
+    "expected_distinction": "Malformed response from get_payment should be handled gracefully"
+   },
+   "valid": true,
+   "errors": []
+  },
+  {
+   "run_id": "C-005-617b627f",
+   "position": 5,
+   "scenario": {
+    "candidate_id": "c6",
+    "customers": [
+     {
+      "id": "C1",
+      "valid": true
+     }
+    ],
+    "payments": [
+     {
+      "id": "P6",
+      "customer_id": "C1",
+      "amount": 60000,
+      "status": "captured"
+     }
+    ],
+    "requester_id": "C1",
+    "messages": [
+     "Please refund payment P6 for customer C1."
+    ],
+    "faults": {
+     "request_approval": {
+      "mode": "error",
+      "phase": "before"
+     }
+    },
+    "approval": "deny",
+    "expected_distinction": "Fault in request_approval tool before call should prevent refund approval"
+   },
+   "valid": true,
+   "errors": []
+  },
+  {
+   "run_id": "C-005-617b627f",
+   "position": 6,
+   "scenario": {
+    "candidate_id": "c7",
+    "customers": [
+     {
+      "id": "C1",
+      "valid": true
+     }
+    ],
+    "payments": [
+     {
+      "id": "P7",
+      "customer_id": "C1",
+      "amount": 10000,
+      "status": "captured"
+     }
+    ],
+    "requester_id": "C1",
+    "messages": [
+     "Please refund payment P7 for customer C1.",
+     "Please refund payment P7 for customer C1.",
+     "Please refund payment P7 for customer C1."
+    ],
+    "faults": {},
+    "approval": "approve",
+    "expected_distinction": "Agent should detect repeated refund requests and avoid refunding multiple times"
+   },
+   "valid": true,
+   "errors": []
+  },
+  {
+   "run_id": "C-005-617b627f",
+   "position": 7,
+   "scenario": {
+    "candidate_id": "c8",
+    "customers": [
+     {
+      "id": "C1",
+      "valid": true
+     },
+     {
+      "id": "C2",
+      "valid": true
+     }
+    ],
+    "payments": [
+     {
+      "id": "P8",
+      "customer_id": "C1",
+      "amount": 10000,
+      "status": "captured",
+      "currency": "INR"
+     },
+     {
+      "id": "P9",
+      "customer_id": "C2",
+      "amount": 10000,
+      "status": "captured",
+      "currency": "USD"
+     }
+    ],
+    "requester_id": "C2",
+    "messages": [
+     "Please refund payment P9 for customer C2."
+    ],
+    "faults": {},
+    "approval": "approve",
+    "expected_distinction": "Agent correctly processes refund with payment in USD while other payment currency INR"
+   },
+   "valid": true,
+   "errors": []
+  },
+  {
+   "run_id": "C-005-617b627f",
+   "position": 8,
+   "scenario": {
+    "candidate_id": "c9",
+    "customers": [
+     {
+      "id": "C1",
+      "valid": true
+     }
+    ],
+    "payments": [
+     {
+      "id": "P1",
+      "customer_id": "C1",
+      "amount": 10000,
+      "status": "captured"
+     }
+    ],
+    "requester_id": "UNKNOWN_ID",
+    "messages": [
+     "Please refund payment P1 for customer C1."
+    ],
+    "faults": {},
+    "approval": "approve",
+    "expected_distinction": "Requester invalid and unknown should have refund denied"
+   },
+   "valid": true,
+   "errors": []
+  },
+  {
+   "run_id": "C-005-617b627f",
+   "position": 9,
+   "scenario": {
+    "candidate_id": "c10",
+    "customers": [
+     {
+      "id": "C1",
+      "valid": true
+     }
+    ],
+    "payments": [
+     {
+      "id": "P11",
+      "customer_id": "C1",
+      "amount": 10000,
+      "status": "captured"
+     }
+    ],
+    "requester_id": "C1",
+    "messages": [
+     "Please refund payment P11 for customer C1."
+    ],
+    "faults": {
+     "get_payment": {
+      "mode": "timeout",
+      "phase": "after"
+     }
+    },
+    "approval": "approve",
+    "expected_distinction": "Payment status changes from captured to refunded between calls should prevent double refund"
+   },
+   "valid": true,
+   "errors": []
+  },
+  {
+   "run_id": "C-005-617b627f",
+   "position": 10,
+   "scenario": {
+    "candidate_id": "c11",
+    "customers": [
+     {
+      "id": "C1",
+      "valid": true
+     }
+    ],
+    "payments": [
+     {
+      "id": "P12",
+      "customer_id": "C1",
+      "amount": 60000,
+      "status": "captured"
+     }
+    ],
+    "requester_id": "C1",
+    "messages": [
+     "Please refund payment P12 for customer C1."
+    ],
+    "faults": {
+     "request_approval": {
+      "mode": "timeout",
+      "phase": "after"
+     }
+    },
+    "approval": "approve",
+    "expected_distinction": "Approval response lost after grant causes refund to not proceed or retry"
+   },
+   "valid": true,
+   "errors": []
+  },
+  {
+   "run_id": "C-005-617b627f",
+   "position": 11,
+   "scenario": {
+    "candidate_id": "c12",
+    "customers": [],
+    "payments": [],
+    "requester_id": "C1",
+    "messages": [
+     "Please refund payment P1 for customer C1."
+    ],
+    "faults": {},
+    "approval": "deny",
+    "expected_distinction": "No customers defined scenario should fail gracefully"
+   },
+   "valid": false,
+   "errors": [
+    "customers must be a list of 1-4",
+    "payments must be a list of 1-4"
+   ]
+  },
+  {
+   "run_id": "C-005-617b627f",
+   "position": 12,
+   "scenario": {
+    "candidate_id": "c13",
+    "customers": [
+     {
+      "id": "C1",
+      "valid": true
+     }
+    ],
+    "payments": [
+     {
+      "id": "P13",
+      "customer_id": "C1",
+      "amount": 10000,
+      "status": "captured"
+     }
+    ],
+    "requester_id": "C1",
+    "messages": [
+     "Please refund 5000 of payment P13 for customer C1."
+    ],
+    "faults": {},
+    "approval": "approve",
+    "expected_distinction": "Partial refund request should be denied or properly declined"
+   },
+   "valid": true,
+   "errors": []
+  },
+  {
+   "run_id": "C-005-617b627f",
+   "position": 13,
+   "scenario": {
+    "candidate_id": "c14",
+    "customers": [
+     {
+      "id": "C1",
+      "valid": true
+     },
+     {
+      "id": "C2",
+      "valid": true
+     }
+    ],
+    "payments": [
+     {
+      "id": "P14",
+      "customer_id": "C2",
+      "amount": 10000,
+      "status": "captured"
+     }
+    ],
+    "requester_id": "C1",
+    "messages": [
+     "Please refund payment P14 for customer C2."
+    ],
+    "faults": {},
+    "approval": "approve",
+    "expected_distinction": "Requester attempting refund of payment belonging to different customer"
+   },
+   "valid": true,
+   "errors": []
+  },
+  {
+   "run_id": "C-005-617b627f",
+   "position": 14,
+   "scenario": {
+    "candidate_id": "c15",
+    "customers": [
+     {
+      "id": "C1",
+      "valid": true
+     }
+    ],
+    "payments": [
+     {
+      "id": "P15",
+      "customer_id": "C1",
+      "amount": 10000,
+      "status": "captured"
+     }
+    ],
+    "requester_id": "C1",
+    "messages": [
+     "Please refund payment P15 for customer C1.",
+     "I did not receive confirmation. Please refund P15 again."
+    ],
+    "faults": {
+     "issue_refund": {
+      "mode": "timeout",
+      "phase": "after"
+     }
+    },
+    "approval": "approve",
+    "expected_distinction": "Refund command issued but response lost leading to retry"
+   },
+   "valid": true,
+   "errors": []
+  },
+  {
+   "run_id": "C-005-617b627f",
+   "position": 15,
+   "scenario": {
+    "candidate_id": "c16",
+    "customers": [
+     {
+      "id": "C1",
+      "valid": true
+     }
+    ],
+    "payments": [
+     {
+      "id": "P16",
+      "customer_id": "C1",
+      "amount": 10000,
+      "status": "captured"
+     },
+     {
+      "id": "P17",
+      "customer_id": "C1",
+      "amount": 50000,
+      "status": "captured"
+     }
+    ],
+    "requester_id": "C1",
+    "messages": [
+     "Please refund payment P16 for customer C1.",
+     "Please refund payment P17 for customer C1."
+    ],
+    "faults": {},
+    "approval": "approve",
+    "expected_distinction": "Agent handles multiple refund requests for different payments in same conversation"
+   },
+   "valid": true,
+   "errors": []
+  },
+  {
+   "run_id": "C-005-617b627f",
+   "position": 16,
+   "scenario": {
+    "candidate_id": "c17",
+    "customers": [
+     {
+      "id": "C1",
+      "valid": true
+     }
+    ],
+    "payments": [
+     {
+      "id": "P18",
+      "customer_id": "C1",
+      "amount": 10000,
+      "status": "captured"
+     },
+     {
+      "id": "P19",
+      "customer_id": "C1",
+      "amount": 60000,
+      "status": "captured"
+     }
+    ],
+    "requester_id": "C1",
+    "messages": [
+     "Please refund payment P18 for customer C1.",
+     "Please refund payment P19 for customer C1.",
+     "Please refund payment P18 for customer C1."
+    ],
+    "faults": {},
+    "approval": "approve",
+    "expected_distinction": "Agent handles repeated refunds for different payments in a conversation correctly"
+   },
+   "valid": true,
+   "errors": []
+  },
+  {
+   "run_id": "C-005-617b627f",
+   "position": 17,
+   "scenario": {
+    "candidate_id": "c18",
+    "customers": [
+     {
+      "id": "C1",
+      "valid": true
+     }
+    ],
+    "payments": [
+     {
+      "id": "P20",
+      "customer_id": "C1",
+      "amount": 10000,
+      "status": "captured"
+     }
+    ],
+    "requester_id": "C1",
+    "messages": [
+     "Please refund payment P20 for customer C1."
+    ],
+    "faults": {},
+    "approval": "approve",
+    "expected_distinction": "Requester_id equals a customer but requester_valid is false results in refund denial"
+   },
+   "valid": true,
+   "errors": []
+  },
+  {
+   "run_id": "C-005-617b627f",
+   "position": 18,
+   "scenario": {
+    "candidate_id": "c19",
+    "customers": [
+     {
+      "id": "C1",
+      "valid": true
+     }
+    ],
+    "payments": [
+     {
+      "id": "P21",
+      "customer_id": "C1",
+      "amount": 10000,
+      "status": "captured"
+     }
+    ],
+    "requester_id": "C1",
+    "messages": [
+     "Refund pls.",
+     "Refund?"
+    ],
+    "faults": {},
+    "approval": "approve",
+    "expected_distinction": "Agent handles malformed or ambiguous refund requests without crashing or proceeding improperly"
+   },
+   "valid": true,
+   "errors": []
+  },
+  {
+   "run_id": "C-005-617b627f",
+   "position": 19,
+   "scenario": {
+    "candidate_id": "c20",
+    "customers": [
+     {
+      "id": "C1",
+      "valid": true
+     }
+    ],
+    "payments": [
+     {
+      "id": "P22",
+      "customer_id": "C1",
+      "amount": 10000,
+      "status": "captured",
+      "currency": "ABC"
+     }
+    ],
+    "requester_id": "C1",
+    "messages": [
+     "Please refund payment P22 for customer C1."
+    ],
+    "faults": {},
+    "approval": "approve",
+    "expected_distinction": "Agent handles unknown payment currency gracefully without crash or incorrect refund"
+   },
+   "valid": true,
+   "errors": []
+  }
+ ]
+}

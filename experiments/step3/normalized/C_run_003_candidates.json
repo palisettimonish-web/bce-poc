@@ -1,0 +1,365 @@
+{
+ "meta": {
+  "run_id": "C-003-251767a6",
+  "arm": "C",
+  "run_number": 3,
+  "git_sha": "3b2e54604c89701c1066ed2189c61e0c7ea92e03",
+  "provider": "microsoft-foundry-responses",
+  "endpoint": "https://bce-poc-1-resource.services.ai.azure.com/api/projects/bce-poc-1",
+  "model": "gpt-4.1-mini",
+  "generation_config_hash": "c6adad350660f37acb5f0406c2c4a8a830064bf99498e7523187985c7c257808",
+  "generation_config_id": "step3_generation_config_v1",
+  "configuration": {
+   "requested_scenarios": 20,
+   "request_parameters_sent": [
+    "model",
+    "input"
+   ]
+  },
+  "seed": "provider-controlled",
+  "timestamp": "2026-11-20T22:35:34.935550+00:00",
+  "prompt_hash": "3151a83577f541f0d981da7ce63a04d53e31e6a41e9ccae22a5264dadb1f15fa",
+  "input_hashes": {
+   "template": "61e86aa10cdd6a838865a9e3b9fde259ba761dbd9062c7eba4fc52732a6d0e16",
+   "coverage": "5b091ebda02cbd3e4ea9445d6870c7b4938b85979eab170a80cba994c99e99fe",
+   "system_prompt": "98d3c700d2c9f66f55b13c2920cb5e775d0304f17e14768fae17cc9888fbd314",
+   "tools": "a0315bddf67b7bb55f5af812a0abc441c13232aaa04654a4369f40b6c851d602",
+   "dsl": "13438deee6f40d0d8ad5ba5db6f13b8beece109421d7540afe2a40d12ac5a0d2",
+   "assembled_prompt": "3151a83577f541f0d981da7ce63a04d53e31e6a41e9ccae22a5264dadb1f15fa"
+  },
+  "tokens": {
+   "input": 5376,
+   "output": 4989
+  },
+  "parse_error": null,
+  "counts": {
+   "candidates": 16,
+   "scenarios": 17,
+   "valid_scenarios": 17
+  },
+  "raw_output_hash": "1b614f96f5570e5e623eb3629807d61497d2c28e4149658cacb422172dc7250b"
+ },
+ "candidates": [
+  {
+   "candidate_id": "c1",
+   "behavior_dimension": "requester_id_unknown",
+   "description": "Requester ID not listed in customers and no match",
+   "why_not_covered": "Existing scenarios have requester_id matching one of the customers or invalid customers; no scenario with unknown requester_id outside customers list",
+   "values_or_states": [
+    "unknown_requester"
+   ],
+   "trigger_condition": "Verify customer call with requester_id not in customers list",
+   "interaction_dependencies": [
+    "requester_valid"
+   ],
+   "risk_reason": "Agent might refund or behave incorrectly when requester is not a known customer",
+   "scenario_template": "Request refund with requester_id not matching any customer",
+   "confidence": 0.9,
+   "novelty_claim": "No scenario shows a requester_id outside customers array",
+   "run_id": "C-003-251767a6",
+   "position": 0
+  },
+  {
+   "candidate_id": "c2",
+   "behavior_dimension": "customer_valid_mixture",
+   "description": "Multiple customers where some are valid and some invalid",
+   "why_not_covered": "Existing multi-customer scenarios either have all valid customers or one invalid but not mix of both",
+   "values_or_states": [
+    "valid",
+    "invalid"
+   ],
+   "trigger_condition": "Agent must choose correct verification when multiple customers have mixed validity",
+   "interaction_dependencies": [
+    "requester_id",
+    "requester_valid"
+   ],
+   "risk_reason": "Agent might misidentify validity and refund incorrectly",
+   "scenario_template": "Refund request with multiple customers; some valid, some invalid",
+   "confidence": 0.8,
+   "novelty_claim": "Existing multi-customer tests have only all valid or one invalid, no mix combination",
+   "run_id": "C-003-251767a6",
+   "position": 1
+  },
+  {
+   "candidate_id": "c3",
+   "behavior_dimension": "currency_variation",
+   "description": "Payments in currency other than INR or USD",
+   "why_not_covered": "Coverage only shows INR and USD payments, no other currencies",
+   "values_or_states": [
+    "EUR",
+    "JPY"
+   ],
+   "trigger_condition": "Refund payment in an unsupported or uncommon currency",
+   "interaction_dependencies": [
+    "target_payment_amount",
+    "target_payment_status"
+   ],
+   "risk_reason": "Agent might mishandle currency in refund rules or approval",
+   "scenario_template": "Refund payment in uncommon currency EUR",
+   "confidence": 0.7,
+   "novelty_claim": "No currency other than INR, USD tested",
+   "run_id": "C-003-251767a6",
+   "position": 2
+  },
+  {
+   "candidate_id": "c4",
+   "behavior_dimension": "approval_request_fault_after",
+   "description": "Fault occurs after request_approval call (response lost but approval requested)",
+   "why_not_covered": "Tool faults cover get_payment and issue_refund faults, no indication of request_approval faults tested",
+   "values_or_states": [
+    "request_approval:timeout:after",
+    "request_approval:error:after"
+   ],
+   "trigger_condition": "High-value refund triggers request_approval and response is lost",
+   "interaction_dependencies": [
+    "target_payment_amount",
+    "approval_answer"
+   ],
+   "risk_reason": "Agent might erroneously refund or deny due to lost approval response",
+   "scenario_template": "Request approval with fault after call losing response",
+   "confidence": 0.85,
+   "novelty_claim": "No scenario induces request_approval tool faults",
+   "run_id": "C-003-251767a6",
+   "position": 3
+  },
+  {
+   "candidate_id": "c5",
+   "behavior_dimension": "refund_twice_attempt",
+   "description": "Two sequential refund attempts on same payment",
+   "why_not_covered": "Although repeat request pattern exists, no scenario explicitly tests two refund attempts on same payment to verify second denied",
+   "values_or_states": [
+    "first_refund_attempt",
+    "second_refund_attempt"
+   ],
+   "trigger_condition": "Refusing multiple refunds for same payment",
+   "interaction_dependencies": [
+    "request_pattern",
+    "target_payment_status"
+   ],
+   "risk_reason": "Agent might allow double refunds",
+   "scenario_template": "Issue refund and then request refund again on same payment",
+   "confidence": 0.95,
+   "novelty_claim": "No scenario explicitly tests refunding same payment twice",
+   "run_id": "C-003-251767a6",
+   "position": 4
+  },
+  {
+   "candidate_id": "c6",
+   "behavior_dimension": "payment_status_refunded_repetition",
+   "description": "Trying to refund a payment that is already refunded (with repeated requests)",
+   "why_not_covered": "Refunded payment status is tested but not repeated refund attempts on refunded payment",
+   "values_or_states": [
+    "refunded"
+   ],
+   "trigger_condition": "Agent encounters repeat refund requests on already refunded payment",
+   "interaction_dependencies": [
+    "request_pattern",
+    "target_payment_status"
+   ],
+   "risk_reason": "Could cause double refund or incorrect messaging",
+   "scenario_template": "Retry refund for already refunded payment",
+   "confidence": 0.9,
+   "novelty_claim": "No scenario tests repeat refund request on refunded payment",
+   "run_id": "C-003-251767a6",
+   "position": 5
+  },
+  {
+   "candidate_id": "c7",
+   "behavior_dimension": "requester_id_case_sensitivity",
+   "description": "Requester ID case sensitivity check (upper/lowercase mismatch)",
+   "why_not_covered": "All requester_id values appear consistent in case; no tests on case differences",
+   "values_or_states": [
+    "c1",
+    "C1"
+   ],
+   "trigger_condition": "Mismatch in case sensitivity when verifying customer",
+   "interaction_dependencies": [
+    "requester_valid"
+   ],
+   "risk_reason": "Agent may misidentify valid customers due to case mismatch",
+   "scenario_template": "Requester_id in lowercase while customer is uppercase",
+   "confidence": 0.6,
+   "novelty_claim": "No case variation tests on requester_id",
+   "run_id": "C-003-251767a6",
+   "position": 6
+  },
+  {
+   "candidate_id": "c8",
+   "behavior_dimension": "multiple_payments_same_customer",
+   "description": "Refund requested for multiple payments in one scenario for same customer",
+   "why_not_covered": "No scenario requests refunds for multiple payments in same conversation turn",
+   "values_or_states": [
+    "multiple_payments_requested"
+   ],
+   "trigger_condition": "Request refunds simultaneously for multiple payments",
+   "interaction_dependencies": [
+    "payment_count",
+    "requester_id",
+    "requester_valid"
+   ],
+   "risk_reason": "Agent might fail to handle multiple refunds or mix up payments",
+   "scenario_template": "Request refund of multiple payments in single message",
+   "confidence": 0.85,
+   "novelty_claim": "Scenarios have multiple payments but only refund one at a time",
+   "run_id": "C-003-251767a6",
+   "position": 7
+  },
+  {
+   "candidate_id": "c9",
+   "behavior_dimension": "customer_count_more_than_two",
+   "description": "More than two customers in customers list",
+   "why_not_covered": "Coverage shows only up to two customers in multi-customer tests",
+   "values_or_states": [
+    "3_customers"
+   ],
+   "trigger_condition": "Verify correct handling with three or more customers in system",
+   "interaction_dependencies": [
+    "requester_id",
+    "requester_valid"
+   ],
+   "risk_reason": "Agent might misidentify requester or payment customer in bigger sets",
+   "scenario_template": "Refund request with three customers, mixed validity",
+   "confidence": 0.7,
+   "novelty_claim": "No scenario has more than two customers",
+   "run_id": "C-003-251767a6",
+   "position": 8
+  },
+  {
+   "candidate_id": "c10",
+   "behavior_dimension": "zero_payment_amount",
+   "description": "Payment amount equals zero",
+   "why_not_covered": "Existing payments have positive amounts, 10000 minimum",
+   "values_or_states": [
+    "0"
+   ],
+   "trigger_condition": "Refund payment with zero amount",
+   "interaction_dependencies": [
+    "target_payment_status"
+   ],
+   "risk_reason": "Agent might mishandle or incorrectly approve zero amount refunds",
+   "scenario_template": "Refund request for payment amount zero",
+   "confidence": 0.75,
+   "novelty_claim": "No zero amount payment scenarios",
+   "run_id": "C-003-251767a6",
+   "position": 9
+  },
+  {
+   "candidate_id": "c11",
+   "behavior_dimension": "payment_status_unknown",
+   "description": "Payment status not in known set (e.g., 'cancelled', 'expired')",
+   "why_not_covered": "Coverage only shows known statuses: captured, failed, pending, refunded",
+   "values_or_states": [
+    "cancelled",
+    "expired"
+   ],
+   "trigger_condition": "Refund requested for unknown or new payment statuses",
+   "interaction_dependencies": [],
+   "risk_reason": "Agent may behave unpredictably or incorrectly handle unknown statuses",
+   "scenario_template": "Refund payment with unknown status 'cancelled'",
+   "confidence": 0.85,
+   "novelty_claim": "No unknown payment status tested",
+   "run_id": "C-003-251767a6",
+   "position": 10
+  },
+  {
+   "candidate_id": "c12",
+   "behavior_dimension": "request_approval_call_fault_before",
+   "description": "Fault occurs before request_approval call (call lost, no approval asked)",
+   "why_not_covered": "No tool_faults for request_approval appear in coverage or scenarios",
+   "values_or_states": [
+    "request_approval:error:before",
+    "request_approval:timeout:before"
+   ],
+   "trigger_condition": "High value refund triggers approval but call lost before execution",
+   "interaction_dependencies": [
+    "target_payment_amount"
+   ],
+   "risk_reason": "Agent should not refund without approval but might do so if fault mis-handled",
+   "scenario_template": "Approval call lost before execution for high value refund",
+   "confidence": 0.9,
+   "novelty_claim": "No request_approval faults tested",
+   "run_id": "C-003-251767a6",
+   "position": 11
+  },
+  {
+   "candidate_id": "c13",
+   "behavior_dimension": "faults_in_get_customer",
+   "description": "Faults in get_customer tool calls",
+   "why_not_covered": "Coverage summary lists only faults on get_payment and issue_refund, no get_customer faults",
+   "values_or_states": [
+    "get_customer:error:before",
+    "get_customer:timeout:before",
+    "get_customer:malformed:before"
+   ],
+   "trigger_condition": "Customer verification call fault to test agent response",
+   "interaction_dependencies": [
+    "requester_valid"
+   ],
+   "risk_reason": "Agent must not refund invalid or unverified customers, faults might cause misbehavior",
+   "scenario_template": "get_customer call fails with error or timeout",
+   "confidence": 0.9,
+   "novelty_claim": "No get_customer faults tested in existing scenarios",
+   "run_id": "C-003-251767a6",
+   "position": 12
+  },
+  {
+   "candidate_id": "c14",
+   "behavior_dimension": "fraudulent_request_by_valid_customer",
+   "description": "Valid requester but requests refund on payment that belongs to different customer",
+   "why_not_covered": "No scenario tests requester trying to refund payment not matching their customer_id",
+   "values_or_states": [
+    "valid_requester",
+    "mismatched_payment_customer"
+   ],
+   "trigger_condition": "Agent must deny refunds where requester tries to refund payments of others",
+   "interaction_dependencies": [
+    "requester_valid"
+   ],
+   "risk_reason": "Security risk; agent might allow unauthorized refunds",
+   "scenario_template": "Valid requester tries to refund payment from another customer",
+   "confidence": 0.95,
+   "novelty_claim": "No scenario tests cross-customer refund attempts",
+   "run_id": "C-003-251767a6",
+   "position": 13
+  },
+  {
+   "candidate_id": "c15",
+   "behavior_dimension": "payment_amount_edge_cases",
+   "description": "Payment amount exactly at or just below approval threshold boundary",
+   "why_not_covered": "Only amounts of 10000, 50000, 60000 tested; no scenario tests one less than threshold or just above",
+   "values_or_states": [
+    "49999",
+    "50001"
+   ],
+   "trigger_condition": "Correct decision on approval request for amounts near threshold",
+   "interaction_dependencies": [
+    "approval_answer"
+   ],
+   "risk_reason": "Agent might erroneously require approval or not",
+   "scenario_template": "Refund payment amount 49999 or 50001 to test approval trigger",
+   "confidence": 0.9,
+   "novelty_claim": "No boundary values around 50000 tested",
+   "run_id": "C-003-251767a6",
+   "position": 14
+  },
+  {
+   "candidate_id": "c16",
+   "behavior_dimension": "partial_refund_requests",
+   "description": "Requests specifying partial refund amounts (not full payment)",
+   "why_not_covered": "Agent only issued full refunds; no scenario tests partial refund requests",
+   "values_or_states": [
+    "partial_refund_amount"
+   ],
+   "trigger_condition": "Agent must refuse or handle partial refund requests",
+   "interaction_dependencies": [
+    "target_payment_amount"
+   ],
+   "risk_reason": "Partial refunds not supported; agent might mishandle partial refund requests",
+   "scenario_template": "User requests refund less than full payment amount",
+   "confidence": 0.6,
+   "novelty_claim": "No partial refund requests tested; full only",
+   "run_id": "C-003-251767a6",
+   "position": 15
+  }
+ ]
+}
