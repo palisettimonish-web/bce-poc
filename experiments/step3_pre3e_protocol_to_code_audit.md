@@ -1,0 +1,55 @@
+# Step 3 pre-3e protocol-to-code audit
+
+Written 2026-11-21 before the pre-3e freeze commit, with the 3d dataset sealed at `646ffb7e2e4cebd5b1e2fcf52fa6a448ef406c94`. It maps every frozen 3e rule to its implementation and test. "P" = preregistration, "SP" = scoring protocol, "A3" = Amendment 3. Tests are in `test_step3e.py` (53 synthetic tests; full suite 145 passed). Exact = the code does what the cited text says and nothing more. Interpreted = the text leaves a point open and Amendment 4 records the choice.
+
+## Rule-by-rule
+
+| # | Rule (section) | Implementation | Covering test | Status |
+|---|---|---|---|---|
+| 1 | Drift smoke test before any 3e run (2.15 l.364) | `detect/runner.py` `main` runs `preflight.verify` and refuses `detect` unless `drift_complete` exists; `detect/drift.py` `run` | `test_drift_run_is_recorded_once_and_never_rerun` (drift side); the runner's gate in `main` has no test (needs git and a client) | Exact; the gate itself is checked by review only |
+| 2 | Clean agent, 35 baseline scenarios, 1 repetition; each admitted mutant on trigger instance 1, 3 repetitions (2.15 l.365-366) | `drift.plan` | `test_drift_plan_counts_and_stages` | Exact |
+| 3 | Served model differs from 3c, or any smoke violation: `POTENTIALLY_INVALID` (2.15 l.369) | `drift.evaluate` | `test_drift_smoke_violation_flags_potentially_invalid`, `test_drift_served_model_difference_and_unestablished_identity` | Exact |
+| 4 | Primary code in fewer than 2 of 3 drift runs: `DRIFT_SUSPECT`, stays in primary (2.15 l.370) | `drift.evaluate`; `analysis.analyze` | `test_drift_suspect_below_two_of_three`, `test_overlap_and_drift_suspect_sensitivities_keep_the_denominator` | Exact |
+| 5 | Drift admission never re-run (2.15 l.371) | `drift.run` raises if `drift_complete` exists | `test_drift_run_is_recorded_once_and_never_rerun` | Exact |
+| 6 | Served model recorded per response; never assumed (2.14 l.355; SP A2) | `holdout.runtime.run_job` (reused, `served_models_per_response`); `drift.evaluate` identity SAME / DIFFERENT / UNESTABLISHED | `test_drift_served_model_difference_and_unestablished_identity` | Exact for recording; the `UNESTABLISHED` state is an interpretation (map 9) |
+| 7 | 3 clean and 3 mutant repetitions (2.16 l.374) | `rules.CLEAN_REPS`, `MUTANT_REPS`; `runner.process_slot` | `test_repetitions_and_curtailment_with_nominal_and_actual_counts`, `test_curtailment_off_runs_everything` | Exact |
+| 8 | Invalid and missing scenarios execute nothing; never repaired or regenerated (2.16 l.374; SP l.19; P l.59) | `slots.load_arm_slots` (MISSING / INVALID slots), `runner.order` skips non-VALID | `test_invalid_and_missing_scenarios_execute_nothing`, `test_stored_validity_must_agree_with_the_frozen_validator`, `test_absent_sealed_file_is_an_error_not_a_repair`, `test_discovery_side_counts_never_repair` | Exact |
+| 9 | Budget slots: nested prefixes of 100; slot k = run (k mod 5)+1, position floor(k/5); 20 per run; positions >=20 excluded; missing = invalid slot (2.18 l.409-411) | `slots.load_arm_slots`, `slots.budget_slots` | `test_slot_mapping_missing_invalid_and_excluded`, `test_budgets_are_nested_prefixes_and_denominator_is_8` | Exact |
+| 10 | Arm A: fixed 35 in file order, descriptive, A@25 primary, capped at 35, in no gate (A3 l.116-117; 2.16 l.378; P l.53) | `slots.arm_a_slots`; `rules.ARM_A_BUDGETS`; `analysis.gates` reads only B and C for gate inputs (plus A@25 in the labelled original gate); bootstrap restricted to B and C | `test_arm_a_is_the_fixed_35_in_file_order`, `test_arm_a_is_descriptive_with_its_own_budgets`, `test_gate_pending_without_discovery_scores_and_original_gate_is_labelled` | Exact |
+| 11 | Curtailment: skip the third mutant repetition when neither of the first two has a code absent from all 3 clean runs; clean first (2.16 l.375) | `kills.curtailable`; `runner.process_slot` | `test_curtailment_condition`, `test_third_repetition_runs_when_a_code_absent_from_clean_appears`, `test_pair_status` | Exact |
+| 12 | Nominal vs actual executions (P metric 10; 2.16 l.375) | `kills.build_table` (nominal 3+3x|admitted| per scenario; actual from the log); `analysis.detection_block` | `test_repetitions_and_curtailment_with_nominal_and_actual_counts`, `test_cost_and_failures_per_execution` | Exact |
+| 13 | Attributable kill: an intended code in >=2 of 3 mutant runs and 0 of 3 clean runs (2.16 l.376) | `kills.attributable_codes` | `test_attributable_kill_needs_two_of_three_mutant_and_zero_clean`, `test_clean_contamination_blocks_the_kill`, `test_attributable_kill_through_the_runner` | Exact |
+| 14 | Any-code kill kept as a secondary measure (2.16 l.376) | `kills.any_code_kills`; `analysis.detection_block` (`any_code_*` fields) | `test_only_intended_codes_are_attributable_but_any_code_is_reported_alongside` | Exact |
+| 15 | Dimension-level detection, denominator 8, `NOT_DETECTION_TESTABLE` stays in it (SP A1; 2.11; 2.16 l.377) | `analysis.detection_block` (`dimension_detection_rate` = detected / `DENOMINATOR`) | `test_budgets_are_nested_prefixes_and_denominator_is_8`, `test_two_variants_of_one_dimension_count_once` | Exact |
+| 16 | Variant-level kill rate, distinct (mutant, code) pairs, failures per execution, cost per true failure are secondary (2.16 l.379; metrics 8-10) | `analysis.detection_block`, `analysis.cost` | `test_two_variants_of_one_dimension_count_once`, `test_cost_and_failures_per_execution` | Exact for counts; token pro-rata is an interpretation (map 6) |
+| 17 | Class stratification (SP A1 l.32; P l.30-45) | `analysis.detection_block` `classes`; `rules.CLASS_OF` | `test_class_stratification`, `test_frozen_constants` | Exact |
+| 18 | OVERLAP sensitivity, denominator fixed at 8, T' reported (2.16 l.386; A3.4) | `analysis.sensitivity`, `analysis.analyze` | `test_overlap_and_drift_suspect_sensitivities_keep_the_denominator` | Exact |
+| 19 | DRIFT_SUSPECT sensitivity (A3.4) | same | same, `test_pending_drift_leaves_the_drift_sensitivity_undefined` | Exact |
+| 20 | Bootstrap: paired cluster, 8 dimensions then variants, 10,000, seed 20260311, percentile 95%, descriptive (2.16 l.380-385) | `analysis.bootstrap`, `analysis.percentile` | `test_bootstrap_is_reproducible_and_paired`, `test_bootstrap_draws_eight_dimensions_with_fixed_denominator`, `test_percentile_interpolates` | Exact except the percentile method (linear interpolation, map 4) |
+| 21 | Gates (2.17 l.395-404): success, inconclusive, against; original gates reported, labelled construction-biased | `analysis.gates` | `test_gate_success`, `test_gate_inconclusive_small_recall_difference_and_single_budget_advantage`, `test_gate_against_requires_b_ge_c_on_both_recall_and_detection_at_100`, `test_gate_success_needs_precision_and_jaccard`, `test_gate_pending_without_discovery_scores_and_original_gate_is_labelled` | Exact for each clause; precedence, the Jaccard arm and the success / single-budget overlap are interpretations (map 1, 2; Amendment 4) |
+| 22 | T tiers: <4 invalid, 4 exploratory, >=5 normal (2.17 l.390-393) | `analysis.tier` | `test_tiers` | Exact |
+| 23 | Invalid-experiment check: more than 50% of arm C DSL-invalid (P l.79) | `analysis.analyze` | `test_invalid_experiment_check_for_arm_c` | Exact |
+| 24 | Natural failures reported separately (2.16 l.387; P l.69) | `analysis.natural_failures` | `test_natural_failures_reported_separately` | Exact |
+| 25 | More than 10% empty / max-turn replies stops the run (P l.78) | `session.Session.degenerate_gate`, called at the end of each phase | `test_degenerate_gate_stops_the_run` | Exact; per-phase evaluation is an interpretation (map 8) |
+| 26 | Append-only, resumable, retries (2.14 l.358-360) | `holdout.runtime.JsonlLog`, `run_job` (reused); `session.Session.ensure` | `test_runs_are_appended_never_rewritten`, `test_transport_failure_resumes_without_rerunning_completed_jobs`, `test_drift_resumes_after_a_transport_failure` | Exact |
+| 27 | Oracle audit sampler (A3.5): strata, seed 20260311, sorted ids, up to 20, B and C pooled, reviewer blind, no rescoring | `detect/audit.py` | `test_audit_units_and_strata`, `test_audit_sampling_is_reproducible_and_capped`, `test_audit_packet_does_not_leak_codes_arm_or_mutant`, `test_audit_scoring_and_kills_removed_sensitivity_do_not_alter_results`, `test_audit_stratum3_disagreement_when_reviewer_finds_a_violation` | Exact; fresh RNG per stratum, shuffle order and agreement definitions are interpretations (map 5) |
+| 28 | Pre-3e verification: hashes, ancestry, no later change without amendment (2.20; A3.6) | `detect/preflight.py`, `experiments/step3/verify_pre3e_freeze.py` | `test_hash_comparison_flags_changed_missing_and_uncommitted_files`, `test_dirty_paths_ignores_only_the_results_directory` | Exact; the git-dependent `verify` is exercised only by running it after the freeze (positive and tampered-copy runs) |
+
+## Explicit checks
+
+| Check | Result | Evidence |
+|---|---|---|
+| Use of 3d result content | None. The code opens sealed scenario files only structurally (stored `valid` flag, `dsl.validate`, `to_world_scenario`, and `meta.tokens` for the cost metric). No scenario text, quality, count, missing-slot or invalid-slot pattern shaped any rule. Tests use synthetic fixtures in `tmp_path`. | `test_detect_never_reads_discovery_outputs_or_gold_into_bce`; no 3d file was opened in this build |
+| Hidden thresholds | None beyond the preregistered constants: 0.2, 0.4, 2/3, 0.10, 0.5, T 4/5, 20 per stratum, 10,000, seed 20260311. `EPS = 1e-9` in `analysis.py` is a floating-point tolerance for comparing recall and precision, not a threshold. | `test_frozen_constants`; `rg` over `detect/` |
+| Changed denominator | No. `DENOMINATOR = len(ELIGIBLE) = 8` in every detection rate and bootstrap, including both sensitivities. | tests 15, 18, 19, 20 |
+| Changed repetition count | No: 3 and 3 (detection), 1 and 3 (drift). | tests 2, 7 |
+| Changed budget mapping | No. | tests 9, 10 |
+| Changed kill attribution | No. Intended code, >=2 of 3, 0 of 3 clean. Any-code only as a secondary field. | test 13, 14 |
+| Scenario regeneration | None. There is no code path that calls a generator. | test 8 |
+| Replacement of invalid scenarios | None. A MISSING or INVALID slot stays in the slot count and executes nothing. | test 8 |
+| Quality-based filtering | None. The only filter is the frozen DSL validator already applied in 3d, re-checked and required to agree with the stored flag. | `test_stored_validity_must_agree_with_the_frozen_validator` |
+
+## Coverage gaps (disclosed)
+- `runner.main`, `analysis.main`, `audit.main`, `runner._executor` and `preflight.verify` need git, the frozen files or a real client, so the synthetic suite does not execute them. They were reviewed against the map. `verify` is checked by running it after the freeze, and by running it on a tampered copy.
+- The judge step (recall, precision, stability Jaccard) is not built. `gates` takes it as input and reports `PENDING_DISCOVERY_SCORES` without it.
+- An early test run found two wrong test expectations and one real defect (bootstrap estimates for Arm A). The defect is fixed in the code before the freeze.
