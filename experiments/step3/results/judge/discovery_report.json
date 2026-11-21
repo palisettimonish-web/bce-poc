@@ -1,0 +1,350 @@
+{
+ "counts": {
+  "B": {
+   "candidates": 0,
+   "candidates_not_objects": 0,
+   "scenarios_invalid": 0,
+   "scenarios_returned": 92,
+   "scenarios_valid": 92
+  },
+  "C": {
+   "candidates": 69,
+   "candidates_not_objects": 0,
+   "scenarios_invalid": 3,
+   "scenarios_returned": 95,
+   "scenarios_valid": 92
+  }
+ },
+ "dev_only_gold": [
+  "G03",
+  "G09"
+ ],
+ "evaluation_budget": {
+  "human_sample_items": 51,
+  "judge_calls": 7,
+  "judge_items": 253
+ },
+ "gate_input": {
+  "precision": {
+   "B": 0.33695652173913043,
+   "C": 0.4409937888198758
+  },
+  "recall": {
+   "B": 0.375,
+   "C": 0.875
+  },
+  "stability_jaccard": {
+   "B": 0.8666666666666666,
+   "C": 0.7157142857142857
+  }
+ },
+ "human_audit": {
+  "counts": {
+   "both_match": 53,
+   "human_only": 10,
+   "judge_only": 7,
+   "neither": 797
+  },
+  "decisions": 867,
+  "items": 51,
+  "kappa": 0.8512429224573831,
+  "raw_agreement": 0.7254901960784313,
+  "unreliable": false
+ },
+ "judge_based": {
+  "arms": {
+   "B": {
+    "classes": {
+     "U_NEW_DIMENSION": {
+      "matched": [],
+      "members": [
+       "G01",
+       "G12",
+       "G13",
+       "G16"
+      ],
+      "precision": 0.0,
+      "recall": 0.0
+     },
+     "U_NEW_VALUE": {
+      "matched": [
+       "G02",
+       "G04",
+       "G05"
+      ],
+      "members": [
+       "G02",
+       "G04",
+       "G05",
+       "G07"
+      ],
+      "precision": 0.33695652173913043,
+      "recall": 0.75
+     }
+    },
+    "items_matching_E": 31,
+    "items_matching_dev_only": 18,
+    "known_items": 37,
+    "matched_gold_pooled": [
+     "G02",
+     "G04",
+     "G05"
+    ],
+    "novel_clusters": [
+     "malformed refund response",
+     "refund tool fault"
+    ],
+    "novel_dimensions": 2,
+    "precision": 0.33695652173913043,
+    "recall_per_run": {
+     "1": 0.25,
+     "2": 0.375,
+     "3": 0.375,
+     "4": 0.375,
+     "5": 0.375
+    },
+    "recall_per_run_mean": 0.35,
+    "recall_pooled": 0.375,
+    "stability_jaccard": 0.8666666666666666,
+    "stability_pairs_with_empty_union": 0,
+    "stability_union_size": 3,
+    "unique_clusters_across_runs": 35,
+    "valid_items": 92
+   },
+   "C": {
+    "classes": {
+     "U_NEW_DIMENSION": {
+      "matched": [
+       "G01",
+       "G12",
+       "G16"
+      ],
+      "members": [
+       "G01",
+       "G12",
+       "G13",
+       "G16"
+      ],
+      "precision": 0.07453416149068323,
+      "recall": 0.75
+     },
+     "U_NEW_VALUE": {
+      "matched": [
+       "G02",
+       "G04",
+       "G05",
+       "G07"
+      ],
+      "members": [
+       "G02",
+       "G04",
+       "G05",
+       "G07"
+      ],
+      "precision": 0.36645962732919257,
+      "recall": 1.0
+     }
+    },
+    "items_matching_E": 71,
+    "items_matching_dev_only": 14,
+    "known_items": 62,
+    "matched_gold_pooled": [
+     "G01",
+     "G02",
+     "G04",
+     "G05",
+     "G07",
+     "G12",
+     "G16"
+    ],
+    "novel_clusters": [
+     "currency variation",
+     "customer count"
+    ],
+    "novel_dimensions": 2,
+    "precision": 0.4409937888198758,
+    "recall_per_run": {
+     "1": 0.75,
+     "2": 0.625,
+     "3": 0.875,
+     "4": 0.5,
+     "5": 0.625
+    },
+    "recall_per_run_mean": 0.675,
+    "recall_pooled": 0.875,
+    "stability_jaccard": 0.7157142857142857,
+    "stability_pairs_with_empty_union": 0,
+    "stability_union_size": 7,
+    "unique_clusters_across_runs": 63,
+    "valid_items": 161
+   }
+  },
+  "gate_input": {
+   "precision": {
+    "B": 0.33695652173913043,
+    "C": 0.4409937888198758
+   },
+   "recall": {
+    "B": 0.375,
+    "C": 0.875
+   },
+   "stability_jaccard": {
+    "B": 0.8666666666666666,
+    "C": 0.7157142857142857
+   }
+  }
+ },
+ "raw_answer_sha256": {
+  "batch_001.json": "c7ef01bdbbf52e10ec4e0efa67e6b6b2b1cf7ea316ecdeb4dc524ac3d06322d0",
+  "batch_002.json": "dca1a410e81e15e4fc75f6ad34c7fd7c6f1a71ba7406baa377bb41738bf2d784",
+  "batch_003.json": "a48024d0311f1dfefa45ca6634e767eb3cd8f493ed289c4e245f05cf337d1b60",
+  "batch_004.json": "b98977d7fadd3818681f5624c3fbc763d18abbdc4e04f0c85fbc13fc711d594e",
+  "batch_005.json": "9cdaeb6867551883c18360e15252e805011dc12d721158c8858c9b6fa18ff5b3",
+  "batch_006.json": "355121b55b4e879628b6452c0c6a63776dae7f428a4e7da8d4451d6cac099c35",
+  "batch_007.json": "bd89e0037812ec35b20cc305413b4c41c7b83cd30cfab245d5e6c4fcc3208967"
+ },
+ "reliability": "ACCEPTABLE",
+ "sensitivity_positions_below_20": {
+  "arms": {
+   "B": {
+    "classes": {
+     "U_NEW_DIMENSION": {
+      "matched": [],
+      "members": [
+       "G01",
+       "G12",
+       "G13",
+       "G16"
+      ],
+      "precision": 0.0,
+      "recall": 0.0
+     },
+     "U_NEW_VALUE": {
+      "matched": [
+       "G02",
+       "G04",
+       "G05"
+      ],
+      "members": [
+       "G02",
+       "G04",
+       "G05",
+       "G07"
+      ],
+      "precision": 0.33695652173913043,
+      "recall": 0.75
+     }
+    },
+    "items_matching_E": 31,
+    "items_matching_dev_only": 18,
+    "known_items": 37,
+    "matched_gold_pooled": [
+     "G02",
+     "G04",
+     "G05"
+    ],
+    "novel_clusters": [
+     "malformed refund response",
+     "refund tool fault"
+    ],
+    "novel_dimensions": 2,
+    "precision": 0.33695652173913043,
+    "recall_per_run": {
+     "1": 0.25,
+     "2": 0.375,
+     "3": 0.375,
+     "4": 0.375,
+     "5": 0.375
+    },
+    "recall_per_run_mean": 0.35,
+    "recall_pooled": 0.375,
+    "stability_jaccard": 0.8666666666666666,
+    "stability_pairs_with_empty_union": 0,
+    "stability_union_size": 3,
+    "unique_clusters_across_runs": 35,
+    "valid_items": 92
+   },
+   "C": {
+    "classes": {
+     "U_NEW_DIMENSION": {
+      "matched": [
+       "G01",
+       "G12",
+       "G16"
+      ],
+      "members": [
+       "G01",
+       "G12",
+       "G13",
+       "G16"
+      ],
+      "precision": 0.07453416149068323,
+      "recall": 0.75
+     },
+     "U_NEW_VALUE": {
+      "matched": [
+       "G02",
+       "G04",
+       "G05",
+       "G07"
+      ],
+      "members": [
+       "G02",
+       "G04",
+       "G05",
+       "G07"
+      ],
+      "precision": 0.36645962732919257,
+      "recall": 1.0
+     }
+    },
+    "items_matching_E": 71,
+    "items_matching_dev_only": 14,
+    "known_items": 62,
+    "matched_gold_pooled": [
+     "G01",
+     "G02",
+     "G04",
+     "G05",
+     "G07",
+     "G12",
+     "G16"
+    ],
+    "novel_clusters": [
+     "currency variation",
+     "customer count"
+    ],
+    "novel_dimensions": 2,
+    "precision": 0.4409937888198758,
+    "recall_per_run": {
+     "1": 0.75,
+     "2": 0.625,
+     "3": 0.875,
+     "4": 0.5,
+     "5": 0.625
+    },
+    "recall_per_run_mean": 0.675,
+    "recall_pooled": 0.875,
+    "stability_jaccard": 0.7157142857142857,
+    "stability_pairs_with_empty_union": 0,
+    "stability_union_size": 7,
+    "unique_clusters_across_runs": 63,
+    "valid_items": 161
+   }
+  },
+  "gate_input": {
+   "precision": {
+    "B": 0.33695652173913043,
+    "C": 0.4409937888198758
+   },
+   "recall": {
+    "B": 0.375,
+    "C": 0.875
+   },
+   "stability_jaccard": {
+    "B": 0.8666666666666666,
+    "C": 0.7157142857142857
+   }
+  }
+ }
+}

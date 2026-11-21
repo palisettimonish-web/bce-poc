@@ -1,0 +1,23 @@
+{
+ "batches": 7,
+ "coverage_sha256": "5b091ebda02cbd3e4ea9445d6870c7b4938b85979eab170a80cba994c99e99fe",
+ "file_sha256": {
+  "batch_001_prompt.txt": "fdbcfeed8f204c8f9c973d16bbf1743690bd1fd8b80f3ef38e99fcd00ba97d51",
+  "batch_002_prompt.txt": "a3eaff31ea1b64176da85e40b71cc1dbe28eff15c03a3b7fa1ce1796781a4895",
+  "batch_003_prompt.txt": "cc07adf693f386db94451152525ad2cb0479bfa0f4da43eee595c5018201f219",
+  "batch_004_prompt.txt": "79cf68c124e91ab4cc231605469323279ff04fed359c4d7c8351050bcafe7c3f",
+  "batch_005_prompt.txt": "db17d5be59384e1d0082390b1d40e96e75c87adff88b142b3e7f695748854677",
+  "batch_006_prompt.txt": "d8a7f8c24e328f247e45d9b88f7ae8a94b0d2a31fbd40fe72763ebe02429e230",
+  "batch_007_prompt.txt": "069aefa530d26352da11290ebfd011df9ff63367b0e4700a40e99a51a480215f",
+  "human_answers_template.json": "f298b19f9d0b8e4f269e65953f05189b71e0f588c5b01f3c38e5d349bf674274",
+  "human_packet.json": "3581cfbbbfe4bdf807cda008ef5d28480d419af387f6f2a0f8152b027544773a",
+  "items_key.json": "ac4fadb9539451aa9d804745c84e2772112688ab35fa3f554dce78292dc63d2c",
+  "items_text.json": "bbc3bf457ee62c323128ac7c8c5d6c39d06f91116a1158743e81b128065d4d54"
+ },
+ "gold_sha256": "0e60ea74d68c81ca94ff0fb2f227038fea72c6f38684d333f1fb4f64314171a7",
+ "human_sample_items": 51,
+ "items": 253,
+ "note": "the judge runs once per batch, answers are stored raw and never edited (SP l.8)",
+ "seed": 20260311,
+ "template_sha256": "24c1394a67b82f177631888b85dbfc3dfb11a99ba137bed7192f795a6090b158"
+}

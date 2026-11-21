@@ -1,0 +1,2142 @@
+{
+ "batches": [
+  {
+   "batch": 1,
+   "item_ids": [
+    "i0001",
+    "i0002",
+    "i0003",
+    "i0004",
+    "i0005",
+    "i0006",
+    "i0007",
+    "i0008",
+    "i0009",
+    "i0010",
+    "i0011",
+    "i0012",
+    "i0013",
+    "i0014",
+    "i0015",
+    "i0016",
+    "i0017",
+    "i0018",
+    "i0019",
+    "i0020",
+    "i0021",
+    "i0022",
+    "i0023",
+    "i0024",
+    "i0025",
+    "i0026",
+    "i0027",
+    "i0028",
+    "i0029",
+    "i0030",
+    "i0031",
+    "i0032",
+    "i0033",
+    "i0034",
+    "i0035",
+    "i0036",
+    "i0037",
+    "i0038",
+    "i0039",
+    "i0040"
+   ],
+   "prompt": "batch_001_prompt.txt"
+  },
+  {
+   "batch": 2,
+   "item_ids": [
+    "i0041",
+    "i0042",
+    "i0043",
+    "i0044",
+    "i0045",
+    "i0046",
+    "i0047",
+    "i0048",
+    "i0049",
+    "i0050",
+    "i0051",
+    "i0052",
+    "i0053",
+    "i0054",
+    "i0055",
+    "i0056",
+    "i0057",
+    "i0058",
+    "i0059",
+    "i0060",
+    "i0061",
+    "i0062",
+    "i0063",
+    "i0064",
+    "i0065",
+    "i0066",
+    "i0067",
+    "i0068",
+    "i0069",
+    "i0070",
+    "i0071",
+    "i0072",
+    "i0073",
+    "i0074",
+    "i0075",
+    "i0076",
+    "i0077",
+    "i0078",
+    "i0079",
+    "i0080"
+   ],
+   "prompt": "batch_002_prompt.txt"
+  },
+  {
+   "batch": 3,
+   "item_ids": [
+    "i0081",
+    "i0082",
+    "i0083",
+    "i0084",
+    "i0085",
+    "i0086",
+    "i0087",
+    "i0088",
+    "i0089",
+    "i0090",
+    "i0091",
+    "i0092",
+    "i0093",
+    "i0094",
+    "i0095",
+    "i0096",
+    "i0097",
+    "i0098",
+    "i0099",
+    "i0100",
+    "i0101",
+    "i0102",
+    "i0103",
+    "i0104",
+    "i0105",
+    "i0106",
+    "i0107",
+    "i0108",
+    "i0109",
+    "i0110",
+    "i0111",
+    "i0112",
+    "i0113",
+    "i0114",
+    "i0115",
+    "i0116",
+    "i0117",
+    "i0118",
+    "i0119",
+    "i0120"
+   ],
+   "prompt": "batch_003_prompt.txt"
+  },
+  {
+   "batch": 4,
+   "item_ids": [
+    "i0121",
+    "i0122",
+    "i0123",
+    "i0124",
+    "i0125",
+    "i0126",
+    "i0127",
+    "i0128",
+    "i0129",
+    "i0130",
+    "i0131",
+    "i0132",
+    "i0133",
+    "i0134",
+    "i0135",
+    "i0136",
+    "i0137",
+    "i0138",
+    "i0139",
+    "i0140",
+    "i0141",
+    "i0142",
+    "i0143",
+    "i0144",
+    "i0145",
+    "i0146",
+    "i0147",
+    "i0148",
+    "i0149",
+    "i0150",
+    "i0151",
+    "i0152",
+    "i0153",
+    "i0154",
+    "i0155",
+    "i0156",
+    "i0157",
+    "i0158",
+    "i0159",
+    "i0160"
+   ],
+   "prompt": "batch_004_prompt.txt"
+  },
+  {
+   "batch": 5,
+   "item_ids": [
+    "i0161",
+    "i0162",
+    "i0163",
+    "i0164",
+    "i0165",
+    "i0166",
+    "i0167",
+    "i0168",
+    "i0169",
+    "i0170",
+    "i0171",
+    "i0172",
+    "i0173",
+    "i0174",
+    "i0175",
+    "i0176",
+    "i0177",
+    "i0178",
+    "i0179",
+    "i0180",
+    "i0181",
+    "i0182",
+    "i0183",
+    "i0184",
+    "i0185",
+    "i0186",
+    "i0187",
+    "i0188",
+    "i0189",
+    "i0190",
+    "i0191",
+    "i0192",
+    "i0193",
+    "i0194",
+    "i0195",
+    "i0196",
+    "i0197",
+    "i0198",
+    "i0199",
+    "i0200"
+   ],
+   "prompt": "batch_005_prompt.txt"
+  },
+  {
+   "batch": 6,
+   "item_ids": [
+    "i0201",
+    "i0202",
+    "i0203",
+    "i0204",
+    "i0205",
+    "i0206",
+    "i0207",
+    "i0208",
+    "i0209",
+    "i0210",
+    "i0211",
+    "i0212",
+    "i0213",
+    "i0214",
+    "i0215",
+    "i0216",
+    "i0217",
+    "i0218",
+    "i0219",
+    "i0220",
+    "i0221",
+    "i0222",
+    "i0223",
+    "i0224",
+    "i0225",
+    "i0226",
+    "i0227",
+    "i0228",
+    "i0229",
+    "i0230",
+    "i0231",
+    "i0232",
+    "i0233",
+    "i0234",
+    "i0235",
+    "i0236",
+    "i0237",
+    "i0238",
+    "i0239",
+    "i0240"
+   ],
+   "prompt": "batch_006_prompt.txt"
+  },
+  {
+   "batch": 7,
+   "item_ids": [
+    "i0241",
+    "i0242",
+    "i0243",
+    "i0244",
+    "i0245",
+    "i0246",
+    "i0247",
+    "i0248",
+    "i0249",
+    "i0250",
+    "i0251",
+    "i0252",
+    "i0253"
+   ],
+   "prompt": "batch_007_prompt.txt"
+  }
+ ],
+ "human_sample": [
+  "i0012",
+  "i0014",
+  "i0021",
+  "i0023",
+  "i0029",
+  "i0031",
+  "i0037",
+  "i0042",
+  "i0052",
+  "i0055",
+  "i0060",
+  "i0061",
+  "i0062",
+  "i0084",
+  "i0090",
+  "i0097",
+  "i0099",
+  "i0106",
+  "i0112",
+  "i0125",
+  "i0131",
+  "i0132",
+  "i0134",
+  "i0140",
+  "i0151",
+  "i0152",
+  "i0154",
+  "i0156",
+  "i0157",
+  "i0160",
+  "i0163",
+  "i0170",
+  "i0175",
+  "i0186",
+  "i0189",
+  "i0191",
+  "i0195",
+  "i0208",
+  "i0210",
+  "i0211",
+  "i0216",
+  "i0224",
+  "i0226",
+  "i0228",
+  "i0239",
+  "i0242",
+  "i0243",
+  "i0246",
+  "i0247",
+  "i0249",
+  "i0251"
+ ],
+ "items": {
+  "i0001": {
+   "arm": "C",
+   "in_budget": true,
+   "kind": "candidate",
+   "position": 5,
+   "run": 4
+  },
+  "i0002": {
+   "arm": "B",
+   "in_budget": true,
+   "kind": "scenario",
+   "position": 9,
+   "run": 4
+  },
+  "i0003": {
+   "arm": "C",
+   "in_budget": true,
+   "kind": "candidate",
+   "position": 6,
+   "run": 5
+  },
+  "i0004": {
+   "arm": "C",
+   "in_budget": true,
+   "kind": "scenario",
+   "position": 7,
+   "run": 2
+  },
+  "i0005": {
+   "arm": "C",
+   "in_budget": true,
+   "kind": "scenario",
+   "position": 1,
+   "run": 1
+  },
+  "i0006": {
+   "arm": "C",
+   "in_budget": true,
+   "kind": "scenario",
+   "position": 5,
+   "run": 5
+  },
+  "i0007": {
+   "arm": "B",
+   "in_budget": true,
+   "kind": "scenario",
+   "position": 15,
+   "run": 2
+  },
+  "i0008": {
+   "arm": "B",
+   "in_budget": true,
+   "kind": "scenario",
+   "position": 6,
+   "run": 5
+  },
+  "i0009": {
+   "arm": "C",
+   "in_budget": true,
+   "kind": "candidate",
+   "position": 13,
+   "run": 3
+  },
+  "i0010": {
+   "arm": "C",
+   "in_budget": true,
+   "kind": "scenario",
+   "position": 13,
+   "run": 2
+  },
+  "i0011": {
+   "arm": "C",
+   "in_budget": true,
+   "kind": "candidate",
+   "position": 15,
+   "run": 3
+  },
+  "i0012": {
+   "arm": "B",
+   "in_budget": true,
+   "kind": "scenario",
+   "position": 4,
+   "run": 1
+  },
+  "i0013": {
+   "arm": "C",
+   "in_budget": true,
+   "kind": "scenario",
+   "position": 0,
+   "run": 5
+  },
+  "i0014": {
+   "arm": "B",
+   "in_budget": true,
+   "kind": "scenario",
+   "position": 7,
+   "run": 1
+  },
+  "i0015": {
+   "arm": "B",
+   "in_budget": true,
+   "kind": "scenario",
+   "position": 1,
+   "run": 1
+  },
+  "i0016": {
+   "arm": "C",
+   "in_budget": true,
+   "kind": "scenario",
+   "position": 7,
+   "run": 3
+  },
+  "i0017": {
+   "arm": "C",
+   "in_budget": true,
+   "kind": "scenario",
+   "position": 16,
+   "run": 3
+  },
+  "i0018": {
+   "arm": "C",
+   "in_budget": true,
+   "kind": "candidate",
+   "position": 2,
+   "run": 2
+  },
+  "i0019": {
+   "arm": "B",
+   "in_budget": true,
+   "kind": "scenario",
+   "position": 1,
+   "run": 2
+  },
+  "i0020": {
+   "arm": "C",
+   "in_budget": true,
+   "kind": "scenario",
+   "position": 3,
+   "run": 5
+  },
+  "i0021": {
+   "arm": "C",
+   "in_budget": true,
+   "kind": "scenario",
+   "position": 11,
+   "run": 3
+  },
+  "i0022": {
+   "arm": "C",
+   "in_budget": true,
+   "kind": "candidate",
+   "position": 17,
+   "run": 5
+  },
+  "i0023": {
+   "arm": "C",
+   "in_budget": true,
+   "kind": "candidate",
+   "position": 9,
+   "run": 3
+  },
+  "i0024": {
+   "arm": "B",
+   "in_budget": true,
+   "kind": "scenario",
+   "position": 9,
+   "run": 1
+  },
+  "i0025": {
+   "arm": "B",
+   "in_budget": true,
+   "kind": "scenario",
+   "position": 4,
+   "run": 5
+  },
+  "i0026": {
+   "arm": "C",
+   "in_budget": true,
+   "kind": "candidate",
+   "position": 4,
+   "run": 4
+  },
+  "i0027": {
+   "arm": "C",
+   "in_budget": true,
+   "kind": "scenario",
+   "position": 4,
+   "run": 4
+  },
+  "i0028": {
+   "arm": "C",
+   "in_budget": true,
+   "kind": "scenario",
+   "position": 9,
+   "run": 3
+  },
+  "i0029": {
+   "arm": "B",
+   "in_budget": true,
+   "kind": "scenario",
+   "position": 7,
+   "run": 2
+  },
+  "i0030": {
+   "arm": "C",
+   "in_budget": true,
+   "kind": "scenario",
+   "position": 12,
+   "run": 1
+  },
+  "i0031": {
+   "arm": "B",
+   "in_budget": true,
+   "kind": "scenario",
+   "position": 6,
+   "run": 1
+  },
+  "i0032": {
+   "arm": "B",
+   "in_budget": true,
+   "kind": "scenario",
+   "position": 12,
+   "run": 1
+  },
+  "i0033": {
+   "arm": "B",
+   "in_budget": true,
+   "kind": "scenario",
+   "position": 17,
+   "run": 2
+  },
+  "i0034": {
+   "arm": "C",
+   "in_budget": true,
+   "kind": "scenario",
+   "position": 18,
+   "run": 1
+  },
+  "i0035": {
+   "arm": "C",
+   "in_budget": true,
+   "kind": "scenario",
+   "position": 6,
+   "run": 2
+  },
+  "i0036": {
+   "arm": "C",
+   "in_budget": true,
+   "kind": "candidate",
+   "position": 6,
+   "run": 3
+  },
+  "i0037": {
+   "arm": "C",
+   "in_budget": true,
+   "kind": "scenario",
+   "position": 18,
+   "run": 2
+  },
+  "i0038": {
+   "arm": "B",
+   "in_budget": true,
+   "kind": "scenario",
+   "position": 8,
+   "run": 3
+  },
+  "i0039": {
+   "arm": "B",
+   "in_budget": true,
+   "kind": "scenario",
+   "position": 8,
+   "run": 2
+  },
+  "i0040": {
+   "arm": "B",
+   "in_budget": true,
+   "kind": "scenario",
+   "position": 16,
+   "run": 2
+  },
+  "i0041": {
+   "arm": "C",
+   "in_budget": true,
+   "kind": "scenario",
+   "position": 0,
+   "run": 1
+  },
+  "i0042": {
+   "arm": "C",
+   "in_budget": true,
+   "kind": "scenario",
+   "position": 2,
+   "run": 5
+  },
+  "i0043": {
+   "arm": "B",
+   "in_budget": true,
+   "kind": "scenario",
+   "position": 11,
+   "run": 3
+  },
+  "i0044": {
+   "arm": "C",
+   "in_budget": true,
+   "kind": "scenario",
+   "position": 16,
+   "run": 5
+  },
+  "i0045": {
+   "arm": "C",
+   "in_budget": true,
+   "kind": "candidate",
+   "position": 3,
+   "run": 3
+  },
+  "i0046": {
+   "arm": "C",
+   "in_budget": true,
+   "kind": "candidate",
+   "position": 8,
+   "run": 4
+  },
+  "i0047": {
+   "arm": "C",
+   "in_budget": true,
+   "kind": "scenario",
+   "position": 14,
+   "run": 5
+  },
+  "i0048": {
+   "arm": "B",
+   "in_budget": true,
+   "kind": "scenario",
+   "position": 5,
+   "run": 2
+  },
+  "i0049": {
+   "arm": "C",
+   "in_budget": true,
+   "kind": "candidate",
+   "position": 9,
+   "run": 1
+  },
+  "i0050": {
+   "arm": "C",
+   "in_budget": true,
+   "kind": "candidate",
+   "position": 2,
+   "run": 1
+  },
+  "i0051": {
+   "arm": "C",
+   "in_budget": true,
+   "kind": "scenario",
+   "position": 18,
+   "run": 5
+  },
+  "i0052": {
+   "arm": "B",
+   "in_budget": true,
+   "kind": "scenario",
+   "position": 1,
+   "run": 3
+  },
+  "i0053": {
+   "arm": "C",
+   "in_budget": true,
+   "kind": "scenario",
+   "position": 15,
+   "run": 3
+  },
+  "i0054": {
+   "arm": "C",
+   "in_budget": true,
+   "kind": "scenario",
+   "position": 7,
+   "run": 1
+  },
+  "i0055": {
+   "arm": "B",
+   "in_budget": true,
+   "kind": "scenario",
+   "position": 6,
+   "run": 2
+  },
+  "i0056": {
+   "arm": "B",
+   "in_budget": true,
+   "kind": "scenario",
+   "position": 16,
+   "run": 3
+  },
+  "i0057": {
+   "arm": "C",
+   "in_budget": true,
+   "kind": "candidate",
+   "position": 11,
+   "run": 3
+  },
+  "i0058": {
+   "arm": "C",
+   "in_budget": true,
+   "kind": "candidate",
+   "position": 5,
+   "run": 5
+  },
+  "i0059": {
+   "arm": "C",
+   "in_budget": true,
+   "kind": "scenario",
+   "position": 9,
+   "run": 2
+  },
+  "i0060": {
+   "arm": "C",
+   "in_budget": true,
+   "kind": "scenario",
+   "position": 1,
+   "run": 5
+  },
+  "i0061": {
+   "arm": "C",
+   "in_budget": true,
+   "kind": "candidate",
+   "position": 1,
+   "run": 2
+  },
+  "i0062": {
+   "arm": "B",
+   "in_budget": true,
+   "kind": "scenario",
+   "position": 2,
+   "run": 1
+  },
+  "i0063": {
+   "arm": "B",
+   "in_budget": true,
+   "kind": "scenario",
+   "position": 8,
+   "run": 1
+  },
+  "i0064": {
+   "arm": "B",
+   "in_budget": true,
+   "kind": "scenario",
+   "position": 15,
+   "run": 1
+  },
+  "i0065": {
+   "arm": "C",
+   "in_budget": true,
+   "kind": "scenario",
+   "position": 2,
+   "run": 3
+  },
+  "i0066": {
+   "arm": "B",
+   "in_budget": true,
+   "kind": "scenario",
+   "position": 9,
+   "run": 5
+  },
+  "i0067": {
+   "arm": "C",
+   "in_budget": true,
+   "kind": "scenario",
+   "position": 9,
+   "run": 1
+  },
+  "i0068": {
+   "arm": "C",
+   "in_budget": true,
+   "kind": "scenario",
+   "position": 5,
+   "run": 3
+  },
+  "i0069": {
+   "arm": "B",
+   "in_budget": true,
+   "kind": "scenario",
+   "position": 1,
+   "run": 5
+  },
+  "i0070": {
+   "arm": "C",
+   "in_budget": true,
+   "kind": "scenario",
+   "position": 7,
+   "run": 4
+  },
+  "i0071": {
+   "arm": "B",
+   "in_budget": true,
+   "kind": "scenario",
+   "position": 13,
+   "run": 5
+  },
+  "i0072": {
+   "arm": "C",
+   "in_budget": true,
+   "kind": "scenario",
+   "position": 10,
+   "run": 1
+  },
+  "i0073": {
+   "arm": "C",
+   "in_budget": true,
+   "kind": "candidate",
+   "position": 7,
+   "run": 2
+  },
+  "i0074": {
+   "arm": "B",
+   "in_budget": true,
+   "kind": "scenario",
+   "position": 12,
+   "run": 3
+  },
+  "i0075": {
+   "arm": "C",
+   "in_budget": true,
+   "kind": "candidate",
+   "position": 7,
+   "run": 5
+  },
+  "i0076": {
+   "arm": "C",
+   "in_budget": true,
+   "kind": "scenario",
+   "position": 6,
+   "run": 4
+  },
+  "i0077": {
+   "arm": "C",
+   "in_budget": true,
+   "kind": "candidate",
+   "position": 10,
+   "run": 3
+  },
+  "i0078": {
+   "arm": "C",
+   "in_budget": true,
+   "kind": "scenario",
+   "position": 3,
+   "run": 1
+  },
+  "i0079": {
+   "arm": "C",
+   "in_budget": true,
+   "kind": "scenario",
+   "position": 16,
+   "run": 4
+  },
+  "i0080": {
+   "arm": "C",
+   "in_budget": true,
+   "kind": "scenario",
+   "position": 6,
+   "run": 3
+  },
+  "i0081": {
+   "arm": "B",
+   "in_budget": true,
+   "kind": "scenario",
+   "position": 2,
+   "run": 5
+  },
+  "i0082": {
+   "arm": "C",
+   "in_budget": true,
+   "kind": "scenario",
+   "position": 10,
+   "run": 2
+  },
+  "i0083": {
+   "arm": "B",
+   "in_budget": true,
+   "kind": "scenario",
+   "position": 10,
+   "run": 4
+  },
+  "i0084": {
+   "arm": "C",
+   "in_budget": true,
+   "kind": "candidate",
+   "position": 3,
+   "run": 1
+  },
+  "i0085": {
+   "arm": "C",
+   "in_budget": true,
+   "kind": "candidate",
+   "position": 1,
+   "run": 4
+  },
+  "i0086": {
+   "arm": "C",
+   "in_budget": true,
+   "kind": "scenario",
+   "position": 4,
+   "run": 3
+  },
+  "i0087": {
+   "arm": "B",
+   "in_budget": true,
+   "kind": "scenario",
+   "position": 15,
+   "run": 5
+  },
+  "i0088": {
+   "arm": "C",
+   "in_budget": true,
+   "kind": "candidate",
+   "position": 12,
+   "run": 5
+  },
+  "i0089": {
+   "arm": "B",
+   "in_budget": true,
+   "kind": "scenario",
+   "position": 16,
+   "run": 4
+  },
+  "i0090": {
+   "arm": "C",
+   "in_budget": true,
+   "kind": "candidate",
+   "position": 10,
+   "run": 5
+  },
+  "i0091": {
+   "arm": "C",
+   "in_budget": true,
+   "kind": "scenario",
+   "position": 2,
+   "run": 2
+  },
+  "i0092": {
+   "arm": "B",
+   "in_budget": true,
+   "kind": "scenario",
+   "position": 18,
+   "run": 5
+  },
+  "i0093": {
+   "arm": "C",
+   "in_budget": true,
+   "kind": "candidate",
+   "position": 5,
+   "run": 3
+  },
+  "i0094": {
+   "arm": "C",
+   "in_budget": true,
+   "kind": "candidate",
+   "position": 2,
+   "run": 5
+  },
+  "i0095": {
+   "arm": "B",
+   "in_budget": true,
+   "kind": "scenario",
+   "position": 7,
+   "run": 3
+  },
+  "i0096": {
+   "arm": "C",
+   "in_budget": true,
+   "kind": "candidate",
+   "position": 7,
+   "run": 1
+  },
+  "i0097": {
+   "arm": "C",
+   "in_budget": true,
+   "kind": "candidate",
+   "position": 16,
+   "run": 5
+  },
+  "i0098": {
+   "arm": "C",
+   "in_budget": true,
+   "kind": "scenario",
+   "position": 6,
+   "run": 5
+  },
+  "i0099": {
+   "arm": "B",
+   "in_budget": true,
+   "kind": "scenario",
+   "position": 1,
+   "run": 4
+  },
+  "i0100": {
+   "arm": "C",
+   "in_budget": true,
+   "kind": "scenario",
+   "position": 2,
+   "run": 4
+  },
+  "i0101": {
+   "arm": "C",
+   "in_budget": true,
+   "kind": "candidate",
+   "position": 5,
+   "run": 2
+  },
+  "i0102": {
+   "arm": "B",
+   "in_budget": true,
+   "kind": "scenario",
+   "position": 8,
+   "run": 4
+  },
+  "i0103": {
+   "arm": "C",
+   "in_budget": true,
+   "kind": "scenario",
+   "position": 8,
+   "run": 2
+  },
+  "i0104": {
+   "arm": "B",
+   "in_budget": true,
+   "kind": "scenario",
+   "position": 0,
+   "run": 3
+  },
+  "i0105": {
+   "arm": "C",
+   "in_budget": true,
+   "kind": "scenario",
+   "position": 6,
+   "run": 1
+  },
+  "i0106": {
+   "arm": "C",
+   "in_budget": true,
+   "kind": "candidate",
+   "position": 2,
+   "run": 3
+  },
+  "i0107": {
+   "arm": "C",
+   "in_budget": true,
+   "kind": "scenario",
+   "position": 1,
+   "run": 2
+  },
+  "i0108": {
+   "arm": "C",
+   "in_budget": true,
+   "kind": "scenario",
+   "position": 5,
+   "run": 4
+  },
+  "i0109": {
+   "arm": "C",
+   "in_budget": true,
+   "kind": "candidate",
+   "position": 0,
+   "run": 5
+  },
+  "i0110": {
+   "arm": "C",
+   "in_budget": true,
+   "kind": "candidate",
+   "position": 12,
+   "run": 1
+  },
+  "i0111": {
+   "arm": "B",
+   "in_budget": true,
+   "kind": "scenario",
+   "position": 3,
+   "run": 3
+  },
+  "i0112": {
+   "arm": "C",
+   "in_budget": true,
+   "kind": "scenario",
+   "position": 16,
+   "run": 2
+  },
+  "i0113": {
+   "arm": "C",
+   "in_budget": true,
+   "kind": "scenario",
+   "position": 0,
+   "run": 2
+  },
+  "i0114": {
+   "arm": "C",
+   "in_budget": true,
+   "kind": "candidate",
+   "position": 12,
+   "run": 3
+  },
+  "i0115": {
+   "arm": "B",
+   "in_budget": true,
+   "kind": "scenario",
+   "position": 8,
+   "run": 5
+  },
+  "i0116": {
+   "arm": "C",
+   "in_budget": true,
+   "kind": "candidate",
+   "position": 18,
+   "run": 5
+  },
+  "i0117": {
+   "arm": "C",
+   "in_budget": true,
+   "kind": "scenario",
+   "position": 14,
+   "run": 1
+  },
+  "i0118": {
+   "arm": "C",
+   "in_budget": true,
+   "kind": "scenario",
+   "position": 15,
+   "run": 1
+  },
+  "i0119": {
+   "arm": "C",
+   "in_budget": true,
+   "kind": "candidate",
+   "position": 3,
+   "run": 4
+  },
+  "i0120": {
+   "arm": "B",
+   "in_budget": true,
+   "kind": "scenario",
+   "position": 11,
+   "run": 2
+  },
+  "i0121": {
+   "arm": "B",
+   "in_budget": true,
+   "kind": "scenario",
+   "position": 3,
+   "run": 2
+  },
+  "i0122": {
+   "arm": "B",
+   "in_budget": true,
+   "kind": "scenario",
+   "position": 14,
+   "run": 5
+  },
+  "i0123": {
+   "arm": "C",
+   "in_budget": true,
+   "kind": "scenario",
+   "position": 11,
+   "run": 1
+  },
+  "i0124": {
+   "arm": "C",
+   "in_budget": true,
+   "kind": "candidate",
+   "position": 0,
+   "run": 1
+  },
+  "i0125": {
+   "arm": "B",
+   "in_budget": true,
+   "kind": "scenario",
+   "position": 5,
+   "run": 3
+  },
+  "i0126": {
+   "arm": "C",
+   "in_budget": true,
+   "kind": "scenario",
+   "position": 12,
+   "run": 2
+  },
+  "i0127": {
+   "arm": "B",
+   "in_budget": true,
+   "kind": "scenario",
+   "position": 7,
+   "run": 5
+  },
+  "i0128": {
+   "arm": "B",
+   "in_budget": true,
+   "kind": "scenario",
+   "position": 0,
+   "run": 5
+  },
+  "i0129": {
+   "arm": "C",
+   "in_budget": true,
+   "kind": "scenario",
+   "position": 16,
+   "run": 1
+  },
+  "i0130": {
+   "arm": "C",
+   "in_budget": true,
+   "kind": "scenario",
+   "position": 12,
+   "run": 4
+  },
+  "i0131": {
+   "arm": "B",
+   "in_budget": true,
+   "kind": "scenario",
+   "position": 10,
+   "run": 3
+  },
+  "i0132": {
+   "arm": "B",
+   "in_budget": true,
+   "kind": "scenario",
+   "position": 7,
+   "run": 4
+  },
+  "i0133": {
+   "arm": "B",
+   "in_budget": true,
+   "kind": "scenario",
+   "position": 13,
+   "run": 2
+  },
+  "i0134": {
+   "arm": "B",
+   "in_budget": true,
+   "kind": "scenario",
+   "position": 9,
+   "run": 2
+  },
+  "i0135": {
+   "arm": "C",
+   "in_budget": true,
+   "kind": "scenario",
+   "position": 1,
+   "run": 3
+  },
+  "i0136": {
+   "arm": "B",
+   "in_budget": true,
+   "kind": "scenario",
+   "position": 5,
+   "run": 5
+  },
+  "i0137": {
+   "arm": "C",
+   "in_budget": true,
+   "kind": "candidate",
+   "position": 11,
+   "run": 1
+  },
+  "i0138": {
+   "arm": "C",
+   "in_budget": true,
+   "kind": "scenario",
+   "position": 8,
+   "run": 3
+  },
+  "i0139": {
+   "arm": "B",
+   "in_budget": true,
+   "kind": "scenario",
+   "position": 3,
+   "run": 1
+  },
+  "i0140": {
+   "arm": "C",
+   "in_budget": true,
+   "kind": "scenario",
+   "position": 13,
+   "run": 1
+  },
+  "i0141": {
+   "arm": "C",
+   "in_budget": true,
+   "kind": "candidate",
+   "position": 8,
+   "run": 1
+  },
+  "i0142": {
+   "arm": "B",
+   "in_budget": true,
+   "kind": "scenario",
+   "position": 12,
+   "run": 4
+  },
+  "i0143": {
+   "arm": "C",
+   "in_budget": true,
+   "kind": "scenario",
+   "position": 17,
+   "run": 4
+  },
+  "i0144": {
+   "arm": "C",
+   "in_budget": true,
+   "kind": "candidate",
+   "position": 14,
+   "run": 5
+  },
+  "i0145": {
+   "arm": "C",
+   "in_budget": true,
+   "kind": "scenario",
+   "position": 8,
+   "run": 4
+  },
+  "i0146": {
+   "arm": "C",
+   "in_budget": true,
+   "kind": "scenario",
+   "position": 9,
+   "run": 4
+  },
+  "i0147": {
+   "arm": "C",
+   "in_budget": true,
+   "kind": "scenario",
+   "position": 9,
+   "run": 5
+  },
+  "i0148": {
+   "arm": "B",
+   "in_budget": true,
+   "kind": "scenario",
+   "position": 10,
+   "run": 1
+  },
+  "i0149": {
+   "arm": "C",
+   "in_budget": true,
+   "kind": "scenario",
+   "position": 12,
+   "run": 3
+  },
+  "i0150": {
+   "arm": "C",
+   "in_budget": true,
+   "kind": "scenario",
+   "position": 1,
+   "run": 4
+  },
+  "i0151": {
+   "arm": "B",
+   "in_budget": true,
+   "kind": "scenario",
+   "position": 17,
+   "run": 4
+  },
+  "i0152": {
+   "arm": "C",
+   "in_budget": true,
+   "kind": "scenario",
+   "position": 10,
+   "run": 5
+  },
+  "i0153": {
+   "arm": "B",
+   "in_budget": true,
+   "kind": "scenario",
+   "position": 14,
+   "run": 1
+  },
+  "i0154": {
+   "arm": "B",
+   "in_budget": true,
+   "kind": "scenario",
+   "position": 17,
+   "run": 1
+  },
+  "i0155": {
+   "arm": "B",
+   "in_budget": true,
+   "kind": "scenario",
+   "position": 0,
+   "run": 1
+  },
+  "i0156": {
+   "arm": "B",
+   "in_budget": true,
+   "kind": "scenario",
+   "position": 3,
+   "run": 5
+  },
+  "i0157": {
+   "arm": "C",
+   "in_budget": true,
+   "kind": "scenario",
+   "position": 3,
+   "run": 4
+  },
+  "i0158": {
+   "arm": "C",
+   "in_budget": true,
+   "kind": "candidate",
+   "position": 0,
+   "run": 2
+  },
+  "i0159": {
+   "arm": "C",
+   "in_budget": true,
+   "kind": "candidate",
+   "position": 8,
+   "run": 5
+  },
+  "i0160": {
+   "arm": "C",
+   "in_budget": true,
+   "kind": "scenario",
+   "position": 19,
+   "run": 1
+  },
+  "i0161": {
+   "arm": "B",
+   "in_budget": true,
+   "kind": "scenario",
+   "position": 16,
+   "run": 1
+  },
+  "i0162": {
+   "arm": "B",
+   "in_budget": true,
+   "kind": "scenario",
+   "position": 14,
+   "run": 2
+  },
+  "i0163": {
+   "arm": "C",
+   "in_budget": true,
+   "kind": "candidate",
+   "position": 14,
+   "run": 1
+  },
+  "i0164": {
+   "arm": "B",
+   "in_budget": true,
+   "kind": "scenario",
+   "position": 15,
+   "run": 4
+  },
+  "i0165": {
+   "arm": "C",
+   "in_budget": true,
+   "kind": "scenario",
+   "position": 0,
+   "run": 4
+  },
+  "i0166": {
+   "arm": "B",
+   "in_budget": true,
+   "kind": "scenario",
+   "position": 0,
+   "run": 4
+  },
+  "i0167": {
+   "arm": "B",
+   "in_budget": true,
+   "kind": "scenario",
+   "position": 13,
+   "run": 3
+  },
+  "i0168": {
+   "arm": "C",
+   "in_budget": true,
+   "kind": "candidate",
+   "position": 8,
+   "run": 2
+  },
+  "i0169": {
+   "arm": "B",
+   "in_budget": true,
+   "kind": "scenario",
+   "position": 2,
+   "run": 3
+  },
+  "i0170": {
+   "arm": "C",
+   "in_budget": true,
+   "kind": "scenario",
+   "position": 10,
+   "run": 3
+  },
+  "i0171": {
+   "arm": "B",
+   "in_budget": true,
+   "kind": "scenario",
+   "position": 15,
+   "run": 3
+  },
+  "i0172": {
+   "arm": "C",
+   "in_budget": true,
+   "kind": "scenario",
+   "position": 11,
+   "run": 2
+  },
+  "i0173": {
+   "arm": "C",
+   "in_budget": true,
+   "kind": "scenario",
+   "position": 15,
+   "run": 4
+  },
+  "i0174": {
+   "arm": "C",
+   "in_budget": true,
+   "kind": "candidate",
+   "position": 5,
+   "run": 1
+  },
+  "i0175": {
+   "arm": "B",
+   "in_budget": true,
+   "kind": "scenario",
+   "position": 9,
+   "run": 3
+  },
+  "i0176": {
+   "arm": "B",
+   "in_budget": true,
+   "kind": "scenario",
+   "position": 11,
+   "run": 4
+  },
+  "i0177": {
+   "arm": "C",
+   "in_budget": true,
+   "kind": "candidate",
+   "position": 15,
+   "run": 5
+  },
+  "i0178": {
+   "arm": "C",
+   "in_budget": true,
+   "kind": "candidate",
+   "position": 4,
+   "run": 5
+  },
+  "i0179": {
+   "arm": "C",
+   "in_budget": true,
+   "kind": "candidate",
+   "position": 8,
+   "run": 3
+  },
+  "i0180": {
+   "arm": "C",
+   "in_budget": true,
+   "kind": "scenario",
+   "position": 13,
+   "run": 3
+  },
+  "i0181": {
+   "arm": "B",
+   "in_budget": true,
+   "kind": "scenario",
+   "position": 11,
+   "run": 5
+  },
+  "i0182": {
+   "arm": "C",
+   "in_budget": true,
+   "kind": "scenario",
+   "position": 19,
+   "run": 5
+  },
+  "i0183": {
+   "arm": "C",
+   "in_budget": true,
+   "kind": "scenario",
+   "position": 0,
+   "run": 3
+  },
+  "i0184": {
+   "arm": "C",
+   "in_budget": true,
+   "kind": "scenario",
+   "position": 2,
+   "run": 1
+  },
+  "i0185": {
+   "arm": "C",
+   "in_budget": true,
+   "kind": "scenario",
+   "position": 5,
+   "run": 1
+  },
+  "i0186": {
+   "arm": "C",
+   "in_budget": true,
+   "kind": "scenario",
+   "position": 5,
+   "run": 2
+  },
+  "i0187": {
+   "arm": "C",
+   "in_budget": true,
+   "kind": "candidate",
+   "position": 19,
+   "run": 5
+  },
+  "i0188": {
+   "arm": "C",
+   "in_budget": true,
+   "kind": "candidate",
+   "position": 1,
+   "run": 1
+  },
+  "i0189": {
+   "arm": "B",
+   "in_budget": true,
+   "kind": "scenario",
+   "position": 12,
+   "run": 5
+  },
+  "i0190": {
+   "arm": "C",
+   "in_budget": true,
+   "kind": "scenario",
+   "position": 4,
+   "run": 2
+  },
+  "i0191": {
+   "arm": "B",
+   "in_budget": true,
+   "kind": "scenario",
+   "position": 6,
+   "run": 3
+  },
+  "i0192": {
+   "arm": "B",
+   "in_budget": true,
+   "kind": "scenario",
+   "position": 14,
+   "run": 4
+  },
+  "i0193": {
+   "arm": "B",
+   "in_budget": true,
+   "kind": "scenario",
+   "position": 5,
+   "run": 1
+  },
+  "i0194": {
+   "arm": "B",
+   "in_budget": true,
+   "kind": "scenario",
+   "position": 17,
+   "run": 5
+  },
+  "i0195": {
+   "arm": "C",
+   "in_budget": true,
+   "kind": "candidate",
+   "position": 3,
+   "run": 5
+  },
+  "i0196": {
+   "arm": "B",
+   "in_budget": true,
+   "kind": "scenario",
+   "position": 0,
+   "run": 2
+  },
+  "i0197": {
+   "arm": "B",
+   "in_budget": true,
+   "kind": "scenario",
+   "position": 13,
+   "run": 4
+  },
+  "i0198": {
+   "arm": "C",
+   "in_budget": true,
+   "kind": "candidate",
+   "position": 7,
+   "run": 4
+  },
+  "i0199": {
+   "arm": "B",
+   "in_budget": true,
+   "kind": "scenario",
+   "position": 3,
+   "run": 4
+  },
+  "i0200": {
+   "arm": "C",
+   "in_budget": true,
+   "kind": "scenario",
+   "position": 8,
+   "run": 1
+  },
+  "i0201": {
+   "arm": "B",
+   "in_budget": true,
+   "kind": "scenario",
+   "position": 2,
+   "run": 4
+  },
+  "i0202": {
+   "arm": "C",
+   "in_budget": true,
+   "kind": "candidate",
+   "position": 10,
+   "run": 1
+  },
+  "i0203": {
+   "arm": "C",
+   "in_budget": true,
+   "kind": "scenario",
+   "position": 11,
+   "run": 4
+  },
+  "i0204": {
+   "arm": "C",
+   "in_budget": true,
+   "kind": "scenario",
+   "position": 17,
+   "run": 5
+  },
+  "i0205": {
+   "arm": "C",
+   "in_budget": true,
+   "kind": "scenario",
+   "position": 4,
+   "run": 1
+  },
+  "i0206": {
+   "arm": "C",
+   "in_budget": true,
+   "kind": "scenario",
+   "position": 3,
+   "run": 2
+  },
+  "i0207": {
+   "arm": "C",
+   "in_budget": true,
+   "kind": "candidate",
+   "position": 1,
+   "run": 3
+  },
+  "i0208": {
+   "arm": "B",
+   "in_budget": true,
+   "kind": "scenario",
+   "position": 14,
+   "run": 3
+  },
+  "i0209": {
+   "arm": "C",
+   "in_budget": true,
+   "kind": "scenario",
+   "position": 13,
+   "run": 5
+  },
+  "i0210": {
+   "arm": "C",
+   "in_budget": true,
+   "kind": "candidate",
+   "position": 9,
+   "run": 5
+  },
+  "i0211": {
+   "arm": "C",
+   "in_budget": true,
+   "kind": "candidate",
+   "position": 0,
+   "run": 3
+  },
+  "i0212": {
+   "arm": "C",
+   "in_budget": true,
+   "kind": "candidate",
+   "position": 13,
+   "run": 5
+  },
+  "i0213": {
+   "arm": "C",
+   "in_budget": true,
+   "kind": "scenario",
+   "position": 14,
+   "run": 2
+  },
+  "i0214": {
+   "arm": "B",
+   "in_budget": true,
+   "kind": "scenario",
+   "position": 2,
+   "run": 2
+  },
+  "i0215": {
+   "arm": "C",
+   "in_budget": true,
+   "kind": "candidate",
+   "position": 6,
+   "run": 2
+  },
+  "i0216": {
+   "arm": "C",
+   "in_budget": true,
+   "kind": "candidate",
+   "position": 1,
+   "run": 5
+  },
+  "i0217": {
+   "arm": "C",
+   "in_budget": true,
+   "kind": "scenario",
+   "position": 15,
+   "run": 2
+  },
+  "i0218": {
+   "arm": "C",
+   "in_budget": true,
+   "kind": "candidate",
+   "position": 7,
+   "run": 3
+  },
+  "i0219": {
+   "arm": "C",
+   "in_budget": true,
+   "kind": "scenario",
+   "position": 15,
+   "run": 5
+  },
+  "i0220": {
+   "arm": "B",
+   "in_budget": true,
+   "kind": "scenario",
+   "position": 4,
+   "run": 3
+  },
+  "i0221": {
+   "arm": "C",
+   "in_budget": true,
+   "kind": "candidate",
+   "position": 14,
+   "run": 3
+  },
+  "i0222": {
+   "arm": "B",
+   "in_budget": true,
+   "kind": "scenario",
+   "position": 10,
+   "run": 2
+  },
+  "i0223": {
+   "arm": "C",
+   "in_budget": true,
+   "kind": "scenario",
+   "position": 13,
+   "run": 4
+  },
+  "i0224": {
+   "arm": "B",
+   "in_budget": true,
+   "kind": "scenario",
+   "position": 6,
+   "run": 4
+  },
+  "i0225": {
+   "arm": "B",
+   "in_budget": true,
+   "kind": "scenario",
+   "position": 11,
+   "run": 1
+  },
+  "i0226": {
+   "arm": "C",
+   "in_budget": true,
+   "kind": "scenario",
+   "position": 3,
+   "run": 3
+  },
+  "i0227": {
+   "arm": "B",
+   "in_budget": true,
+   "kind": "scenario",
+   "position": 12,
+   "run": 2
+  },
+  "i0228": {
+   "arm": "C",
+   "in_budget": true,
+   "kind": "candidate",
+   "position": 11,
+   "run": 5
+  },
+  "i0229": {
+   "arm": "C",
+   "in_budget": true,
+   "kind": "scenario",
+   "position": 17,
+   "run": 2
+  },
+  "i0230": {
+   "arm": "C",
+   "in_budget": true,
+   "kind": "candidate",
+   "position": 13,
+   "run": 1
+  },
+  "i0231": {
+   "arm": "C",
+   "in_budget": true,
+   "kind": "candidate",
+   "position": 3,
+   "run": 2
+  },
+  "i0232": {
+   "arm": "C",
+   "in_budget": true,
+   "kind": "candidate",
+   "position": 4,
+   "run": 1
+  },
+  "i0233": {
+   "arm": "C",
+   "in_budget": true,
+   "kind": "candidate",
+   "position": 6,
+   "run": 4
+  },
+  "i0234": {
+   "arm": "C",
+   "in_budget": true,
+   "kind": "scenario",
+   "position": 7,
+   "run": 5
+  },
+  "i0235": {
+   "arm": "C",
+   "in_budget": true,
+   "kind": "scenario",
+   "position": 14,
+   "run": 3
+  },
+  "i0236": {
+   "arm": "B",
+   "in_budget": true,
+   "kind": "scenario",
+   "position": 4,
+   "run": 2
+  },
+  "i0237": {
+   "arm": "B",
+   "in_budget": true,
+   "kind": "scenario",
+   "position": 16,
+   "run": 5
+  },
+  "i0238": {
+   "arm": "C",
+   "in_budget": true,
+   "kind": "scenario",
+   "position": 14,
+   "run": 4
+  },
+  "i0239": {
+   "arm": "C",
+   "in_budget": true,
+   "kind": "candidate",
+   "position": 6,
+   "run": 1
+  },
+  "i0240": {
+   "arm": "C",
+   "in_budget": true,
+   "kind": "scenario",
+   "position": 4,
+   "run": 5
+  },
+  "i0241": {
+   "arm": "C",
+   "in_budget": true,
+   "kind": "scenario",
+   "position": 17,
+   "run": 1
+  },
+  "i0242": {
+   "arm": "C",
+   "in_budget": true,
+   "kind": "candidate",
+   "position": 0,
+   "run": 4
+  },
+  "i0243": {
+   "arm": "B",
+   "in_budget": true,
+   "kind": "scenario",
+   "position": 5,
+   "run": 4
+  },
+  "i0244": {
+   "arm": "C",
+   "in_budget": true,
+   "kind": "scenario",
+   "position": 8,
+   "run": 5
+  },
+  "i0245": {
+   "arm": "B",
+   "in_budget": true,
+   "kind": "scenario",
+   "position": 10,
+   "run": 5
+  },
+  "i0246": {
+   "arm": "C",
+   "in_budget": true,
+   "kind": "candidate",
+   "position": 2,
+   "run": 4
+  },
+  "i0247": {
+   "arm": "B",
+   "in_budget": true,
+   "kind": "scenario",
+   "position": 18,
+   "run": 2
+  },
+  "i0248": {
+   "arm": "B",
+   "in_budget": true,
+   "kind": "scenario",
+   "position": 4,
+   "run": 4
+  },
+  "i0249": {
+   "arm": "C",
+   "in_budget": true,
+   "kind": "scenario",
+   "position": 12,
+   "run": 5
+  },
+  "i0250": {
+   "arm": "C",
+   "in_budget": true,
+   "kind": "candidate",
+   "position": 4,
+   "run": 3
+  },
+  "i0251": {
+   "arm": "C",
+   "in_budget": true,
+   "kind": "candidate",
+   "position": 4,
+   "run": 2
+  },
+  "i0252": {
+   "arm": "B",
+   "in_budget": true,
+   "kind": "scenario",
+   "position": 17,
+   "run": 3
+  },
+  "i0253": {
+   "arm": "B",
+   "in_budget": true,
+   "kind": "scenario",
+   "position": 13,
+   "run": 1
+  }
+ },
+ "seed": 20260311,
+ "stats": {
+  "B": {
+   "candidates": 0,
+   "candidates_not_objects": 0,
+   "scenarios_invalid": 0,
+   "scenarios_returned": 92,
+   "scenarios_valid": 92
+  },
+  "C": {
+   "candidates": 69,
+   "candidates_not_objects": 0,
+   "scenarios_invalid": 3,
+   "scenarios_returned": 95,
+   "scenarios_valid": 92
+  }
+ }
+}

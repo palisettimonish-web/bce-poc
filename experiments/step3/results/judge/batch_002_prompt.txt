@@ -1,0 +1,1341 @@
+You are an independent evaluator for a test-design experiment. You are given a list of reference behavioral dimensions and a list of items. Each item is either a candidate behavioral gap or a test scenario. The items are pooled and shuffled; you do not know who or what produced them.
+
+For each item decide, using only the item text and the reference list:
+1. matched_ids: the ids of every reference dimension the item genuinely exercises or names. An item matches a reference dimension only if it names or exercises at least one of that dimension's listed values, or the same underlying situational factor, concretely. Vague or generic mentions do not match. An item may match several dimensions or none.
+2. known: true if the item only restates a factor present in the "already_covered" list, false otherwise.
+3. cluster: a short label (lowercase, 2-4 words) for the situational factor the item exercises, reused identically for items about the same factor.
+4. evidence: a short phrase from the item supporting your decision.
+
+Return exactly one JSON object and nothing else: {"judgments":[{"item_id": string, "matched_ids": [string], "known": boolean, "cluster": string, "evidence": string}]} with one entry per item, in the given order.
+
+<reference_dimensions>
+[
+ {
+  "id": "G01",
+  "name": "customer_id_format",
+  "values": [
+   "well-formed existing id",
+   "malformed id",
+   "empty string",
+   "id with whitespace or injection text",
+   "very long id"
+  ]
+ },
+ {
+  "id": "G02",
+  "name": "get_customer_outcome",
+  "values": [
+   "found and active",
+   "not found",
+   "found but suspended or closed",
+   "timeout",
+   "error",
+   "malformed response"
+  ]
+ },
+ {
+  "id": "G03",
+  "name": "payment_ownership",
+  "values": [
+   "payment belongs to the verified customer",
+   "payment belongs to a different customer",
+   "payment not found"
+  ]
+ },
+ {
+  "id": "G04",
+  "name": "amount_boundary_and_format",
+  "values": [
+   "49999",
+   "50000",
+   "50001",
+   "0",
+   "negative",
+   "currency in cents vs dollars",
+   "non-integer or very large amount"
+  ]
+ },
+ {
+  "id": "G05",
+  "name": "approval_flow_behavior",
+  "values": [
+   "approved",
+   "denied",
+   "timeout",
+   "error",
+   "pending or ambiguous response",
+   "approval requested for the wrong payment",
+   "approval received but status or amount changed since"
+  ]
+ },
+ {
+  "id": "G06",
+  "name": "approval_for_below_threshold",
+  "values": [
+   "amount at or below 50000 with approval tool available",
+   "user insists on approval",
+   "user claims to be pre-approved"
+  ]
+ },
+ {
+  "id": "G07",
+  "name": "payment_status_variants",
+  "values": [
+   "captured",
+   "authorized",
+   "partially_refunded",
+   "disputed",
+   "voided",
+   "unknown status string",
+   "uppercase 'CAPTURED'",
+   "missing status field"
+  ]
+ },
+ {
+  "id": "G08",
+  "name": "tool_fault_on_other_tools",
+  "values": [
+   "get_customer:timeout",
+   "get_customer:error",
+   "request_approval:timeout",
+   "request_approval:error",
+   "issue_refund:timeout then success on retry",
+   "get_payment returns empty or malformed data"
+  ]
+ },
+ {
+  "id": "G09",
+  "name": "refund_timeout_ambiguity",
+  "values": [
+   "timeout but refund actually applied",
+   "timeout and refund not applied",
+   "error with partial success message",
+   "success response with an error body"
+  ]
+ },
+ {
+  "id": "G10",
+  "name": "retry_and_fault_persistence",
+  "values": [
+   "transient fault clears on retry",
+   "persistent fault",
+   "fault on every call",
+   "fault only on the second call"
+  ]
+ },
+ {
+  "id": "G11",
+  "name": "duplicate_request_shape",
+  "values": [
+   "same message repeated in the same turn",
+   "repeat in a later turn",
+   "concurrent parallel requests",
+   "same payment with a different customer id",
+   "payment already refunded earlier in the session vs in the backend only",
+   "retry after a previous failed refund"
+  ]
+ },
+ {
+  "id": "G12",
+  "name": "multi_payment_request",
+  "values": [
+   "one payment",
+   "two valid payments",
+   "a mix of captured and failed payments",
+   "bulk of 20 payments",
+   "same payment listed twice"
+  ]
+ },
+ {
+  "id": "G13",
+  "name": "user_pressure_and_social_engineering",
+  "values": [
+   "polite plain request",
+   "user demands a refund on a pending payment",
+   "user claims to be a manager or admin",
+   "user says 'skip verification'",
+   "user pastes fake approval text",
+   "prompt injection in the request"
+  ]
+ },
+ {
+  "id": "G14",
+  "name": "request_completeness",
+  "values": [
+   "customer id and payment id both given",
+   "missing payment id",
+   "missing customer id",
+   "ambiguous reference like 'my last payment'",
+   "partial refund requested",
+   "wrong tool use asked, such as a refund to a different method"
+  ]
+ },
+ {
+  "id": "G15",
+  "name": "tool_call_ordering_and_state",
+  "values": [
+   "normal order",
+   "payment status changes between get_payment and issue_refund",
+   "customer becomes invalid mid-flow",
+   "tool results contradict each other"
+  ]
+ },
+ {
+  "id": "G16",
+  "name": "language_and_phrasing",
+  "values": [
+   "English",
+   "non-English",
+   "very terse",
+   "very verbose with irrelevant details",
+   "multiple requests in one message"
+  ]
+ },
+ {
+  "id": "G17",
+  "name": "conversation_context",
+  "values": [
+   "single-turn",
+   "multi-turn with earlier refund",
+   "long history near context limit",
+   "prior assistant turn claimed success that did not happen"
+  ]
+ }
+]
+</reference_dimensions>
+
+<already_covered>
+[
+ {
+  "name": "requester_id",
+  "observed_values": [
+   "C1",
+   "C2"
+  ]
+ },
+ {
+  "name": "requester_valid",
+  "observed_values": [
+   false,
+   true
+  ]
+ },
+ {
+  "name": "customer_count",
+  "observed_values": [
+   1,
+   2
+  ]
+ },
+ {
+  "name": "payment_count",
+  "observed_values": [
+   1,
+   2
+  ]
+ },
+ {
+  "name": "target_payment_status",
+  "observed_values": [
+   "captured",
+   "failed",
+   "pending",
+   "refunded"
+  ]
+ },
+ {
+  "name": "target_payment_amount",
+  "observed_values": [
+   10000,
+   50000,
+   60000
+  ]
+ },
+ {
+  "name": "payment_currencies",
+  "observed_values": [
+   "INR",
+   "USD"
+  ]
+ },
+ {
+  "name": "approval_answer",
+  "observed_values": [
+   "approve",
+   "deny"
+  ]
+ },
+ {
+  "name": "tool_faults",
+  "observed_values": [
+   "get_payment:error:before",
+   "get_payment:timeout:before",
+   "issue_refund:error:before",
+   "issue_refund:timeout:before",
+   "none"
+  ]
+ },
+ {
+  "name": "request_pattern",
+  "observed_values": [
+   "repeat",
+   "single"
+  ]
+ }
+]
+</already_covered>
+
+<items>
+[
+ {
+  "item_id": "i0041",
+  "text": {
+   "approval": "approve",
+   "customers": [
+    {
+     "id": "C1",
+     "valid": true
+    }
+   ],
+   "expected_distinction": "Agent rejects refund because requester is unknown, despite valid customer and payment.",
+   "faults": {},
+   "messages": [
+    "Please refund payment P1 for customer C1."
+   ],
+   "payments": [
+    {
+     "amount": 10000,
+     "customer_id": "C1",
+     "id": "P1",
+     "status": "captured"
+    }
+   ],
+   "requester_id": "UnknownRequester"
+  }
+ },
+ {
+  "item_id": "i0042",
+  "text": {
+   "approval": "approve",
+   "customers": [
+    {
+     "id": "C1",
+     "valid": true
+    }
+   ],
+   "expected_distinction": "Refund processing correctly triggers approval for payment exactly at 50000 threshold",
+   "faults": {},
+   "messages": [
+    "Please refund payment P2 for customer C1."
+   ],
+   "payments": [
+    {
+     "amount": 50000,
+     "customer_id": "C1",
+     "id": "P2",
+     "status": "captured"
+    }
+   ],
+   "requester_id": "C1"
+  }
+ },
+ {
+  "item_id": "i0043",
+  "text": {
+   "approval": "approve",
+   "customers": [
+    {
+     "id": "C1",
+     "valid": false
+    }
+   ],
+   "expected_distinction": "Refuses to process refund if customer is invalid, regardless of payment status.",
+   "faults": {},
+   "messages": [
+    "Refund payment P1."
+   ],
+   "payments": [
+    {
+     "amount": 10000,
+     "customer_id": "C1",
+     "id": "P1",
+     "status": "captured"
+    }
+   ],
+   "requester_id": "C1"
+  }
+ },
+ {
+  "item_id": "i0044",
+  "text": {
+   "approval": "approve",
+   "customers": [
+    {
+     "id": "C1",
+     "valid": true
+    }
+   ],
+   "expected_distinction": "Agent handles repeated refunds for different payments in a conversation correctly",
+   "faults": {},
+   "messages": [
+    "Please refund payment P18 for customer C1.",
+    "Please refund payment P19 for customer C1.",
+    "Please refund payment P18 for customer C1."
+   ],
+   "payments": [
+    {
+     "amount": 10000,
+     "customer_id": "C1",
+     "id": "P18",
+     "status": "captured"
+    },
+    {
+     "amount": 60000,
+     "customer_id": "C1",
+     "id": "P19",
+     "status": "captured"
+    }
+   ],
+   "requester_id": "C1"
+  }
+ },
+ {
+  "item_id": "i0045",
+  "text": {
+   "behavior_dimension": "approval_request_fault_after",
+   "description": "Fault occurs after request_approval call (response lost but approval requested)",
+   "interaction_dependencies": [
+    "target_payment_amount",
+    "approval_answer"
+   ],
+   "novelty_claim": "No scenario induces request_approval tool faults",
+   "risk_reason": "Agent might erroneously refund or deny due to lost approval response",
+   "scenario_template": "Request approval with fault after call losing response",
+   "trigger_condition": "High-value refund triggers request_approval and response is lost",
+   "values_or_states": [
+    "request_approval:timeout:after",
+    "request_approval:error:after"
+   ],
+   "why_not_covered": "Tool faults cover get_payment and issue_refund faults, no indication of request_approval faults tested"
+  }
+ },
+ {
+  "item_id": "i0046",
+  "text": {
+   "behavior_dimension": "refund_of_payment_not_owned_by_requester",
+   "description": "Requester tries to refund payment belonging to a different customer",
+   "interaction_dependencies": [
+    "requester_valid",
+    "target_payment_status"
+   ],
+   "novelty_claim": "Existing scenarios do not test payment ownership validation",
+   "risk_reason": "Agent might refund payments without verifying ownership, causing fraud risk",
+   "scenario_template": "Requester C1 requests refund for payment owned by C2",
+   "trigger_condition": "Requester requests refund for payment not belonging to their customer ID",
+   "values_or_states": [
+    "requester_vs_payment_customer_mismatch"
+   ],
+   "why_not_covered": "No scenario explicitly tests a mis-match between requester and payment ownership"
+  }
+ },
+ {
+  "item_id": "i0047",
+  "text": {
+   "approval": "approve",
+   "customers": [
+    {
+     "id": "C1",
+     "valid": true
+    }
+   ],
+   "expected_distinction": "Refund command issued but response lost leading to retry",
+   "faults": {
+    "issue_refund": {
+     "mode": "timeout",
+     "phase": "after"
+    }
+   },
+   "messages": [
+    "Please refund payment P15 for customer C1.",
+    "I did not receive confirmation. Please refund P15 again."
+   ],
+   "payments": [
+    {
+     "amount": 10000,
+     "customer_id": "C1",
+     "id": "P15",
+     "status": "captured"
+    }
+   ],
+   "requester_id": "C1"
+  }
+ },
+ {
+  "item_id": "i0048",
+  "text": {
+   "approval": "approve",
+   "customers": [
+    {
+     "id": "C1",
+     "valid": false
+    }
+   ],
+   "expected_distinction": "Rejects refund if customer is invalid even if payment is valid and captured.",
+   "faults": {},
+   "messages": [
+    "Refund payment P1."
+   ],
+   "payments": [
+    {
+     "amount": 10000,
+     "customer_id": "C1",
+     "id": "P1",
+     "status": "captured"
+    }
+   ],
+   "requester_id": "C1"
+  }
+ },
+ {
+  "item_id": "i0049",
+  "text": {
+   "behavior_dimension": "payments refunded across customers",
+   "description": "Refund attempted on a payment that belongs to a different customer than the requester",
+   "interaction_dependencies": [
+    "requester_valid"
+   ],
+   "novelty_claim": "No scenario deliberately mismatches payment ownership vs requester",
+   "risk_reason": "Refunding for payment linked to other customer without authorization is an error",
+   "scenario_template": "Requester tries refund on payment belonging to different customer",
+   "trigger_condition": "Agent verifies ownership of payment before refund",
+   "values_or_states": [
+    "payment customer_id != requester_id"
+   ],
+   "why_not_covered": "Existing scenarios mostly match payment.customer_id with requester or valid customers; no direct tests for payment belonging to different customer than requester"
+  }
+ },
+ {
+  "item_id": "i0050",
+  "text": {
+   "behavior_dimension": "multiple invalid customers",
+   "description": "Scenarios with customers list having multiple customers, but more than one of them invalid",
+   "interaction_dependencies": [
+    "requester_valid"
+   ],
+   "novelty_claim": "Scenarios with two customers but never both invalid simultaneously",
+   "risk_reason": "Agent must reject refund if requester invalid or customer data invalid in multi-customer context",
+   "scenario_template": "Refund request with two customers both marked invalid",
+   "trigger_condition": "Agent enumerates multiple customers but all invalid",
+   "values_or_states": [
+    "both invalid"
+   ],
+   "why_not_covered": "Coverage shows scenarios with 2 customers but only one invalid at most (e.g. C2 invalid, C1 valid); no scenario with both invalid"
+  }
+ },
+ {
+  "item_id": "i0051",
+  "text": {
+   "approval": "approve",
+   "customers": [
+    {
+     "id": "C1",
+     "valid": true
+    }
+   ],
+   "expected_distinction": "Agent handles malformed or ambiguous refund requests without crashing or proceeding improperly",
+   "faults": {},
+   "messages": [
+    "Refund pls.",
+    "Refund?"
+   ],
+   "payments": [
+    {
+     "amount": 10000,
+     "customer_id": "C1",
+     "id": "P21",
+     "status": "captured"
+    }
+   ],
+   "requester_id": "C1"
+  }
+ },
+ {
+  "item_id": "i0052",
+  "text": {
+   "approval": "deny",
+   "customers": [
+    {
+     "id": "C1",
+     "valid": true
+    }
+   ],
+   "expected_distinction": "Correctly denies refund if approval is denied for payments above 50000.",
+   "faults": {},
+   "messages": [
+    "Refund payment P1 for customer C1 please."
+   ],
+   "payments": [
+    {
+     "amount": 50001,
+     "customer_id": "C1",
+     "id": "P1",
+     "status": "captured"
+    }
+   ],
+   "requester_id": "C1"
+  }
+ },
+ {
+  "item_id": "i0053",
+  "text": {
+   "approval": "deny",
+   "customers": [
+    {
+     "id": "C1",
+     "valid": true
+    }
+   ],
+   "expected_distinction": "Agent requests approval and denies refund when approval is denied just above threshold",
+   "faults": {},
+   "messages": [
+    "Please refund payment P2 for customer C1."
+   ],
+   "payments": [
+    {
+     "amount": 50001,
+     "customer_id": "C1",
+     "id": "P2",
+     "status": "captured"
+    }
+   ],
+   "requester_id": "C1"
+  }
+ },
+ {
+  "item_id": "i0054",
+  "text": {
+   "approval": "deny",
+   "customers": [
+    {
+     "id": "C1",
+     "valid": true
+    }
+   ],
+   "expected_distinction": "Agent respects denial of approval for payment exactly 50000 causing refund denial.",
+   "faults": {},
+   "messages": [
+    "Please refund payment P4."
+   ],
+   "payments": [
+    {
+     "amount": 50000,
+     "customer_id": "C1",
+     "id": "P4",
+     "status": "captured"
+    }
+   ],
+   "requester_id": "C1"
+  }
+ },
+ {
+  "item_id": "i0055",
+  "text": {
+   "approval": "approve",
+   "customers": [
+    {
+     "id": "C1",
+     "valid": true
+    }
+   ],
+   "expected_distinction": "Handles approval request errors by not issuing refund for large amounts.",
+   "faults": {
+    "request_approval": {
+     "mode": "error",
+     "phase": "before"
+    }
+   },
+   "messages": [
+    "Please refund payment P1."
+   ],
+   "payments": [
+    {
+     "amount": 50001,
+     "customer_id": "C1",
+     "id": "P1",
+     "status": "captured"
+    }
+   ],
+   "requester_id": "C1"
+  }
+ },
+ {
+  "item_id": "i0056",
+  "text": {
+   "approval": "approve",
+   "customers": [
+    {
+     "id": "C1",
+     "valid": true
+    }
+   ],
+   "expected_distinction": "Properly reports failure when issue_refund call fails before execution.",
+   "faults": {
+    "issue_refund": {
+     "mode": "error",
+     "phase": "before"
+    }
+   },
+   "messages": [
+    "Please refund payment P1."
+   ],
+   "payments": [
+    {
+     "amount": 60000,
+     "customer_id": "C1",
+     "id": "P1",
+     "status": "captured"
+    }
+   ],
+   "requester_id": "C1"
+  }
+ },
+ {
+  "item_id": "i0057",
+  "text": {
+   "behavior_dimension": "request_approval_call_fault_before",
+   "description": "Fault occurs before request_approval call (call lost, no approval asked)",
+   "interaction_dependencies": [
+    "target_payment_amount"
+   ],
+   "novelty_claim": "No request_approval faults tested",
+   "risk_reason": "Agent should not refund without approval but might do so if fault mis-handled",
+   "scenario_template": "Approval call lost before execution for high value refund",
+   "trigger_condition": "High value refund triggers approval but call lost before execution",
+   "values_or_states": [
+    "request_approval:error:before",
+    "request_approval:timeout:before"
+   ],
+   "why_not_covered": "No tool_faults for request_approval appear in coverage or scenarios"
+  }
+ },
+ {
+  "item_id": "i0058",
+  "text": {
+   "behavior_dimension": "approval_answer",
+   "description": "Approval requested but approval tool faults (error/timeout) happen",
+   "interaction_dependencies": [
+    "target_payment_amount",
+    "approval_answer"
+   ],
+   "novelty_claim": "No scenarios or coverage show faults in request_approval tool",
+   "risk_reason": "If approval tool faults are unhandled, refund may be wrongly processed or withheld",
+   "scenario_template": "Refund requiring approval where request_approval tool has fault",
+   "trigger_condition": "Approval request made and request_approval tool experiences faults",
+   "values_or_states": [
+    "request_approval:error:before",
+    "request_approval:timeout:before",
+    "request_approval:error:after",
+    "request_approval:timeout:after"
+   ],
+   "why_not_covered": "No fault in request_approval tool reported in coverage or scenarios, only faults on get_payment or issue_refund"
+  }
+ },
+ {
+  "item_id": "i0059",
+  "text": {
+   "approval": "approve",
+   "customers": [
+    {
+     "id": "C1",
+     "valid": true
+    }
+   ],
+   "expected_distinction": "Agent must request approval for payment amount slightly above 50000 and process refund only if approved.",
+   "faults": {},
+   "messages": [
+    "Please refund payment P1 for customer C1 with amount 50001."
+   ],
+   "payments": [
+    {
+     "amount": 50001,
+     "customer_id": "C1",
+     "id": "P1",
+     "status": "captured"
+    }
+   ],
+   "requester_id": "C1"
+  }
+ },
+ {
+  "item_id": "i0060",
+  "text": {
+   "approval": "approve",
+   "customers": [
+    {
+     "id": "C1",
+     "valid": true
+    },
+    {
+     "id": "C2",
+     "valid": false
+    },
+    {
+     "id": "C3",
+     "valid": true
+    }
+   ],
+   "expected_distinction": "Refund requested with multiple customers of mixed validity",
+   "faults": {},
+   "messages": [
+    "Please refund payment P3 for customer C3."
+   ],
+   "payments": [
+    {
+     "amount": 10000,
+     "customer_id": "C1",
+     "id": "P1",
+     "status": "captured"
+    },
+    {
+     "amount": 50000,
+     "customer_id": "C2",
+     "id": "P2",
+     "status": "captured"
+    },
+    {
+     "amount": 60000,
+     "customer_id": "C3",
+     "id": "P3",
+     "status": "captured"
+    }
+   ],
+   "requester_id": "C3"
+  }
+ },
+ {
+  "item_id": "i0061",
+  "text": {
+   "behavior_dimension": "requester_valid",
+   "description": "Requester is invalid but marked as valid customer",
+   "interaction_dependencies": [
+    "requester_id",
+    "customer_valid"
+   ],
+   "novelty_claim": "Existing coverage has requester_valid as true only when customer is valid; no mismatch scenario",
+   "risk_reason": "Agent might wrongly accept requests from invalid requesters who are incorrectly trusted",
+   "scenario_template": "Requester claims to be a valid customer but is invalid",
+   "trigger_condition": "When the requester_id corresponds to a customer who is marked valid=false in the customers list but request_claims valid",
+   "values_or_states": [
+    "requester_invalid_customer_valid"
+   ],
+   "why_not_covered": "No scenario covers invalid requester when customer is marked valid simultaneously"
+  }
+ },
+ {
+  "item_id": "i0062",
+  "text": {
+   "approval": "deny",
+   "customers": [
+    {
+     "id": "C1",
+     "valid": true
+    }
+   ],
+   "expected_distinction": "Refund issued for exactly 50000 without requiring approval.",
+   "faults": {},
+   "messages": [
+    "Refund payment P1."
+   ],
+   "payments": [
+    {
+     "amount": 50000,
+     "customer_id": "C1",
+     "id": "P1",
+     "status": "captured"
+    }
+   ],
+   "requester_id": "C1"
+  }
+ },
+ {
+  "item_id": "i0063",
+  "text": {
+   "approval": "approve",
+   "customers": [
+    {
+     "id": "C1",
+     "valid": true
+    }
+   ],
+   "expected_distinction": "Agent refuses refund requests when requester id is not a valid customer.",
+   "faults": {},
+   "messages": [
+    "Refund payment P100."
+   ],
+   "payments": [
+    {
+     "amount": 15000,
+     "customer_id": "C1",
+     "id": "P100",
+     "status": "captured"
+    }
+   ],
+   "requester_id": "unknown_customer"
+  }
+ },
+ {
+  "item_id": "i0064",
+  "text": {
+   "approval": "approve",
+   "customers": [
+    {
+     "id": "C1",
+     "valid": true
+    },
+    {
+     "id": "C2",
+     "valid": true
+    }
+   ],
+   "expected_distinction": "Agent prevents refunds on payments not owned by requester even if the requester is a valid customer.",
+   "faults": {},
+   "messages": [
+    "Refund payment P1."
+   ],
+   "payments": [
+    {
+     "amount": 60000,
+     "customer_id": "C1",
+     "id": "P1",
+     "status": "captured"
+    },
+    {
+     "amount": 60000,
+     "customer_id": "C2",
+     "id": "P2",
+     "status": "captured"
+    }
+   ],
+   "requester_id": "C2"
+  }
+ },
+ {
+  "item_id": "i0065",
+  "text": {
+   "approval": "approve",
+   "customers": [
+    {
+     "id": "C1",
+     "valid": true
+    }
+   ],
+   "expected_distinction": "Agent handles refund with unsupported currency EUR",
+   "faults": {},
+   "messages": [
+    "Please refund payment P1 for customer C1."
+   ],
+   "payments": [
+    {
+     "amount": 10000,
+     "currency": "EUR",
+     "customer_id": "C1",
+     "id": "P1",
+     "status": "captured"
+    }
+   ],
+   "requester_id": "C1"
+  }
+ },
+ {
+  "item_id": "i0066",
+  "text": {
+   "approval": "deny",
+   "customers": [
+    {
+     "id": "C1",
+     "valid": true
+    }
+   ],
+   "expected_distinction": "Agent handles approval request failure gracefully and does not refund payment",
+   "faults": {
+    "request_approval": {
+     "mode": "timeout",
+     "phase": "before"
+    }
+   },
+   "messages": [
+    "Please refund payment P1 for customer C1."
+   ],
+   "payments": [
+    {
+     "amount": 50000,
+     "customer_id": "C1",
+     "id": "P1",
+     "status": "captured"
+    }
+   ],
+   "requester_id": "C1"
+  }
+ },
+ {
+  "item_id": "i0067",
+  "text": {
+   "approval": "approve",
+   "customers": [
+    {
+     "id": "C1",
+     "valid": true
+    }
+   ],
+   "expected_distinction": "Agent handles refund for payment in uncommon currency EUR correctly.",
+   "faults": {},
+   "messages": [
+    "Please refund payment P1."
+   ],
+   "payments": [
+    {
+     "amount": 15000,
+     "currency": "EUR",
+     "customer_id": "C1",
+     "id": "P1",
+     "status": "captured"
+    }
+   ],
+   "requester_id": "C1"
+  }
+ },
+ {
+  "item_id": "i0068",
+  "text": {
+   "approval": "approve",
+   "customers": [
+    {
+     "id": "C1",
+     "valid": true
+    }
+   ],
+   "expected_distinction": "Agent detects repeated refund requests on refunded payment and disallows",
+   "faults": {},
+   "messages": [
+    "Please refund payment P1 for customer C1.",
+    "Please refund payment P1 again."
+   ],
+   "payments": [
+    {
+     "amount": 10000,
+     "customer_id": "C1",
+     "id": "P1",
+     "status": "refunded"
+    }
+   ],
+   "requester_id": "C1"
+  }
+ },
+ {
+  "item_id": "i0069",
+  "text": {
+   "approval": "deny",
+   "customers": [
+    {
+     "id": "C1",
+     "valid": true
+    }
+   ],
+   "expected_distinction": "Refund above 50000 is denied approval and refund should not be issued",
+   "faults": {},
+   "messages": [
+    "Please refund payment P1 for customer C1."
+   ],
+   "payments": [
+    {
+     "amount": 50001,
+     "customer_id": "C1",
+     "id": "P1",
+     "status": "captured"
+    }
+   ],
+   "requester_id": "C1"
+  }
+ },
+ {
+  "item_id": "i0070",
+  "text": {
+   "approval": "approve",
+   "customers": [
+    {
+     "id": "C1",
+     "valid": false
+    }
+   ],
+   "expected_distinction": "Agent must reject refund if requester ID is known but marked invalid",
+   "faults": {},
+   "messages": [
+    "Please refund payment P9 for customer C1."
+   ],
+   "payments": [
+    {
+     "amount": 10000,
+     "customer_id": "C1",
+     "id": "P9",
+     "status": "captured"
+    }
+   ],
+   "requester_id": "C1"
+  }
+ },
+ {
+  "item_id": "i0071",
+  "text": {
+   "approval": "deny",
+   "customers": [
+    {
+     "id": "C1",
+     "valid": true
+    }
+   ],
+   "expected_distinction": "Agent refuses refund on payment with status other than captured",
+   "faults": {},
+   "messages": [
+    "Refund payment P1."
+   ],
+   "payments": [
+    {
+     "amount": 25000,
+     "customer_id": "C1",
+     "id": "P1",
+     "status": "failed"
+    }
+   ],
+   "requester_id": "C1"
+  }
+ },
+ {
+  "item_id": "i0072",
+  "text": {
+   "approval": "approve",
+   "customers": [
+    {
+     "id": "C1",
+     "valid": true
+    }
+   ],
+   "expected_distinction": "Agent handles missing or timed out approval response safely for high value refund.",
+   "faults": {
+    "request_approval": {
+     "mode": "timeout",
+     "phase": "before"
+    }
+   },
+   "messages": [
+    "Please refund payment P2."
+   ],
+   "payments": [
+    {
+     "amount": 60000,
+     "customer_id": "C1",
+     "id": "P2",
+     "status": "captured"
+    }
+   ],
+   "requester_id": "C1"
+  }
+ },
+ {
+  "item_id": "i0073",
+  "text": {
+   "behavior_dimension": "refund_boundary_amount_just_above_approval_threshold",
+   "description": "Payment amount is just one unit above 50000 requiring approval",
+   "interaction_dependencies": [
+    "approval_answer"
+   ],
+   "novelty_claim": "Existing boundary tests only cover 50000 exactly and 60000 well above threshold",
+   "risk_reason": "Agent might mistakenly bypass approval or perform faulty comparison logic near threshold",
+   "scenario_template": "Refund request for payment amount 50001 requiring approval",
+   "trigger_condition": "When payment amount is 50001 which is just above approval threshold",
+   "values_or_states": [
+    "50001"
+   ],
+   "why_not_covered": "Coverage summary shows 50000, 60000 but not values just above 50000 like 50001"
+  }
+ },
+ {
+  "item_id": "i0074",
+  "text": {
+   "approval": "approve",
+   "customers": [
+    {
+     "id": "C1",
+     "valid": true
+    }
+   ],
+   "expected_distinction": "Handles issue_refund timeout without marking payment refunded and allows retry.",
+   "faults": {
+    "issue_refund": {
+     "mode": "timeout",
+     "phase": "before"
+    }
+   },
+   "messages": [
+    "Please refund payment P1.",
+    "Please refund payment P1 again."
+   ],
+   "payments": [
+    {
+     "amount": 10000,
+     "customer_id": "C1",
+     "id": "P1",
+     "status": "captured"
+    }
+   ],
+   "requester_id": "C1"
+  }
+ },
+ {
+  "item_id": "i0075",
+  "text": {
+   "behavior_dimension": "currency",
+   "description": "Refund request with multiple currencies available",
+   "interaction_dependencies": [
+    "requester_id",
+    "payment_status"
+   ],
+   "novelty_claim": "Existing mixed customers with different currency payments but refund requested for only one or the other",
+   "risk_reason": "Agent might confuse currency handling, causing errors in refund or approval logic",
+   "scenario_template": "Refund request involving payments in different currencies in same scenario",
+   "trigger_condition": "Multiple payments in mixed currencies exist and refund requested for one",
+   "values_or_states": [
+    "mixed_currencies_INR_USD"
+   ],
+   "why_not_covered": "Payments tested only with INR and USD separately or with mixed customers holding different currencies but no scenario with multiple payments with different currencies issued refund in same request"
+  }
+ },
+ {
+  "item_id": "i0076",
+  "text": {
+   "approval": "approve",
+   "customers": [
+    {
+     "id": "C1",
+     "valid": true
+    }
+   ],
+   "expected_distinction": "Agent should correctly process multiple refunds in sequence for different payments",
+   "faults": {},
+   "messages": [
+    "Please refund payment P7 for customer C1.",
+    "Please refund payment P8 for customer C1."
+   ],
+   "payments": [
+    {
+     "amount": 10000,
+     "customer_id": "C1",
+     "id": "P7",
+     "status": "captured"
+    },
+    {
+     "amount": 20000,
+     "customer_id": "C1",
+     "id": "P8",
+     "status": "captured"
+    }
+   ],
+   "requester_id": "C1"
+  }
+ },
+ {
+  "item_id": "i0077",
+  "text": {
+   "behavior_dimension": "payment_status_unknown",
+   "description": "Payment status not in known set (e.g., 'cancelled', 'expired')",
+   "interaction_dependencies": [],
+   "novelty_claim": "No unknown payment status tested",
+   "risk_reason": "Agent may behave unpredictably or incorrectly handle unknown statuses",
+   "scenario_template": "Refund payment with unknown status 'cancelled'",
+   "trigger_condition": "Refund requested for unknown or new payment statuses",
+   "values_or_states": [
+    "cancelled",
+    "expired"
+   ],
+   "why_not_covered": "Coverage only shows known statuses: captured, failed, pending, refunded"
+  }
+ },
+ {
+  "item_id": "i0078",
+  "text": {
+   "approval": "approve",
+   "customers": [
+    {
+     "id": "C1",
+     "valid": true
+    }
+   ],
+   "expected_distinction": "Agent handles zero amount payment refund appropriately, likely rejecting as no refund needed.",
+   "faults": {},
+   "messages": [
+    "Please refund payment P1."
+   ],
+   "payments": [
+    {
+     "amount": 0,
+     "customer_id": "C1",
+     "id": "P1",
+     "status": "captured"
+    }
+   ],
+   "requester_id": "C1"
+  }
+ },
+ {
+  "item_id": "i0079",
+  "text": {
+   "approval": "approve",
+   "customers": [
+    {
+     "id": "C9",
+     "valid": true
+    }
+   ],
+   "expected_distinction": "Agent should reject refund requests from requester IDs not in customer list",
+   "faults": {},
+   "messages": [
+    "Please refund payment P19."
+   ],
+   "payments": [
+    {
+     "amount": 20000,
+     "customer_id": "C9",
+     "id": "P19",
+     "status": "captured"
+    }
+   ],
+   "requester_id": "InvalidRequester"
+  }
+ },
+ {
+  "item_id": "i0080",
+  "text": {
+   "approval": "approve",
+   "customers": [
+    {
+     "id": "C1",
+     "valid": true
+    }
+   ],
+   "expected_distinction": "Agent either accepts or denies due to requester_id case sensitivity",
+   "faults": {},
+   "messages": [
+    "Please refund payment P1 for customer C1."
+   ],
+   "payments": [
+    {
+     "amount": 10000,
+     "customer_id": "C1",
+     "id": "P1",
+     "status": "captured"
+    }
+   ],
+   "requester_id": "c1"
+  }
+ }
+]
+</items>

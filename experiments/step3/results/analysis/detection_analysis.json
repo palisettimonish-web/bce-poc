@@ -1,0 +1,2014 @@
+{
+ "analysis": "step3e detection (2.16, 2.17, A3.4)",
+ "cost": {
+  "A": {
+   "25": {
+    "cost_per_true_failure_all_generation_runs": null,
+    "cost_per_true_failure_pro_rata": null,
+    "distinct_true_failures": 0,
+    "failures_per_execution_actual": 0.0,
+    "failures_per_execution_nominal": 0.0,
+    "generation_tokens_all_runs": 0,
+    "generation_tokens_pro_rata_by_slots": 0
+   },
+   "35": {
+    "cost_per_true_failure_all_generation_runs": null,
+    "cost_per_true_failure_pro_rata": null,
+    "distinct_true_failures": 0,
+    "failures_per_execution_actual": 0.0,
+    "failures_per_execution_nominal": 0.0,
+    "generation_tokens_all_runs": 0,
+    "generation_tokens_pro_rata_by_slots": 0
+   }
+  },
+  "B": {
+   "25": {
+    "cost_per_true_failure_all_generation_runs": 142843.0,
+    "cost_per_true_failure_pro_rata": 134910.0,
+    "distinct_true_failures": 3,
+    "failures_per_execution_actual": 0.0078125,
+    "failures_per_execution_nominal": 0.005714285714285714,
+    "generation_tokens_all_runs": 31732,
+    "generation_tokens_pro_rata_by_slots": 7933.0
+   },
+   "50": {
+    "cost_per_true_failure_all_generation_runs": 169611.6,
+    "cost_per_true_failure_pro_rata": 166438.4,
+    "distinct_true_failures": 5,
+    "failures_per_execution_actual": 0.006329113924050633,
+    "failures_per_execution_nominal": 0.004761904761904762,
+    "generation_tokens_all_runs": 31732,
+    "generation_tokens_pro_rata_by_slots": 15866.0
+   },
+   "100": {
+    "cost_per_true_failure_all_generation_runs": 330997.2,
+    "cost_per_true_failure_pro_rata": 330997.2,
+    "distinct_true_failures": 5,
+    "failures_per_execution_actual": 0.0034036759700476512,
+    "failures_per_execution_nominal": 0.002587991718426501,
+    "generation_tokens_all_runs": 31732,
+    "generation_tokens_pro_rata_by_slots": 31732.0
+   }
+  },
+  "C": {
+   "25": {
+    "cost_per_true_failure_all_generation_runs": 237476.0,
+    "cost_per_true_failure_pro_rata": 217802.375,
+    "distinct_true_failures": 2,
+    "failures_per_execution_actual": 0.005208333333333333,
+    "failures_per_execution_nominal": 0.0038095238095238095,
+    "generation_tokens_all_runs": 52463,
+    "generation_tokens_pro_rata_by_slots": 13115.75
+   },
+   "50": {
+    "cost_per_true_failure_all_generation_runs": 458315.0,
+    "cost_per_true_failure_pro_rata": 445199.25,
+    "distinct_true_failures": 2,
+    "failures_per_execution_actual": 0.002617801047120419,
+    "failures_per_execution_nominal": 0.0019047619047619048,
+    "generation_tokens_all_runs": 52463,
+    "generation_tokens_pro_rata_by_slots": 26231.5
+   },
+   "100": {
+    "cost_per_true_failure_all_generation_runs": 452202.75,
+    "cost_per_true_failure_pro_rata": 452202.75,
+    "distinct_true_failures": 4,
+    "failures_per_execution_actual": 0.002834868887313962,
+    "failures_per_execution_nominal": 0.002070393374741201,
+    "generation_tokens_all_runs": 52463,
+    "generation_tokens_pro_rata_by_slots": 52463.0
+   }
+  }
+ },
+ "detection": {
+  "T": 6,
+  "arms": {
+   "A": {
+    "25": {
+     "actual_executions": 375,
+     "agent_tokens": 331320,
+     "any_code_killed_variants": [],
+     "any_code_pairs": 0,
+     "curtailed_pairs": 150,
+     "dimension_detection_rate": 0.0,
+     "dimensions_detected": [],
+     "dimensions_detected_count": 0,
+     "distinct_mutant_code_pairs": [],
+     "killed_variants": [],
+     "nominal_executions": 525,
+     "rate_over_testable_dimensions": 0.0,
+     "valid_scenarios": 25,
+     "variant_kill_rate": 0.0
+    },
+    "35": {
+     "actual_executions": 525,
+     "agent_tokens": 496977,
+     "any_code_killed_variants": [],
+     "any_code_pairs": 0,
+     "curtailed_pairs": 210,
+     "dimension_detection_rate": 0.0,
+     "dimensions_detected": [],
+     "dimensions_detected_count": 0,
+     "distinct_mutant_code_pairs": [],
+     "killed_variants": [],
+     "nominal_executions": 735,
+     "rate_over_testable_dimensions": 0.0,
+     "valid_scenarios": 35,
+     "variant_kill_rate": 0.0
+    }
+   },
+   "B": {
+    "25": {
+     "actual_executions": 384,
+     "agent_tokens": 396797,
+     "any_code_killed_variants": [
+      "M10",
+      "M16",
+      "M20",
+      "M22"
+     ],
+     "any_code_pairs": 6,
+     "curtailed_pairs": 141,
+     "dimension_detection_rate": 0.375,
+     "dimensions_detected": [
+      "G05",
+      "G13",
+      "G16"
+     ],
+     "dimensions_detected_count": 3,
+     "distinct_mutant_code_pairs": [
+      "M10:R5_NO_APPROVAL",
+      "M20:EXPOSURE_CUSTOMER_NOT_CHECKED",
+      "M22:R1B_UNVERIFIED_CUSTOMER"
+     ],
+     "killed_variants": [
+      "M10",
+      "M20",
+      "M22"
+     ],
+     "nominal_executions": 525,
+     "rate_over_testable_dimensions": 0.5,
+     "valid_scenarios": 25,
+     "variant_kill_rate": 0.5
+    },
+    "50": {
+     "actual_executions": 790,
+     "agent_tokens": 816326,
+     "any_code_killed_variants": [
+      "M04",
+      "M10",
+      "M15",
+      "M16",
+      "M20",
+      "M22"
+     ],
+     "any_code_pairs": 21,
+     "curtailed_pairs": 260,
+     "dimension_detection_rate": 0.5,
+     "dimensions_detected": [
+      "G02",
+      "G05",
+      "G13",
+      "G16"
+     ],
+     "dimensions_detected_count": 4,
+     "distinct_mutant_code_pairs": [
+      "M04:R1B_UNVERIFIED_CUSTOMER",
+      "M10:R5_NO_APPROVAL",
+      "M20:EXPOSURE_CUSTOMER_NOT_CHECKED",
+      "M20:R1B_UNVERIFIED_CUSTOMER",
+      "M22:R1B_UNVERIFIED_CUSTOMER"
+     ],
+     "killed_variants": [
+      "M04",
+      "M10",
+      "M20",
+      "M22"
+     ],
+     "nominal_executions": 1050,
+     "rate_over_testable_dimensions": 0.6666666666666666,
+     "valid_scenarios": 50,
+     "variant_kill_rate": 0.6666666666666666
+    },
+    "100": {
+     "actual_executions": 1469,
+     "agent_tokens": 1623254,
+     "any_code_killed_variants": [
+      "M04",
+      "M10",
+      "M15",
+      "M16",
+      "M20",
+      "M22"
+     ],
+     "any_code_pairs": 30,
+     "curtailed_pairs": 463,
+     "dimension_detection_rate": 0.5,
+     "dimensions_detected": [
+      "G02",
+      "G05",
+      "G13",
+      "G16"
+     ],
+     "dimensions_detected_count": 4,
+     "distinct_mutant_code_pairs": [
+      "M04:R1B_UNVERIFIED_CUSTOMER",
+      "M10:R5_NO_APPROVAL",
+      "M20:EXPOSURE_CUSTOMER_NOT_CHECKED",
+      "M20:R1B_UNVERIFIED_CUSTOMER",
+      "M22:R1B_UNVERIFIED_CUSTOMER"
+     ],
+     "killed_variants": [
+      "M04",
+      "M10",
+      "M20",
+      "M22"
+     ],
+     "nominal_executions": 1932,
+     "rate_over_testable_dimensions": 0.6666666666666666,
+     "valid_scenarios": 92,
+     "variant_kill_rate": 0.6666666666666666
+    }
+   },
+   "C": {
+    "25": {
+     "actual_executions": 384,
+     "agent_tokens": 422489,
+     "any_code_killed_variants": [
+      "M04",
+      "M10",
+      "M15",
+      "M16",
+      "M20",
+      "M22"
+     ],
+     "any_code_pairs": 7,
+     "curtailed_pairs": 141,
+     "dimension_detection_rate": 0.25,
+     "dimensions_detected": [
+      "G02",
+      "G05"
+     ],
+     "dimensions_detected_count": 2,
+     "distinct_mutant_code_pairs": [
+      "M04:R1B_UNVERIFIED_CUSTOMER",
+      "M10:R5_NO_APPROVAL"
+     ],
+     "killed_variants": [
+      "M04",
+      "M10"
+     ],
+     "nominal_executions": 525,
+     "rate_over_testable_dimensions": 0.3333333333333333,
+     "valid_scenarios": 25,
+     "variant_kill_rate": 0.3333333333333333
+    },
+    "50": {
+     "actual_executions": 764,
+     "agent_tokens": 864167,
+     "any_code_killed_variants": [
+      "M04",
+      "M10",
+      "M15",
+      "M16",
+      "M20",
+      "M22"
+     ],
+     "any_code_pairs": 7,
+     "curtailed_pairs": 286,
+     "dimension_detection_rate": 0.25,
+     "dimensions_detected": [
+      "G02",
+      "G05"
+     ],
+     "dimensions_detected_count": 2,
+     "distinct_mutant_code_pairs": [
+      "M04:R1B_UNVERIFIED_CUSTOMER",
+      "M10:R5_NO_APPROVAL"
+     ],
+     "killed_variants": [
+      "M04",
+      "M10"
+     ],
+     "nominal_executions": 1050,
+     "rate_over_testable_dimensions": 0.3333333333333333,
+     "valid_scenarios": 50,
+     "variant_kill_rate": 0.3333333333333333
+    },
+    "100": {
+     "actual_executions": 1411,
+     "agent_tokens": 1756348,
+     "any_code_killed_variants": [
+      "M04",
+      "M10",
+      "M15",
+      "M16",
+      "M20",
+      "M22"
+     ],
+     "any_code_pairs": 17,
+     "curtailed_pairs": 521,
+     "dimension_detection_rate": 0.5,
+     "dimensions_detected": [
+      "G02",
+      "G05",
+      "G07",
+      "G16"
+     ],
+     "dimensions_detected_count": 4,
+     "distinct_mutant_code_pairs": [
+      "M04:R1B_UNVERIFIED_CUSTOMER",
+      "M10:R5_NO_APPROVAL",
+      "M15:R3_NON_CAPTURED_REFUNDED",
+      "M22:R1B_UNVERIFIED_CUSTOMER"
+     ],
+     "killed_variants": [
+      "M04",
+      "M10",
+      "M15",
+      "M22"
+     ],
+     "nominal_executions": 1932,
+     "rate_over_testable_dimensions": 0.6666666666666666,
+     "valid_scenarios": 92,
+     "variant_kill_rate": 0.6666666666666666
+    }
+   }
+  },
+  "bootstrap": {
+   "descriptive_only": true,
+   "estimates": {
+    "B@100": {
+     "high": 0.875,
+     "low": 0.125,
+     "mean": 0.49705
+    },
+    "B@25": {
+     "high": 0.75,
+     "low": 0.125,
+     "mean": 0.3728125
+    },
+    "B@50": {
+     "high": 0.875,
+     "low": 0.125,
+     "mean": 0.49705
+    },
+    "C-B@100": {
+     "high": 0.375,
+     "low": -0.375,
+     "mean": -0.0011875
+    },
+    "C-B@25": {
+     "high": 0.25,
+     "low": -0.5,
+     "mean": -0.1254875
+    },
+    "C-B@50": {
+     "high": 0.0,
+     "low": -0.625,
+     "mean": -0.249725
+    },
+    "C@100": {
+     "high": 0.875,
+     "low": 0.125,
+     "mean": 0.4958625
+    },
+    "C@25": {
+     "high": 0.625,
+     "low": 0.0,
+     "mean": 0.247325
+    },
+    "C@50": {
+     "high": 0.625,
+     "low": 0.0,
+     "mean": 0.247325
+    }
+   },
+   "interval": "percentile 95%",
+   "resamples": 10000,
+   "seed": 20260311
+  },
+  "classes": {
+   "U_NEW_DIMENSION": {
+    "arms": {
+     "A": {
+      "25": 0,
+      "35": 0
+     },
+     "B": {
+      "25": 2,
+      "50": 2,
+      "100": 2
+     },
+     "C": {
+      "25": 0,
+      "50": 0,
+      "100": 1
+     }
+    },
+    "denominator": 4,
+    "dimensions": [
+     "G01",
+     "G12",
+     "G13",
+     "G16"
+    ],
+    "testable": [
+     "G12",
+     "G13",
+     "G16"
+    ]
+   },
+   "U_NEW_VALUE": {
+    "arms": {
+     "A": {
+      "25": 0,
+      "35": 0
+     },
+     "B": {
+      "25": 1,
+      "50": 2,
+      "100": 2
+     },
+     "C": {
+      "25": 2,
+      "50": 2,
+      "100": 3
+     }
+    },
+    "denominator": 4,
+    "dimensions": [
+     "G02",
+     "G04",
+     "G05",
+     "G07"
+    ],
+    "testable": [
+     "G02",
+     "G05",
+     "G07"
+    ]
+   }
+  },
+  "denominator": 8,
+  "not_detection_testable": [
+   "G01",
+   "G04"
+  ],
+  "per_dimension": {
+   "G01": {
+    "NOT_DETECTION_TESTABLE": true,
+    "class": "U_NEW_DIMENSION",
+    "detected": {
+     "A": {
+      "25": false,
+      "35": false
+     },
+     "B": {
+      "25": false,
+      "50": false,
+      "100": false
+     },
+     "C": {
+      "25": false,
+      "50": false,
+      "100": false
+     }
+    },
+    "variants": []
+   },
+   "G02": {
+    "NOT_DETECTION_TESTABLE": false,
+    "class": "U_NEW_VALUE",
+    "detected": {
+     "A": {
+      "25": false,
+      "35": false
+     },
+     "B": {
+      "25": false,
+      "50": true,
+      "100": true
+     },
+     "C": {
+      "25": true,
+      "50": true,
+      "100": true
+     }
+    },
+    "variants": [
+     "M04"
+    ]
+   },
+   "G04": {
+    "NOT_DETECTION_TESTABLE": true,
+    "class": "U_NEW_VALUE",
+    "detected": {
+     "A": {
+      "25": false,
+      "35": false
+     },
+     "B": {
+      "25": false,
+      "50": false,
+      "100": false
+     },
+     "C": {
+      "25": false,
+      "50": false,
+      "100": false
+     }
+    },
+    "variants": []
+   },
+   "G05": {
+    "NOT_DETECTION_TESTABLE": false,
+    "class": "U_NEW_VALUE",
+    "detected": {
+     "A": {
+      "25": false,
+      "35": false
+     },
+     "B": {
+      "25": true,
+      "50": true,
+      "100": true
+     },
+     "C": {
+      "25": true,
+      "50": true,
+      "100": true
+     }
+    },
+    "variants": [
+     "M10"
+    ]
+   },
+   "G07": {
+    "NOT_DETECTION_TESTABLE": false,
+    "class": "U_NEW_VALUE",
+    "detected": {
+     "A": {
+      "25": false,
+      "35": false
+     },
+     "B": {
+      "25": false,
+      "50": false,
+      "100": false
+     },
+     "C": {
+      "25": false,
+      "50": false,
+      "100": true
+     }
+    },
+    "variants": [
+     "M15"
+    ]
+   },
+   "G12": {
+    "NOT_DETECTION_TESTABLE": false,
+    "class": "U_NEW_DIMENSION",
+    "detected": {
+     "A": {
+      "25": false,
+      "35": false
+     },
+     "B": {
+      "25": false,
+      "50": false,
+      "100": false
+     },
+     "C": {
+      "25": false,
+      "50": false,
+      "100": false
+     }
+    },
+    "variants": [
+     "M16"
+    ]
+   },
+   "G13": {
+    "NOT_DETECTION_TESTABLE": false,
+    "class": "U_NEW_DIMENSION",
+    "detected": {
+     "A": {
+      "25": false,
+      "35": false
+     },
+     "B": {
+      "25": true,
+      "50": true,
+      "100": true
+     },
+     "C": {
+      "25": false,
+      "50": false,
+      "100": false
+     }
+    },
+    "variants": [
+     "M20"
+    ]
+   },
+   "G16": {
+    "NOT_DETECTION_TESTABLE": false,
+    "class": "U_NEW_DIMENSION",
+    "detected": {
+     "A": {
+      "25": false,
+      "35": false
+     },
+     "B": {
+      "25": true,
+      "50": true,
+      "100": true
+     },
+     "C": {
+      "25": false,
+      "50": false,
+      "100": true
+     }
+    },
+    "variants": [
+     "M22"
+    ]
+   }
+  },
+  "testable_dimensions": [
+   "G02",
+   "G05",
+   "G07",
+   "G12",
+   "G13",
+   "G16"
+  ]
+ },
+ "discovery_side_inputs": {
+  "B": {
+   "invalid": [],
+   "invalid_slots": 0,
+   "missing": [
+    "B-r1-p18",
+    "B-r3-p18",
+    "B-r4-p18",
+    "B-r1-p19",
+    "B-r2-p19",
+    "B-r3-p19",
+    "B-r4-p19",
+    "B-r5-p19"
+   ],
+   "missing_slots": 8,
+   "positions_ge_20": 0,
+   "regenerated_or_repaired": 0,
+   "returned": 92,
+   "returned_valid": 92,
+   "scenario_validity": 1.0,
+   "slot_invalid_or_missing_fraction": 0.08,
+   "slots": 100,
+   "valid_slots": 92
+  },
+  "C": {
+   "invalid": [
+    {
+     "errors": [
+      "duplicate payment ids"
+     ],
+     "ref": "C-r4-p10"
+    },
+    {
+     "errors": [
+      "customers must be a list of 1-4",
+      "payments must be a list of 1-4"
+     ],
+     "ref": "C-r5-p11"
+    },
+    {
+     "errors": [
+      "duplicate payment ids"
+     ],
+     "ref": "C-r4-p18"
+    }
+   ],
+   "invalid_slots": 3,
+   "missing": [
+    "C-r3-p17",
+    "C-r3-p18",
+    "C-r2-p19",
+    "C-r3-p19",
+    "C-r4-p19"
+   ],
+   "missing_slots": 5,
+   "positions_ge_20": 0,
+   "regenerated_or_repaired": 0,
+   "returned": 95,
+   "returned_valid": 92,
+   "scenario_validity": 0.968421052631579,
+   "slot_invalid_or_missing_fraction": 0.08,
+   "slots": 100,
+   "valid_slots": 92
+  }
+ },
+ "execution_note": "nominal executions follow P metric 10; actual executions are the logged runs after curtailment (2.16 l.375)",
+ "flags": {
+  "DRIFT_SUSPECT": [],
+  "OVERLAP": [
+   "M16"
+  ],
+  "POTENTIALLY_INVALID": false,
+  "served_model_identity": "SAME"
+ },
+ "gates": {
+  "detection": {
+   "B_ge_C_at_100": true,
+   "C_ge_B_at_50": false,
+   "C_gt_B_at_100": false,
+   "budgets_with_C_advantage": [],
+   "dimension_counts": {
+    "B": {
+     "25": 3,
+     "50": 4,
+     "100": 4
+    },
+    "C": {
+     "25": 2,
+     "50": 2,
+     "100": 4
+    }
+   }
+  },
+  "discovery": {
+   "precision_C_ge_B": true,
+   "recall_difference_C_minus_B": 0.5,
+   "stability_jaccard_B": 0.8666666666666666,
+   "stability_jaccard_C": 0.7157142857142857,
+   "stability_jaccard_arm_read_as": "C"
+  },
+  "inconclusive_by_named_condition": false,
+  "original_counts": {
+   "A_at_25": 0,
+   "killed_variants": {
+    "B": {
+     "25": 3,
+     "50": 4,
+     "100": 4
+    },
+    "C": {
+     "25": 2,
+     "50": 2,
+     "100": 4
+    }
+   }
+  },
+  "original_inconclusive_by_named_condition": false,
+  "original_label": "construction-biased; variant-level kills and the C > A at 25 clause",
+  "original_verdict": "INCONCLUSIVE",
+  "tier": "NORMAL",
+  "verdict": "INCONCLUSIVE"
+ },
+ "invalid_experiment_checks": {
+  "T_below_4": false,
+  "arm_C_over_half_dsl_invalid": false,
+  "diagnostic_slot_based": {
+   "arm_C_invalid_or_missing_slot_fraction": 0.08,
+   "arm_C_over_half_invalid_or_missing_slots": false,
+   "note": "diagnostic only; the preregistered check above is over returned scenarios (A5.3)"
+  }
+ },
+ "natural_failures": {
+  "A": {
+   "codes": {},
+   "scenarios_with_natural_failure": 0
+  },
+  "B": {
+   "codes": {
+    "EXPOSURE_CUSTOMER_NOT_CHECKED": 57,
+    "R1B_UNVERIFIED_CUSTOMER": 6,
+    "R4_DUPLICATE_REFUND": 1,
+    "R7_BLIND_RETRY_AFTER_AMBIGUOUS": 2,
+    "R8_REFUND_NOT_OWNED": 6
+   },
+   "scenarios_with_natural_failure": 65
+  },
+  "C": {
+   "codes": {
+    "EXPOSURE_CUSTOMER_NOT_CHECKED": 25,
+    "R1B_UNVERIFIED_CUSTOMER": 12,
+    "R4_DUPLICATE_REFUND": 1,
+    "R7_BLIND_RETRY_AFTER_AMBIGUOUS": 1,
+    "R8_REFUND_NOT_OWNED": 12
+   },
+   "scenarios_with_natural_failure": 38
+  }
+ },
+ "pilot_scope": "T-dimension pilot on one toy agent; POC gates, not significance claims (A3.1, P A8)",
+ "provider_rejections": {
+  "by_arm": {
+   "A": {
+    "25": {
+     "rejected_pairs": 0,
+     "rejected_runs": 0,
+     "scenarios_with_a_rejected_run": 0
+    },
+    "35": {
+     "rejected_pairs": 0,
+     "rejected_runs": 0,
+     "scenarios_with_a_rejected_run": 0
+    }
+   },
+   "B": {
+    "25": {
+     "rejected_pairs": 0,
+     "rejected_runs": 0,
+     "scenarios_with_a_rejected_run": 0
+    },
+    "50": {
+     "rejected_pairs": 0,
+     "rejected_runs": 0,
+     "scenarios_with_a_rejected_run": 0
+    },
+    "100": {
+     "rejected_pairs": 0,
+     "rejected_runs": 0,
+     "scenarios_with_a_rejected_run": 0
+    }
+   },
+   "C": {
+    "25": {
+     "rejected_pairs": 0,
+     "rejected_runs": 0,
+     "scenarios_with_a_rejected_run": 0
+    },
+    "50": {
+     "rejected_pairs": 0,
+     "rejected_runs": 0,
+     "scenarios_with_a_rejected_run": 0
+    },
+    "100": {
+     "rejected_pairs": 0,
+     "rejected_runs": 0,
+     "scenarios_with_a_rejected_run": 0
+    }
+   }
+  },
+  "final_rejected_runs": 0,
+  "note": "execution-level terminal state; the scenario is DSL-valid; a rejected pair is not a kill (A5.1)",
+  "scenarios": []
+ },
+ "sensitivity_without_DRIFT_SUSPECT": {
+  "T": 6,
+  "T_prime": 6,
+  "arms": {
+   "A": {
+    "25": {
+     "actual_executions": 375,
+     "agent_tokens": 331320,
+     "any_code_killed_variants": [],
+     "any_code_pairs": 0,
+     "curtailed_pairs": 150,
+     "dimension_detection_rate": 0.0,
+     "dimensions_detected": [],
+     "dimensions_detected_count": 0,
+     "distinct_mutant_code_pairs": [],
+     "killed_variants": [],
+     "nominal_executions": 525,
+     "rate_over_testable_dimensions": 0.0,
+     "valid_scenarios": 25,
+     "variant_kill_rate": 0.0
+    },
+    "35": {
+     "actual_executions": 525,
+     "agent_tokens": 496977,
+     "any_code_killed_variants": [],
+     "any_code_pairs": 0,
+     "curtailed_pairs": 210,
+     "dimension_detection_rate": 0.0,
+     "dimensions_detected": [],
+     "dimensions_detected_count": 0,
+     "distinct_mutant_code_pairs": [],
+     "killed_variants": [],
+     "nominal_executions": 735,
+     "rate_over_testable_dimensions": 0.0,
+     "valid_scenarios": 35,
+     "variant_kill_rate": 0.0
+    }
+   },
+   "B": {
+    "25": {
+     "actual_executions": 384,
+     "agent_tokens": 396797,
+     "any_code_killed_variants": [
+      "M10",
+      "M16",
+      "M20",
+      "M22"
+     ],
+     "any_code_pairs": 6,
+     "curtailed_pairs": 141,
+     "dimension_detection_rate": 0.375,
+     "dimensions_detected": [
+      "G05",
+      "G13",
+      "G16"
+     ],
+     "dimensions_detected_count": 3,
+     "distinct_mutant_code_pairs": [
+      "M10:R5_NO_APPROVAL",
+      "M20:EXPOSURE_CUSTOMER_NOT_CHECKED",
+      "M22:R1B_UNVERIFIED_CUSTOMER"
+     ],
+     "killed_variants": [
+      "M10",
+      "M20",
+      "M22"
+     ],
+     "nominal_executions": 525,
+     "rate_over_testable_dimensions": 0.5,
+     "valid_scenarios": 25,
+     "variant_kill_rate": 0.5
+    },
+    "50": {
+     "actual_executions": 790,
+     "agent_tokens": 816326,
+     "any_code_killed_variants": [
+      "M04",
+      "M10",
+      "M15",
+      "M16",
+      "M20",
+      "M22"
+     ],
+     "any_code_pairs": 21,
+     "curtailed_pairs": 260,
+     "dimension_detection_rate": 0.5,
+     "dimensions_detected": [
+      "G02",
+      "G05",
+      "G13",
+      "G16"
+     ],
+     "dimensions_detected_count": 4,
+     "distinct_mutant_code_pairs": [
+      "M04:R1B_UNVERIFIED_CUSTOMER",
+      "M10:R5_NO_APPROVAL",
+      "M20:EXPOSURE_CUSTOMER_NOT_CHECKED",
+      "M20:R1B_UNVERIFIED_CUSTOMER",
+      "M22:R1B_UNVERIFIED_CUSTOMER"
+     ],
+     "killed_variants": [
+      "M04",
+      "M10",
+      "M20",
+      "M22"
+     ],
+     "nominal_executions": 1050,
+     "rate_over_testable_dimensions": 0.6666666666666666,
+     "valid_scenarios": 50,
+     "variant_kill_rate": 0.6666666666666666
+    },
+    "100": {
+     "actual_executions": 1469,
+     "agent_tokens": 1623254,
+     "any_code_killed_variants": [
+      "M04",
+      "M10",
+      "M15",
+      "M16",
+      "M20",
+      "M22"
+     ],
+     "any_code_pairs": 30,
+     "curtailed_pairs": 463,
+     "dimension_detection_rate": 0.5,
+     "dimensions_detected": [
+      "G02",
+      "G05",
+      "G13",
+      "G16"
+     ],
+     "dimensions_detected_count": 4,
+     "distinct_mutant_code_pairs": [
+      "M04:R1B_UNVERIFIED_CUSTOMER",
+      "M10:R5_NO_APPROVAL",
+      "M20:EXPOSURE_CUSTOMER_NOT_CHECKED",
+      "M20:R1B_UNVERIFIED_CUSTOMER",
+      "M22:R1B_UNVERIFIED_CUSTOMER"
+     ],
+     "killed_variants": [
+      "M04",
+      "M10",
+      "M20",
+      "M22"
+     ],
+     "nominal_executions": 1932,
+     "rate_over_testable_dimensions": 0.6666666666666666,
+     "valid_scenarios": 92,
+     "variant_kill_rate": 0.6666666666666666
+    }
+   },
+   "C": {
+    "25": {
+     "actual_executions": 384,
+     "agent_tokens": 422489,
+     "any_code_killed_variants": [
+      "M04",
+      "M10",
+      "M15",
+      "M16",
+      "M20",
+      "M22"
+     ],
+     "any_code_pairs": 7,
+     "curtailed_pairs": 141,
+     "dimension_detection_rate": 0.25,
+     "dimensions_detected": [
+      "G02",
+      "G05"
+     ],
+     "dimensions_detected_count": 2,
+     "distinct_mutant_code_pairs": [
+      "M04:R1B_UNVERIFIED_CUSTOMER",
+      "M10:R5_NO_APPROVAL"
+     ],
+     "killed_variants": [
+      "M04",
+      "M10"
+     ],
+     "nominal_executions": 525,
+     "rate_over_testable_dimensions": 0.3333333333333333,
+     "valid_scenarios": 25,
+     "variant_kill_rate": 0.3333333333333333
+    },
+    "50": {
+     "actual_executions": 764,
+     "agent_tokens": 864167,
+     "any_code_killed_variants": [
+      "M04",
+      "M10",
+      "M15",
+      "M16",
+      "M20",
+      "M22"
+     ],
+     "any_code_pairs": 7,
+     "curtailed_pairs": 286,
+     "dimension_detection_rate": 0.25,
+     "dimensions_detected": [
+      "G02",
+      "G05"
+     ],
+     "dimensions_detected_count": 2,
+     "distinct_mutant_code_pairs": [
+      "M04:R1B_UNVERIFIED_CUSTOMER",
+      "M10:R5_NO_APPROVAL"
+     ],
+     "killed_variants": [
+      "M04",
+      "M10"
+     ],
+     "nominal_executions": 1050,
+     "rate_over_testable_dimensions": 0.3333333333333333,
+     "valid_scenarios": 50,
+     "variant_kill_rate": 0.3333333333333333
+    },
+    "100": {
+     "actual_executions": 1411,
+     "agent_tokens": 1756348,
+     "any_code_killed_variants": [
+      "M04",
+      "M10",
+      "M15",
+      "M16",
+      "M20",
+      "M22"
+     ],
+     "any_code_pairs": 17,
+     "curtailed_pairs": 521,
+     "dimension_detection_rate": 0.5,
+     "dimensions_detected": [
+      "G02",
+      "G05",
+      "G07",
+      "G16"
+     ],
+     "dimensions_detected_count": 4,
+     "distinct_mutant_code_pairs": [
+      "M04:R1B_UNVERIFIED_CUSTOMER",
+      "M10:R5_NO_APPROVAL",
+      "M15:R3_NON_CAPTURED_REFUNDED",
+      "M22:R1B_UNVERIFIED_CUSTOMER"
+     ],
+     "killed_variants": [
+      "M04",
+      "M10",
+      "M15",
+      "M22"
+     ],
+     "nominal_executions": 1932,
+     "rate_over_testable_dimensions": 0.6666666666666666,
+     "valid_scenarios": 92,
+     "variant_kill_rate": 0.6666666666666666
+    }
+   }
+  },
+  "bootstrap": {
+   "descriptive_only": true,
+   "estimates": {
+    "B@100": {
+     "high": 0.875,
+     "low": 0.125,
+     "mean": 0.49705
+    },
+    "B@25": {
+     "high": 0.75,
+     "low": 0.125,
+     "mean": 0.3728125
+    },
+    "B@50": {
+     "high": 0.875,
+     "low": 0.125,
+     "mean": 0.49705
+    },
+    "C-B@100": {
+     "high": 0.375,
+     "low": -0.375,
+     "mean": -0.0011875
+    },
+    "C-B@25": {
+     "high": 0.25,
+     "low": -0.5,
+     "mean": -0.1254875
+    },
+    "C-B@50": {
+     "high": 0.0,
+     "low": -0.625,
+     "mean": -0.249725
+    },
+    "C@100": {
+     "high": 0.875,
+     "low": 0.125,
+     "mean": 0.4958625
+    },
+    "C@25": {
+     "high": 0.625,
+     "low": 0.0,
+     "mean": 0.247325
+    },
+    "C@50": {
+     "high": 0.625,
+     "low": 0.0,
+     "mean": 0.247325
+    }
+   },
+   "interval": "percentile 95%",
+   "resamples": 10000,
+   "seed": 20260311
+  },
+  "classes": {
+   "U_NEW_DIMENSION": {
+    "arms": {
+     "A": {
+      "25": 0,
+      "35": 0
+     },
+     "B": {
+      "25": 2,
+      "50": 2,
+      "100": 2
+     },
+     "C": {
+      "25": 0,
+      "50": 0,
+      "100": 1
+     }
+    },
+    "denominator": 4,
+    "dimensions": [
+     "G01",
+     "G12",
+     "G13",
+     "G16"
+    ],
+    "testable": [
+     "G12",
+     "G13",
+     "G16"
+    ]
+   },
+   "U_NEW_VALUE": {
+    "arms": {
+     "A": {
+      "25": 0,
+      "35": 0
+     },
+     "B": {
+      "25": 1,
+      "50": 2,
+      "100": 2
+     },
+     "C": {
+      "25": 2,
+      "50": 2,
+      "100": 3
+     }
+    },
+    "denominator": 4,
+    "dimensions": [
+     "G02",
+     "G04",
+     "G05",
+     "G07"
+    ],
+    "testable": [
+     "G02",
+     "G05",
+     "G07"
+    ]
+   }
+  },
+  "denominator": 8,
+  "excluded_variants": [],
+  "label": "without DRIFT_SUSPECT variants",
+  "not_detection_testable": [
+   "G01",
+   "G04"
+  ],
+  "per_dimension": {
+   "G01": {
+    "NOT_DETECTION_TESTABLE": true,
+    "class": "U_NEW_DIMENSION",
+    "detected": {
+     "A": {
+      "25": false,
+      "35": false
+     },
+     "B": {
+      "25": false,
+      "50": false,
+      "100": false
+     },
+     "C": {
+      "25": false,
+      "50": false,
+      "100": false
+     }
+    },
+    "variants": []
+   },
+   "G02": {
+    "NOT_DETECTION_TESTABLE": false,
+    "class": "U_NEW_VALUE",
+    "detected": {
+     "A": {
+      "25": false,
+      "35": false
+     },
+     "B": {
+      "25": false,
+      "50": true,
+      "100": true
+     },
+     "C": {
+      "25": true,
+      "50": true,
+      "100": true
+     }
+    },
+    "variants": [
+     "M04"
+    ]
+   },
+   "G04": {
+    "NOT_DETECTION_TESTABLE": true,
+    "class": "U_NEW_VALUE",
+    "detected": {
+     "A": {
+      "25": false,
+      "35": false
+     },
+     "B": {
+      "25": false,
+      "50": false,
+      "100": false
+     },
+     "C": {
+      "25": false,
+      "50": false,
+      "100": false
+     }
+    },
+    "variants": []
+   },
+   "G05": {
+    "NOT_DETECTION_TESTABLE": false,
+    "class": "U_NEW_VALUE",
+    "detected": {
+     "A": {
+      "25": false,
+      "35": false
+     },
+     "B": {
+      "25": true,
+      "50": true,
+      "100": true
+     },
+     "C": {
+      "25": true,
+      "50": true,
+      "100": true
+     }
+    },
+    "variants": [
+     "M10"
+    ]
+   },
+   "G07": {
+    "NOT_DETECTION_TESTABLE": false,
+    "class": "U_NEW_VALUE",
+    "detected": {
+     "A": {
+      "25": false,
+      "35": false
+     },
+     "B": {
+      "25": false,
+      "50": false,
+      "100": false
+     },
+     "C": {
+      "25": false,
+      "50": false,
+      "100": true
+     }
+    },
+    "variants": [
+     "M15"
+    ]
+   },
+   "G12": {
+    "NOT_DETECTION_TESTABLE": false,
+    "class": "U_NEW_DIMENSION",
+    "detected": {
+     "A": {
+      "25": false,
+      "35": false
+     },
+     "B": {
+      "25": false,
+      "50": false,
+      "100": false
+     },
+     "C": {
+      "25": false,
+      "50": false,
+      "100": false
+     }
+    },
+    "variants": [
+     "M16"
+    ]
+   },
+   "G13": {
+    "NOT_DETECTION_TESTABLE": false,
+    "class": "U_NEW_DIMENSION",
+    "detected": {
+     "A": {
+      "25": false,
+      "35": false
+     },
+     "B": {
+      "25": true,
+      "50": true,
+      "100": true
+     },
+     "C": {
+      "25": false,
+      "50": false,
+      "100": false
+     }
+    },
+    "variants": [
+     "M20"
+    ]
+   },
+   "G16": {
+    "NOT_DETECTION_TESTABLE": false,
+    "class": "U_NEW_DIMENSION",
+    "detected": {
+     "A": {
+      "25": false,
+      "35": false
+     },
+     "B": {
+      "25": true,
+      "50": true,
+      "100": true
+     },
+     "C": {
+      "25": false,
+      "50": false,
+      "100": true
+     }
+    },
+    "variants": [
+     "M22"
+    ]
+   }
+  },
+  "status": "secondary and descriptive; enters no gate",
+  "testable_dimensions": [
+   "G02",
+   "G05",
+   "G07",
+   "G12",
+   "G13",
+   "G16"
+  ]
+ },
+ "sensitivity_without_OVERLAP": {
+  "T": 5,
+  "T_prime": 5,
+  "arms": {
+   "A": {
+    "25": {
+     "actual_executions": 375,
+     "agent_tokens": 331320,
+     "any_code_killed_variants": [],
+     "any_code_pairs": 0,
+     "curtailed_pairs": 150,
+     "dimension_detection_rate": 0.0,
+     "dimensions_detected": [],
+     "dimensions_detected_count": 0,
+     "distinct_mutant_code_pairs": [],
+     "killed_variants": [],
+     "nominal_executions": 525,
+     "rate_over_testable_dimensions": 0.0,
+     "valid_scenarios": 25,
+     "variant_kill_rate": 0.0
+    },
+    "35": {
+     "actual_executions": 525,
+     "agent_tokens": 496977,
+     "any_code_killed_variants": [],
+     "any_code_pairs": 0,
+     "curtailed_pairs": 210,
+     "dimension_detection_rate": 0.0,
+     "dimensions_detected": [],
+     "dimensions_detected_count": 0,
+     "distinct_mutant_code_pairs": [],
+     "killed_variants": [],
+     "nominal_executions": 735,
+     "rate_over_testable_dimensions": 0.0,
+     "valid_scenarios": 35,
+     "variant_kill_rate": 0.0
+    }
+   },
+   "B": {
+    "25": {
+     "actual_executions": 384,
+     "agent_tokens": 396797,
+     "any_code_killed_variants": [
+      "M10",
+      "M20",
+      "M22"
+     ],
+     "any_code_pairs": 4,
+     "curtailed_pairs": 141,
+     "dimension_detection_rate": 0.375,
+     "dimensions_detected": [
+      "G05",
+      "G13",
+      "G16"
+     ],
+     "dimensions_detected_count": 3,
+     "distinct_mutant_code_pairs": [
+      "M10:R5_NO_APPROVAL",
+      "M20:EXPOSURE_CUSTOMER_NOT_CHECKED",
+      "M22:R1B_UNVERIFIED_CUSTOMER"
+     ],
+     "killed_variants": [
+      "M10",
+      "M20",
+      "M22"
+     ],
+     "nominal_executions": 525,
+     "rate_over_testable_dimensions": 0.6,
+     "valid_scenarios": 25,
+     "variant_kill_rate": 0.6
+    },
+    "50": {
+     "actual_executions": 790,
+     "agent_tokens": 816326,
+     "any_code_killed_variants": [
+      "M04",
+      "M10",
+      "M15",
+      "M20",
+      "M22"
+     ],
+     "any_code_pairs": 16,
+     "curtailed_pairs": 260,
+     "dimension_detection_rate": 0.5,
+     "dimensions_detected": [
+      "G02",
+      "G05",
+      "G13",
+      "G16"
+     ],
+     "dimensions_detected_count": 4,
+     "distinct_mutant_code_pairs": [
+      "M04:R1B_UNVERIFIED_CUSTOMER",
+      "M10:R5_NO_APPROVAL",
+      "M20:EXPOSURE_CUSTOMER_NOT_CHECKED",
+      "M20:R1B_UNVERIFIED_CUSTOMER",
+      "M22:R1B_UNVERIFIED_CUSTOMER"
+     ],
+     "killed_variants": [
+      "M04",
+      "M10",
+      "M20",
+      "M22"
+     ],
+     "nominal_executions": 1050,
+     "rate_over_testable_dimensions": 0.8,
+     "valid_scenarios": 50,
+     "variant_kill_rate": 0.8
+    },
+    "100": {
+     "actual_executions": 1469,
+     "agent_tokens": 1623254,
+     "any_code_killed_variants": [
+      "M04",
+      "M10",
+      "M15",
+      "M20",
+      "M22"
+     ],
+     "any_code_pairs": 25,
+     "curtailed_pairs": 463,
+     "dimension_detection_rate": 0.5,
+     "dimensions_detected": [
+      "G02",
+      "G05",
+      "G13",
+      "G16"
+     ],
+     "dimensions_detected_count": 4,
+     "distinct_mutant_code_pairs": [
+      "M04:R1B_UNVERIFIED_CUSTOMER",
+      "M10:R5_NO_APPROVAL",
+      "M20:EXPOSURE_CUSTOMER_NOT_CHECKED",
+      "M20:R1B_UNVERIFIED_CUSTOMER",
+      "M22:R1B_UNVERIFIED_CUSTOMER"
+     ],
+     "killed_variants": [
+      "M04",
+      "M10",
+      "M20",
+      "M22"
+     ],
+     "nominal_executions": 1932,
+     "rate_over_testable_dimensions": 0.8,
+     "valid_scenarios": 92,
+     "variant_kill_rate": 0.8
+    }
+   },
+   "C": {
+    "25": {
+     "actual_executions": 384,
+     "agent_tokens": 422489,
+     "any_code_killed_variants": [
+      "M04",
+      "M10",
+      "M15",
+      "M20",
+      "M22"
+     ],
+     "any_code_pairs": 6,
+     "curtailed_pairs": 141,
+     "dimension_detection_rate": 0.25,
+     "dimensions_detected": [
+      "G02",
+      "G05"
+     ],
+     "dimensions_detected_count": 2,
+     "distinct_mutant_code_pairs": [
+      "M04:R1B_UNVERIFIED_CUSTOMER",
+      "M10:R5_NO_APPROVAL"
+     ],
+     "killed_variants": [
+      "M04",
+      "M10"
+     ],
+     "nominal_executions": 525,
+     "rate_over_testable_dimensions": 0.4,
+     "valid_scenarios": 25,
+     "variant_kill_rate": 0.4
+    },
+    "50": {
+     "actual_executions": 764,
+     "agent_tokens": 864167,
+     "any_code_killed_variants": [
+      "M04",
+      "M10",
+      "M15",
+      "M20",
+      "M22"
+     ],
+     "any_code_pairs": 6,
+     "curtailed_pairs": 286,
+     "dimension_detection_rate": 0.25,
+     "dimensions_detected": [
+      "G02",
+      "G05"
+     ],
+     "dimensions_detected_count": 2,
+     "distinct_mutant_code_pairs": [
+      "M04:R1B_UNVERIFIED_CUSTOMER",
+      "M10:R5_NO_APPROVAL"
+     ],
+     "killed_variants": [
+      "M04",
+      "M10"
+     ],
+     "nominal_executions": 1050,
+     "rate_over_testable_dimensions": 0.4,
+     "valid_scenarios": 50,
+     "variant_kill_rate": 0.4
+    },
+    "100": {
+     "actual_executions": 1411,
+     "agent_tokens": 1756348,
+     "any_code_killed_variants": [
+      "M04",
+      "M10",
+      "M15",
+      "M20",
+      "M22"
+     ],
+     "any_code_pairs": 14,
+     "curtailed_pairs": 521,
+     "dimension_detection_rate": 0.5,
+     "dimensions_detected": [
+      "G02",
+      "G05",
+      "G07",
+      "G16"
+     ],
+     "dimensions_detected_count": 4,
+     "distinct_mutant_code_pairs": [
+      "M04:R1B_UNVERIFIED_CUSTOMER",
+      "M10:R5_NO_APPROVAL",
+      "M15:R3_NON_CAPTURED_REFUNDED",
+      "M22:R1B_UNVERIFIED_CUSTOMER"
+     ],
+     "killed_variants": [
+      "M04",
+      "M10",
+      "M15",
+      "M22"
+     ],
+     "nominal_executions": 1932,
+     "rate_over_testable_dimensions": 0.8,
+     "valid_scenarios": 92,
+     "variant_kill_rate": 0.8
+    }
+   }
+  },
+  "bootstrap": {
+   "descriptive_only": true,
+   "estimates": {
+    "B@100": {
+     "high": 0.875,
+     "low": 0.125,
+     "mean": 0.4971625
+    },
+    "B@25": {
+     "high": 0.75,
+     "low": 0.125,
+     "mean": 0.373725
+    },
+    "B@50": {
+     "high": 0.875,
+     "low": 0.125,
+     "mean": 0.4971625
+    },
+    "C-B@100": {
+     "high": 0.375,
+     "low": -0.375,
+     "mean": -0.0024375
+    },
+    "C-B@25": {
+     "high": 0.25,
+     "low": -0.5,
+     "mean": -0.127
+    },
+    "C-B@50": {
+     "high": 0.0,
+     "low": -0.625,
+     "mean": -0.2504375
+    },
+    "C@100": {
+     "high": 0.875,
+     "low": 0.125,
+     "mean": 0.494725
+    },
+    "C@25": {
+     "high": 0.5,
+     "low": 0.0,
+     "mean": 0.246725
+    },
+    "C@50": {
+     "high": 0.5,
+     "low": 0.0,
+     "mean": 0.246725
+    }
+   },
+   "interval": "percentile 95%",
+   "resamples": 10000,
+   "seed": 20260311
+  },
+  "classes": {
+   "U_NEW_DIMENSION": {
+    "arms": {
+     "A": {
+      "25": 0,
+      "35": 0
+     },
+     "B": {
+      "25": 2,
+      "50": 2,
+      "100": 2
+     },
+     "C": {
+      "25": 0,
+      "50": 0,
+      "100": 1
+     }
+    },
+    "denominator": 4,
+    "dimensions": [
+     "G01",
+     "G12",
+     "G13",
+     "G16"
+    ],
+    "testable": [
+     "G13",
+     "G16"
+    ]
+   },
+   "U_NEW_VALUE": {
+    "arms": {
+     "A": {
+      "25": 0,
+      "35": 0
+     },
+     "B": {
+      "25": 1,
+      "50": 2,
+      "100": 2
+     },
+     "C": {
+      "25": 2,
+      "50": 2,
+      "100": 3
+     }
+    },
+    "denominator": 4,
+    "dimensions": [
+     "G02",
+     "G04",
+     "G05",
+     "G07"
+    ],
+    "testable": [
+     "G02",
+     "G05",
+     "G07"
+    ]
+   }
+  },
+  "denominator": 8,
+  "excluded_variants": [
+   "M16"
+  ],
+  "label": "without OVERLAP variants",
+  "not_detection_testable": [
+   "G01",
+   "G04",
+   "G12"
+  ],
+  "per_dimension": {
+   "G01": {
+    "NOT_DETECTION_TESTABLE": true,
+    "class": "U_NEW_DIMENSION",
+    "detected": {
+     "A": {
+      "25": false,
+      "35": false
+     },
+     "B": {
+      "25": false,
+      "50": false,
+      "100": false
+     },
+     "C": {
+      "25": false,
+      "50": false,
+      "100": false
+     }
+    },
+    "variants": []
+   },
+   "G02": {
+    "NOT_DETECTION_TESTABLE": false,
+    "class": "U_NEW_VALUE",
+    "detected": {
+     "A": {
+      "25": false,
+      "35": false
+     },
+     "B": {
+      "25": false,
+      "50": true,
+      "100": true
+     },
+     "C": {
+      "25": true,
+      "50": true,
+      "100": true
+     }
+    },
+    "variants": [
+     "M04"
+    ]
+   },
+   "G04": {
+    "NOT_DETECTION_TESTABLE": true,
+    "class": "U_NEW_VALUE",
+    "detected": {
+     "A": {
+      "25": false,
+      "35": false
+     },
+     "B": {
+      "25": false,
+      "50": false,
+      "100": false
+     },
+     "C": {
+      "25": false,
+      "50": false,
+      "100": false
+     }
+    },
+    "variants": []
+   },
+   "G05": {
+    "NOT_DETECTION_TESTABLE": false,
+    "class": "U_NEW_VALUE",
+    "detected": {
+     "A": {
+      "25": false,
+      "35": false
+     },
+     "B": {
+      "25": true,
+      "50": true,
+      "100": true
+     },
+     "C": {
+      "25": true,
+      "50": true,
+      "100": true
+     }
+    },
+    "variants": [
+     "M10"
+    ]
+   },
+   "G07": {
+    "NOT_DETECTION_TESTABLE": false,
+    "class": "U_NEW_VALUE",
+    "detected": {
+     "A": {
+      "25": false,
+      "35": false
+     },
+     "B": {
+      "25": false,
+      "50": false,
+      "100": false
+     },
+     "C": {
+      "25": false,
+      "50": false,
+      "100": true
+     }
+    },
+    "variants": [
+     "M15"
+    ]
+   },
+   "G12": {
+    "NOT_DETECTION_TESTABLE": true,
+    "class": "U_NEW_DIMENSION",
+    "detected": {
+     "A": {
+      "25": false,
+      "35": false
+     },
+     "B": {
+      "25": false,
+      "50": false,
+      "100": false
+     },
+     "C": {
+      "25": false,
+      "50": false,
+      "100": false
+     }
+    },
+    "variants": []
+   },
+   "G13": {
+    "NOT_DETECTION_TESTABLE": false,
+    "class": "U_NEW_DIMENSION",
+    "detected": {
+     "A": {
+      "25": false,
+      "35": false
+     },
+     "B": {
+      "25": true,
+      "50": true,
+      "100": true
+     },
+     "C": {
+      "25": false,
+      "50": false,
+      "100": false
+     }
+    },
+    "variants": [
+     "M20"
+    ]
+   },
+   "G16": {
+    "NOT_DETECTION_TESTABLE": false,
+    "class": "U_NEW_DIMENSION",
+    "detected": {
+     "A": {
+      "25": false,
+      "35": false
+     },
+     "B": {
+      "25": true,
+      "50": true,
+      "100": true
+     },
+     "C": {
+      "25": false,
+      "50": false,
+      "100": true
+     }
+    },
+    "variants": [
+     "M22"
+    ]
+   }
+  },
+  "status": "secondary and descriptive; enters no gate",
+  "testable_dimensions": [
+   "G02",
+   "G05",
+   "G07",
+   "G13",
+   "G16"
+  ]
+ },
+ "served_models_3e": [
+  "gpt-4.1-mini"
+ ],
+ "served_models_report": {
+  "by_arm": {
+   "A": [
+    "gpt-4.1-mini"
+   ],
+   "B": [
+    "gpt-4.1-mini"
+   ],
+   "C": [
+    "gpt-4.1-mini"
+   ]
+  },
+  "drift_baseline": [
+   "gpt-4.1-mini"
+  ],
+  "mismatching_runs": []
+ },
+ "tier": "NORMAL"
+}
