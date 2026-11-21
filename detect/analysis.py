@@ -12,8 +12,8 @@ import math
 import random
 import sys
 
-from detect import drift, holdout_info, kills, rules, runner
-from detect.session import Session
+from detect import drift, holdout_info, kills, preflight, rules, runner
+from detect.session import Session, is_completed, is_rejected
 
 EPS = 1e-9
 
@@ -202,8 +202,35 @@ def discovery_counts(slots_by_arm, stats):
         missing = [x["ref"] for x in s if x["status"] == "MISSING"]
         out[arm] = {"slots": len(s), "valid_slots": valid, "invalid_slots": len(invalid), "missing_slots": len(missing),
                     "invalid": invalid, "missing": missing, **stats[arm], "regenerated_or_repaired": 0,
-                    "scenario_validity": (stats[arm]["returned_valid"] / stats[arm]["returned"]) if stats[arm]["returned"] else None}
+                    "scenario_validity": (stats[arm]["returned_valid"] / stats[arm]["returned"]) if stats[arm]["returned"] else None,
+                    # A5.3: diagnostic alongside the preregistered returned-scenario metric; it replaces nothing
+                    "slot_invalid_or_missing_fraction": (len(invalid) + len(missing)) / len(s) if s else None}
     return out
+
+
+def rejection_report(table, records):
+    """A5.1: PROVIDER_REJECTED runs and rejected pairs per arm and budget. Execution-level, reported apart from DSL invalidity."""
+    rejected = [r for r in records if is_rejected(r)]
+    out = {"final_rejected_runs": len(rejected), "by_arm": {}, "scenarios": sorted({r["scenario_ref"] for r in rejected}),
+           "note": "execution-level terminal state; the scenario is DSL-valid; a rejected pair is not a kill (A5.1)"}
+    for arm in rules.ARMS:
+        out["by_arm"][arm] = {}
+        for b in budgets_for(arm):
+            rows = rows_in(table, arm, b)
+            out["by_arm"][arm][b] = {"rejected_runs": sum(r["rejected_executions"] for r in rows),
+                                     "scenarios_with_a_rejected_run": sum(1 for r in rows if r["rejected_executions"]),
+                                     "rejected_pairs": sum(1 for r in rows for st in r["pairs"].values() if st == kills.REJECTED)}
+    return out
+
+
+def served_model_report(records, baseline):
+    """A5.4: served models per arm, and the runs whose served model differs from the drift run's."""
+    by_arm = {}
+    for r in records:
+        if is_completed(r) and r.get("arm") is not None:
+            by_arm.setdefault(r["arm"], set()).update(r["models"])
+    return {"drift_baseline": list(baseline or []), "by_arm": {a: sorted(m) for a, m in sorted(by_arm.items())},
+            "mismatching_runs": runner.served_mismatches(records, baseline)}
 
 
 def cost(det, slots_by_arm, gen_tokens):
@@ -258,7 +285,8 @@ def natural_failures(table):
 
 # ---------------------------------------------------------------------------- whole analysis
 
-def analyze(table, slots_by_arm, stats, info, drift_verdict, gen_tokens, discovery=None, resamples=rules.BOOTSTRAP_RESAMPLES, served_models=()):
+def analyze(table, slots_by_arm, stats, info, drift_verdict, gen_tokens, discovery=None, resamples=rules.BOOTSTRAP_RESAMPLES, served_models=(),
+            records=(), baseline=None):
     primary = detection_block(table, info, resamples=resamples)
     overlap = {m for m, i in info.items() if "OVERLAP" in i["flags"]}
     suspect = set(drift_verdict["drift_suspect"]) if drift_verdict else None
@@ -272,7 +300,11 @@ def analyze(table, slots_by_arm, stats, info, drift_verdict, gen_tokens, discove
                   "served_model_identity": drift_verdict["served_model_identity"] if drift_verdict else None,
                   "OVERLAP": sorted(overlap), "DRIFT_SUSPECT": sorted(suspect) if suspect is not None else None},
         "invalid_experiment_checks": {"T_below_4": primary["T"] < rules.T_INVALID_BELOW,
-                                      "arm_C_over_half_dsl_invalid": (c_invalid is not None and c_invalid > rules.INVALID_C_FRACTION)},
+                                      "arm_C_over_half_dsl_invalid": (c_invalid is not None and c_invalid > rules.INVALID_C_FRACTION),
+                                      "diagnostic_slot_based": {
+                                          "arm_C_invalid_or_missing_slot_fraction": counts["C"]["slot_invalid_or_missing_fraction"],
+                                          "arm_C_over_half_invalid_or_missing_slots": counts["C"]["slot_invalid_or_missing_fraction"] > rules.INVALID_C_FRACTION,
+                                          "note": "diagnostic only; the preregistered check above is over returned scenarios (A5.3)"}},
         "discovery_side_inputs": counts,
         "detection": primary,
         "gates": gates(primary, discovery),
@@ -282,6 +314,8 @@ def analyze(table, slots_by_arm, stats, info, drift_verdict, gen_tokens, discove
         "sensitivity_without_DRIFT_SUSPECT": (sensitivity(table, info, suspect, "without DRIFT_SUSPECT variants", resamples)
                                               if suspect is not None else None),
         "served_models_3e": list(served_models),
+        "served_models_report": served_model_report(list(records), baseline),
+        "provider_rejections": rejection_report(table, list(records)),
         "execution_note": "nominal executions follow P metric 10; actual executions are the logged runs after curtailment (2.16 l.375)",
     }
 
@@ -290,7 +324,6 @@ def main(argv=None):
     parser = argparse.ArgumentParser(prog="detect.analysis")
     parser.add_argument("--discovery-scores", default=None, help="JSON {recall, precision, stability_jaccard} each {B, C}")
     args = parser.parse_args(argv)
-    from detect import preflight
     problems = preflight.verify()
     if problems:
         print("\n".join(problems))
@@ -301,13 +334,22 @@ def main(argv=None):
     if not done:
         print("STOP: detection is not complete")
         return 1
+    drift_session = Session(rules.DRIFT_DIR, None)
+    problems = (preflight.sealed_problems(rules.DETECTION_DIR, "detection") + preflight.sealed_problems(rules.DRIFT_DIR, "drift")
+                + preflight.record_problems(session.records() + drift_session.records(), preflight.freeze_sha(), preflight.frozen_config_hash(),
+                                            runner.runtime.sha256_file(holdout_info.CANDIDATES)))
+    if problems:
+        print("\n".join(problems[:10]))
+        print("STOP: results integrity check failed (commit the detection results unmodified before analysis)")
+        return 1
     info = holdout_info.load_admitted()
     slots_by_arm, stats = runner.load_all_slots()
-    table = kills.build_table(session.records(), slots_by_arm, info)
-    drift_done = Session(rules.DRIFT_DIR, None).completed(drift.STATUS_DONE)
+    records = session.records()
+    table = kills.build_table(records, slots_by_arm, info)
+    drift_done = drift_session.completed(drift.STATUS_DONE)
     discovery = json.loads(open(args.discovery_scores, encoding="utf-8").read()) if args.discovery_scores else None
     result = analyze(table, slots_by_arm, stats, info, drift_done[-1] if drift_done else None, generation_tokens(), discovery,
-                     served_models=done[-1]["served_models"])
+                     served_models=done[-1]["served_models"], records=records, baseline=done[-1].get("served_model_baseline"))
     rules.ANALYSIS_DIR.mkdir(parents=True, exist_ok=True)
     path = rules.ANALYSIS_DIR / "detection_analysis.json"
     with path.open("x", encoding="utf-8") as handle:  # never overwritten

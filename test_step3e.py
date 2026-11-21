@@ -642,6 +642,8 @@ def test_dirty_paths_ignores_only_the_results_directory():
 
 def test_detect_never_reads_discovery_outputs_or_gold_into_bce():
     for path in sorted((ROOT / "detect").glob("*.py")):
+        if path.name == "judge.py":  # Amendment 5: the discovery judge scores discovery outputs against gold by design (see test_step3e_a5)
+            continue
         tree = ast.parse(path.read_text(encoding="utf-8"))
         consts = [n.value for n in ast.walk(tree) if isinstance(n, ast.Constant) and isinstance(n.value, str)]
         for c in consts:

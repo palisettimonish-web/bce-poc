@@ -1,0 +1,60 @@
+{
+  "amendment4_freeze_commit": "913788307f3430e943996ca6a7bdfb10c5344f3c",
+  "amendment_files": {
+    "detect/analysis.py": "6a24b2892dc6edbe11959296b9f6d7c5a987b1c8cf8e56a6d2700128d13ea24e",
+    "detect/audit.py": "793927b895a0a9512f59f0e03826ff804b317611fcaa25f30a8ee39f3a6a708c",
+    "detect/judge.py": "58f9b8135c8adce0cc4bc39f441e7b93f90d2e45a7cfb85b4fd7bdcbc279d130",
+    "detect/kills.py": "31515e986c7c22330696a22c8d848c0910e5fc172c874bb283adf0698b6a5eae",
+    "detect/preflight.py": "37c0a5a0b0cac50f37d0f51060aa91ca7216591bc5c77e1ed83b1c1d80c20241",
+    "detect/rules.py": "e16635e41e1354869f67c7a3f2c3946cb008b66971d73a1dec0a5b5582f363a0",
+    "detect/runner.py": "aa9e6f41257771a722c55a0e7d4cf4937c700c6f0b93cc7a529ad717621adee1",
+    "detect/session.py": "b6166c5bc313dc6ebddb1f934e866c69e935be02996498c7bad85068b254f1f1",
+    "experiments/step3/verify_pre3e_freeze.py": "7061e9e1e95c7e72ef78c7a0a2d2f61c93e4a1a6130927e9355c22f1e5a7b057",
+    "experiments/step3_amendment5_pre3e.md": "3f34754021787a4343a6ffc20be60c73d6d57b460fa79c73cf3df3667119ceb7",
+    "experiments/step3_pre3e_a5_notes.md": "e04bb30e4305960693fb7f8cdff231e26116958ac963371dde6b761f37c58c00",
+    "test_step3e.py": "65b0cecc7e4f857e56940010a26808cf1b426e57e56bdb063186db4714540b3c",
+    "test_step3e_a5.py": "709be26c5471ab8b95bfa3f80ec67554ae09ff9d80ed89a277e0233acbfad523"
+  },
+  "amendment_sha256": "3f34754021787a4343a6ffc20be60c73d6d57b460fa79c73cf3df3667119ceb7",
+  "changes": [
+    "A5.3 PROVIDER_REJECTED: execution-level terminal state distinct from DSL invalidity; no outcome fabricated; rejected pairs score as no kill and are reported per arm and budget",
+    "A5.4 authentication errors fail fast",
+    "A5.5 served-model guard against the drift baseline; UNESTABLISHED identity needs acknowledgement; acknowledgements recorded",
+    "A5.6 drift and detection results must be committed and unmodified; every record must descend from the freeze commit with the frozen config hashes; deleted results blocks re-run; scenarios.py pinned",
+    "A5.7 supplementary rule text for the five oracle codes the catalogue lacks",
+    "A5.8 slot-based invalid or missing diagnostic added beside the preregistered returned-scenario check",
+    "A5.9 discovery judge step built from the frozen scoring protocol, synthetic-tested, no 3d or 3e data used",
+    "A5.10 recorded interpretations; A5.12 protocol limitations P1-P5 kept; A5.15 operations"
+  ],
+  "date": "2026-11-21",
+  "git_sha": "3a60cdcd37bc32ed74b8a7e5cfee8537c2e9a44d",
+  "git_sha_meaning": "HEAD (the Amendment 4 freeze manifest commit) on which this amendment was authored; the commit containing the infrastructure is recorded in pre3e_freeze_a5.json",
+  "methodology_changed": false,
+  "outputs_existed": false,
+  "parent": {
+    "amendment": "Amendment 4",
+    "manifest": "experiments/step3/manifests/pre3e_amendment_4.json",
+    "manifest_sha256": "987631aebdf419f55cb7bf49413b8611ab79abe04af21f3514c228b8257991ef",
+    "record_id": "step3-pre3e-amendment-4",
+    "rule": "A4.2 item 8 and 2.20 line 435: any later change to the frozen files is a new dated amendment"
+  },
+  "reason": "An architectural review of the frozen 3e infrastructure found one blocker (no rule for a provider that rejects a request on every attempt) and six important gaps (served-model drift during detection, UNESTABLISHED identity, unenforced results integrity, unpinned scenarios.py, missing oracle-audit rule text, unrecorded invalid-experiment denominator), and noted that the judge step feeding every gate was not built or frozen.",
+  "record_id": "step3-pre3e-amendment-5",
+  "sealed_3d_commit": "646ffb7e2e4cebd5b1e2fcf52fa6a448ef406c94",
+  "tests": "test_step3e.py (53) and test_step3e_a5.py (34) synthetic tests; full suite 179 collected; no agent or LLM call; no 3d or 3e content",
+  "threshold_changes": [],
+  "timestamp": "2026-11-21T00:27:03+00:00",
+  "title": "Step 3 Amendment 5 (pre-3e hardening and the judge step): PROVIDER_REJECTED terminal state, auth fail-fast, served-model guard, results integrity, pinned scenarios.py, audit rule text, slot-based diagnostic, discovery judge",
+  "unchanged": [
+    "preregistration, scoring protocol, Amendments 1-4",
+    "gold list, classes and set E",
+    "35 baseline scenarios and base coverage",
+    "discovery prompts, DSL, generation config",
+    "agent and its config",
+    "oracle and world",
+    "holdout/runtime.py, holdout/, bce/",
+    "Step 3c candidates, statuses, eligibility mapping, holdout commitment",
+    "the sealed 3d dataset",
+    "admitted mutant set (T=6), denominator 8, kill rule, repetitions, budgets, gates, thresholds, bootstrap parameters"
+  ]
+}

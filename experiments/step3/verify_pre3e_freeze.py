@@ -1,4 +1,4 @@
-"""Pre-3e freeze check (Amendment 4). Verification only; it writes nothing and calls no model.
+"""Pre-3e freeze check (Amendment 4, superseded by Amendment 5: it now verifies pre3e_freeze_a5.json). Verification only; it writes nothing and calls no model.
 
 Run from the repository root before every 3e call:
     PYTHONPATH=. python experiments/step3/verify_pre3e_freeze.py
